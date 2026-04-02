@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dutpala Aishwarya | Software Engineer & Artist</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- AOS Animate On Scroll -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+</head>
+<body>
+    <!-- Retro Loading Screen -->
+    <div id="retro-loader" class="retro-loader">
+        <div class="retro-loader-content">
+            <h1 class="retro-loader-title">AISHWARYA.PORTFOLIO</h1>
+            <div class="retro-progress-container">
+                <div class="retro-progress-bar" id="retro-progress-bar"></div>
+            </div>
+            <div class="retro-loader-text">
+                <span class="retro-status">MOUNTING PORTFOLIO SECTORS...</span>
+                <span class="retro-percentage" id="retro-percentage">0%</span>
+            </div>
+            <div class="retro-blink">_</div>
+        </div>
+    </div>
+
+    <!-- Animated Background -->
+    <div class="bg-grid"></div>
+    <div class="orb orb-1"></div>
+    <!-- left-bottom ring removed as requested -->
+    <div class="orb orb-3"></div>
+
+    <!-- Animated Sidebars -->
+    <div class="sidebar sidebar-left">
+        <div class="sidebar-line"></div>
+        <a href="mailto:aishwaryadutpala@gmail.com" class="sidebar-text">aishwaryadutpala@gmail.com</a>
+        <div class="sidebar-line"></div>
+    </div>
+    <div class="sidebar sidebar-right">
+        <div class="sidebar-line"></div>
+        <div class="sidebar-socials">
+            <a href="https://www.linkedin.com/in/aishwaryadutpala/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.instagram.com/art_works284?igsh=MXMwa3d2aWVpZWFu" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:aishwaryadutpala@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+        <div class="sidebar-line"></div>
+    </div>
+
+    <!-- Floating Particles Canvas -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container nav-custom-header">
+            <a href="#home" class="nav-logo">
+                <span class="logo-text">&lt;</span><span class="logo-main">DA</span><span class="logo-text">/&gt;</span>
+            </a>
+            
+            <div class="nav-center-name">
+                Dutpala Aishwarya
+            </div>
+
+            <div class="nav-right-elements">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home" class="nav-link active"><span>Home</span></a></li>
+                    <li><a href="#about" class="nav-link"><span>About</span></a></li>
+                    <li><a href="#experience" class="nav-link"><span>Experience</span></a></li>
+                    <li><a href="#skills" class="nav-link"><span>Skills</span></a></li>
+                    <li><a href="#projects" class="nav-link"><span>Projects</span></a></li>
+                    <li><a href="#gallery" class="nav-link"><span>Art</span></a></li>
+                    <li><a href="#contact" class="nav-link"><span>Contact</span></a></li>
+                    <li><a href="pictures/Aishwarya_Dutpala_Resume.pdf" target="_blank" class="nav-link nav-link-special" title="Download Resume"><i class="fas fa-file-pdf" style="margin-right:5px;"></i><span>Resume</span></a></li>
+                </ul>
+                
+                <div class="nav-eyes" id="navEyes">
+                    <div class="eye"><div class="pupil"></div></div>
+                    <div class="eye"><div class="pupil"></div></div>
+                </div>
+
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Cinematic Narration -->
+    <section class="hero" id="home">
+        <!-- Cinematic Background Narration -->
+        <div class="cinematic-bg" id="cinematicBg">
+            <span class="cine-word cine-w1">Software</span>
+            <span class="cine-word cine-w2">Engineer</span>
+            <span class="cine-word cine-w3">React</span>
+            <span class="cine-word cine-w4">JavaScript</span>
+            <span class="cine-word cine-w5">UI/UX</span>
+            <span class="cine-word cine-w6">Python</span>
+            <span class="cine-word cine-w7">Innovation</span>
+            <span class="cine-word cine-w8">Design</span>
+            <span class="cine-word cine-w9">Frontend</span>
+            <span class="cine-word cine-w10">Creative</span>
+            <span class="cine-word cine-w11">Data</span>
+            <span class="cine-word cine-w12">Artist</span>
+            <span class="cine-word cine-w13">Code</span>
+            <span class="cine-word cine-w14">Build</span>
+            <span class="cine-word cine-w15">Scale</span>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-text">
+                <p class="hero-greeting">
+                    <span class="greeting-line"></span>
+                    Hello, I'm
+                </p>
+                <h1 class="hero-name">
+                    <span class="name-line">Dutpala</span>
+                    <span class="name-line highlight">Aishwarya</span>
+                </h1>
+                <div class="hero-role-wrapper">
+                    <span class="hero-role-prefix">I'm a&nbsp;</span>
+                    <div class="typewriter">
+                        <span class="typewriter-text" id="typewriter"></span>
+                        <span class="typewriter-cursor">|</span>
+                    </div>
+                </div>
+                <p class="hero-description">
+                    Dedicated Software Engineer with hands-on expertise in frontend development,
+                    UI/UX design, and data-driven applications. Crafting accessible, scalable
+                    web interfaces with React, JavaScript, and modern design systems.
+                </p>
+                <div class="hero-cta">
+                    <a href="#projects" class="btn btn-primary">
+                        <span>View My Work</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#gallery" class="btn btn-outline">
+                        <span>See My Art</span>
+                        <i class="fas fa-palette"></i>
+                    </a>
+                </div>
+                <div class="hero-socials">
+                    <a href="https://www.linkedin.com/in/aishwaryadutpala/" target="_blank" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/art_works284?igsh=MXMwa3d2aWVpZWFu" target="_blank" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="mailto:aishwaryadutpala@gmail.com" class="social-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-code-card">
+                    <h3>About Me (JS)</h3>
+                    <pre><code>// I build interactive, accessible UI.
+const me = {
+  name: 'Dutpala Aishwarya',
+  role: 'Software Engineer',
+  stack: ['JavaScript', 'React', 'HTML', 'CSS']
+};
+
+function greet() {
+  console.log(`Hi, I'm ${me.name}, building your next product with pixel precision.`);
+}
+
+greet();
+                    </code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse"><div class="mouse-wheel"></div></div>
+            <span>Scroll Down</span>
+        </div>
+    </section>
+
+    <!-- Stats Strip -->
+    <section class="section" style="padding: 0 0 60px;" id="stats">
+        <div class="container">
+            <div class="stats-strip" data-aos="zoom-in" data-aos-duration="800">
+                <div class="stat-item">
+                    <div class="stat-number"><span class="count-up" data-target="4">0</span>+</div>
+                    <div class="stat-label">Projects</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number"><span class="count-up" data-target="8">0</span>+</div>
+                    <div class="stat-label">Technologies</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number"><span class="count-up" data-target="8">0</span>.0</div>
+                    <div class="stat-label">CGPA</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number"><span class="count-up" data-target="3">0</span>+</div>
+                    <div class="stat-label">Certifications</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">About</span>
+                <h2 class="section-title">About <span class="highlight">Me</span></h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-image-col" data-aos="fade-right" data-aos-duration="800">
+                    <div class="about-image-card" data-aos="fade-up" data-aos-duration="1000">
+                        <img src="pictures/photographs.jpeg" alt="Dutpala Aishwarya" class="about-image-img">
+                        <div class="about-image-border"></div>
+                    </div>
+                    <div class="experience-badge">
+                        <span class="exp-number">2025</span>
+                        <span class="exp-text">B.E. Graduate</span>
+                    </div>
+                </div>
+                <div class="about-text-col" data-aos="fade-left" data-aos-duration="800">
+                    <h3 class="about-subtitle">Software Engineer & Artist turning complex data into beautiful experiences</h3>
+                    <p class="about-description">
+                        I'm Dutpala Aishwarya, a dedicated Software Engineer with hands-on expertise in
+                        frontend programming, UI/UX design, and data-driven applications. Currently working
+                        at <strong>Fisec Global</strong> on Project Quantum Data Leap, transforming complex
+                        data operations into accessible, user-friendly interfaces.
+                    </p>
+                    <p class="about-description">
+                        Proficient in JavaScript (ES6+), React, HTML, CSS, and Python, with experience in
+                        component-based architecture, usability optimization, cross-functional collaboration,
+                        and modern design platforms. Beyond code, I express creativity through hand-drawn art.
+                    </p>
+                    <div class="about-info-grid">
+                        <div class="about-info-item" data-aos="fade-up" data-aos-delay="0">
+                            <i class="fas fa-graduation-cap"></i>
+                            <div>
+                                <span class="info-label">Education</span>
+                                <span class="info-value">B.E. in IT (CGPA: 8.0)</span>
+                            </div>
+                        </div>
+                        <div class="about-info-item" data-aos="fade-up" data-aos-delay="100">
+                            <i class="fas fa-university"></i>
+                            <div>
+                                <span class="info-label">College</span>
+                                <span class="info-value">Stanley College of Engg. & Tech.</span>
+                            </div>
+                        </div>
+                        <div class="about-info-item" data-aos="fade-up" data-aos-delay="200">
+                            <i class="fas fa-building"></i>
+                            <div>
+                                <span class="info-label">Current Role</span>
+                                <span class="info-value">Software Engineer @ Fisec Global</span>
+                            </div>
+                        </div>
+                        <div class="about-info-item" data-aos="fade-up" data-aos-delay="300">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <span class="info-label">Location</span>
+                                <span class="info-value">Hyderabad, Telangana</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#contact" class="btn btn-primary about-btn">
+                        <span>Let's Connect</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Experience Section -->
+    <section class="section experience" id="experience">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Experience</span>
+                <h2 class="section-title">Professional <span class="highlight">Experience</span></h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-right" data-aos-duration="800">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div>
+                                <h3>Software Engineer</h3>
+                                <p class="timeline-company"><i class="fas fa-building"></i> Fisec Global &bull; Hyderabad, Telangana</p>
+                            </div>
+                            <span class="timeline-date">Aug 2025 - Present</span>
+                        </div>
+                        <div class="timeline-project">
+                            <h4><img src="pictures/QDL-logo.png" alt="" class="timeline-logo"> Quantum Data Leap</h4>
+                            <ul>
+                                <li>Transformed complex, data-intensive operations into accessible and user-friendly interfaces for clients</li>
+                                <li>Collaborated with cross-functional stakeholders to collect requirements and transform data use cases into effective UI/UX solutions</li>
+                                <li>Created user journeys, information architecture, and low-fidelity designs enhancing visibility and navigation</li>
+                                <li>Built reusable UI component library with typography, spacing, and layout patterns for design consistency</li>
+                                <li>Implemented responsive design and accessibility standards for seamless cross-platform experiences</li>
+                            </ul>
+                        </div>
+                        <div class="timeline-project">
+                            <h4><img src="pictures/Intelli-hire.png" alt="" class="timeline-logo"> Intelli-Hire</h4>
+                            <ul>
+                                <li>Built role-based authentication system with admin controls for user management and security</li>
+                                <li>Developed AI-powered resume matching system to rank candidates based on job descriptions</li>
+                                <li>Created searchable resume database with advanced filters and structured candidate profiles</li>
+                                <li>Designed modular frontend architecture using micro frontends with interactive dashboards</li>
+                            </ul>
+                        </div>
+                        <div class="timeline-tech">
+                            <span>React</span><span>TypeScript</span><span>Next.js</span><span>Tailwind CSS</span><span>Chart.js</span><span>AI/ML</span><span>Node.js</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section skills" id="skills">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Skills</span>
+                <h2 class="section-title">Technical <span class="highlight">Skills</span></h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category" data-aos="flip-up" data-aos-duration="800">
+                    <div class="skill-category-header">
+                        <div class="skill-icon-wrapper"><i class="fas fa-code"></i></div>
+                        <h3>Languages</h3>
+                    </div>
+                    <div class="skill-items">
+                        <div class="skill-item"><i class="fab fa-js"></i><span>JavaScript (ES6+)</span><div class="skill-bar"><div class="skill-fill" data-width="92"></div></div></div>
+                        <div class="skill-item"><i class="fab fa-python"></i><span>Python</span><div class="skill-bar"><div class="skill-fill" data-width="80"></div></div></div>
+                        <div class="skill-item"><i class="fab fa-html5"></i><span>HTML5</span><div class="skill-bar"><div class="skill-fill" data-width="95"></div></div></div>
+                        <div class="skill-item"><i class="fab fa-css3-alt"></i><span>CSS3</span><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
+                    </div>
+                </div>
+                <div class="skill-category" data-aos="flip-up" data-aos-duration="800">
+                    <div class="skill-category-header">
+                        <div class="skill-icon-wrapper"><i class="fas fa-layer-group"></i></div>
+                        <h3>Frameworks & Libraries</h3>
+                    </div>
+                    <div class="skill-items">
+                        <div class="skill-item"><i class="fab fa-react"></i><span>React.js</span><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
+                        <div class="skill-item"><i class="fas fa-n"></i><span>Next.js</span><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
+                        <div class="skill-item"><i class="fab fa-css3"></i><span>Tailwind CSS</span><div class="skill-bar"><div class="skill-fill" data-width="88"></div></div></div>
+                        <div class="skill-item"><i class="fas fa-wand-magic-sparkles"></i><span>Framer Motion</span><div class="skill-bar"><div class="skill-fill" data-width="75"></div></div></div>
+                    </div>
+                </div>
+                <div class="skill-category" data-aos="flip-up" data-aos-duration="800">
+                    <div class="skill-category-header">
+                        <div class="skill-icon-wrapper"><i class="fas fa-tools"></i></div>
+                        <h3>Tools & Platforms</h3>
+                    </div>
+                    <div class="skill-items">
+                        <div class="skill-item"><i class="fab fa-git-alt"></i><span>Git & GitHub</span><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
+                        <div class="skill-item"><i class="fas fa-pen-ruler"></i><span>Adobe XD</span><div class="skill-bar"><div class="skill-fill" data-width="80"></div></div></div>
+                        <div class="skill-item"><i class="fas fa-code"></i><span>VS Code</span><div class="skill-bar"><div class="skill-fill" data-width="92"></div></div></div>
+                        <div class="skill-item"><i class="fas fa-database"></i><span>REST APIs</span><div class="skill-bar"><div class="skill-fill" data-width="78"></div></div></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Soft Skills -->
+            <div class="soft-skills" data-aos="fade-up">
+                <h3 class="soft-skills-title">Soft Skills</h3>
+                <div class="soft-skills-grid">
+                    <div class="soft-skill-tag"><i class="fas fa-comments"></i> Communication</div>
+                    <div class="soft-skill-tag"><i class="fas fa-users"></i> Teamwork</div>
+                    <div class="soft-skill-tag"><i class="fas fa-puzzle-piece"></i> Problem Solving</div>
+                    <div class="soft-skill-tag"><i class="fas fa-sync-alt"></i> Adaptability</div>
+                    <div class="soft-skill-tag"><i class="fas fa-clock"></i> Time Management</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section projects" id="projects">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Projects</span>
+                <h2 class="section-title">Featured <span class="highlight">Projects</span></h2>
+                <div class="section-line"></div>
+            </div>
+            <!-- Professional Projects -->
+            <div class="projects-grid">
+                <div class="project-card" data-aos="flip-left" data-aos-duration="900">
+                    <div class="project-card-inner">
+                        <div class="project-image">
+                            <div class="project-image-placeholder qdl">
+                                <img src="pictures/QDL-logo.png" alt="Quantum Data Leap" class="project-logo project-logo-scroll">
+                                <div class="project-pattern"></div>
+                            </div>
+                            <div class="project-overlay">
+                                <div class="project-links">
+                                    <a href="#" class="project-link" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-tag">Fisec Global</div>
+                            <h3 class="project-title">Quantum Data Leap</h3>
+                            <p class="project-description">
+                                Data-driven platform transforming complex operations into accessible interfaces
+                                with dashboards, charts, and visual components for data insights.
+                            </p>
+                            <div class="project-tech">
+                                <span>React</span><span>TypeScript</span><span>Next.js</span><span>Chart.js</span><span>Tailwind CSS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" data-aos="flip-left" data-aos-duration="900">
+                    <div class="project-card-inner">
+                        <div class="project-image">
+                            <div class="project-image-placeholder intellihire">
+                                <img src="pictures/Intelli-hire.png" alt="Intelli Hire" class="project-logo project-logo-scroll">
+                                <div class="project-pattern"></div>
+                            </div>
+                            <div class="project-overlay">
+                                <div class="project-links">
+                                    <a href="#" class="project-link" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-tag">Fisec Global</div>
+                            <h3 class="project-title">Intelli-Hire</h3>
+                            <p class="project-description">
+                                AI-powered recruitment platform with intelligent candidate matching,
+                                automated resume screening, and data-driven hiring insights.
+                            </p>
+                            <div class="project-tech">
+                                <span>React</span><span>Next.js</span><span>AI/ML</span><span>Node.js</span><span>Tailwind CSS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Academic Projects -->
+            <h3 class="subsection-title" data-aos="fade-up">Academic <span class="highlight">Projects</span></h3>
+            <div class="projects-grid" style="margin-top:30px;">
+                <div class="project-card" data-aos="flip-left" data-aos-duration="900">
+                    <div class="project-card-inner">
+                        <div class="project-image">
+                            <div class="project-image-placeholder academic-1">
+                                <div class="project-icon-large"><i class="fas fa-shield-halved"></i></div>
+                                <div class="project-pattern"></div>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-tag">Sept 2024 - Apr 2025</div>
+                            <h3 class="project-title">Smart Home Security</h3>
+                            <p class="project-description">
+                                IoT-based security system detecting unauthorized access using cloud-based
+                                image storage, AI forensic analysis, real-time alerts, and RBAC controls.
+                            </p>
+                            <div class="project-tech">
+                                <span>IoT</span><span>AI</span><span>Cloud</span><span>Python</span><span>RBAC</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" data-aos="flip-left" data-aos-duration="900">
+                    <div class="project-card-inner">
+                        <div class="project-image">
+                            <div class="project-image-placeholder academic-2">
+                                <div class="project-icon-large"><i class="fas fa-user-check"></i></div>
+                                <div class="project-pattern"></div>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-tag">Feb 2024 - Apr 2024</div>
+                            <h3 class="project-title">Person Identification System</h3>
+                            <p class="project-description">
+                                AI-based identification system using CNN and face recognition libraries
+                                with ML frameworks for accurate recognition and cloud-based storage.
+                            </p>
+                            <div class="project-tech">
+                                <span>Python</span><span>CNN</span><span>ML</span><span>OpenCV</span><span>Cloud</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interests Section -->
+    <section class="section interests" id="interests">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Interests</span>
+                <h2 class="section-title">Interests & <span class="highlight">Hobbies</span></h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="interests-grid">
+                <div class="interest-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="interest-icon"><i class="fas fa-headphones-simple"></i></div>
+                    <h3>Music</h3>
+                    <p>Bollywood music enthusiast who loves soulful Indian melodies while coding.</p>
+                    <div class="interest-bg-icon"><i class="fas fa-headphones-simple"></i></div>
+                </div>
+                <div class="interest-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="interest-icon"><i class="fas fa-clapperboard"></i></div>
+                    <h3>Movies</h3>
+                    <p>Enjoy genres from sci-fi thrillers to heartwarming dramas and anime.</p>
+                    <div class="interest-bg-icon"><i class="fas fa-clapperboard"></i></div>
+                </div>
+                <div class="interest-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="interest-icon"><i class="fas fa-vr-cardboard"></i></div>
+                    <h3>Gaming</h3>
+                    <p>Exploring virtual worlds, strategy games, and competitive multiplayer.</p>
+                    <div class="interest-bg-icon"><i class="fas fa-vr-cardboard"></i></div>
+                </div>
+                <div class="interest-card" data-aos="fade-up" data-aos-delay="50">
+                    <div class="interest-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Tech</h3>
+                    <p>Always exploring the latest in AI, web tech, and software trends.</p>
+                    <div class="interest-bg-icon"><i class="fas fa-bolt"></i></div>
+                </div>
+                <div class="interest-card" data-aos="fade-up" data-aos-delay="150">
+                    <div class="interest-icon"><i class="fas fa-earth-americas"></i></div>
+                    <h3>Travel</h3>
+                    <p>Discovering new places and finding inspiration in diverse cultures.</p>
+                    <div class="interest-bg-icon"><i class="fas fa-earth-americas"></i></div>
+                </div>
+                <div class="interest-card" data-aos="fade-up" data-aos-delay="250">
+                    <div class="interest-icon"><i class="fas fa-pen-nib"></i></div>
+                    <h3>Art</h3>
+                    <p>Creating vibrant hand-drawn art bringing mythological themes to life.</p>
+                    <div class="interest-bg-icon"><i class="fas fa-pen-nib"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Art Gallery Section -->
+    <section class="section gallery" id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Gallery</span>
+                <h2 class="section-title">My <span class="highlight">Art</span></h2>
+                <div class="section-line"></div>
+                <p class="section-subtitle">Expressing creativity beyond code through hand-drawn art</p>
+            </div>
+            <div class="gallery-showcase" data-aos="zoom-in" data-aos-duration="800">
+                <div class="gallery-main">
+                    <div class="gallery-frame">
+                        <img src="pictures/Art.jpg" alt="Lord Krishna - Colorful Art" class="gallery-img" loading="lazy">
+                        <div class="gallery-shine"></div>
+                    </div>
+                    <div class="gallery-info">
+                        <h3>Lord Krishna</h3>
+                        <p>Color pencil art &bull; 2024</p>
+                        <a href="https://www.instagram.com/art_works284?igsh=MXMwa3d2aWVpZWFu" target="_blank" class="btn btn-primary gallery-btn">
+                            <i class="fab fa-instagram"></i>
+                            <span>View More Art</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Contact</span>
+                <h2 class="section-title">Get In <span class="highlight">Touch</span></h2>
+                <div class="section-line"></div>
+                <p class="section-subtitle">Have a project in mind or want to collaborate? Let's talk!</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info-col">
+                    <div class="contact-card" data-aos="fade-right" data-aos-delay="0">
+                        <div class="contact-card-icon"><i class="fas fa-envelope"></i></div>
+                        <div><h4>Email</h4><a href="mailto:aishwaryadutpala@gmail.com">aishwaryadutpala@gmail.com</a></div>
+                    </div>
+                    <div class="contact-card" data-aos="fade-right" data-aos-delay="100">
+                        <div class="contact-card-icon"><i class="fab fa-linkedin-in"></i></div>
+                        <div><h4>LinkedIn</h4><a href="https://www.linkedin.com/in/aishwaryadutpala/" target="_blank">linkedin.com/in/aishwaryadutpala</a></div>
+                    </div>
+                    <div class="contact-card" data-aos="fade-right" data-aos-delay="200">
+                        <div class="contact-card-icon"><i class="fab fa-instagram"></i></div>
+                        <div><h4>Instagram (Art)</h4><a href="https://www.instagram.com/art_works284?igsh=MXMwa3d2aWVpZWFu" target="_blank">@art_works284</a></div>
+                    </div>
+                    <div class="contact-card" data-aos="fade-right" data-aos-delay="300">
+                        <div class="contact-card-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div><h4>Location</h4><span>Hyderabad, Telangana</span></div>
+                    </div>
+                </div>
+                <div class="contact-form-col" data-aos="fade-left" data-aos-duration="800">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" placeholder=" " required>
+                            <label for="name">Your Name</label><span class="form-line"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" placeholder=" " required>
+                            <label for="email">Your Email</label><span class="form-line"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="subject" placeholder=" " required>
+                            <label for="subject">Subject</label><span class="form-line"></span>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" rows="5" placeholder=" " required></textarea>
+                            <label for="message">Your Message</label><span class="form-line"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-submit">
+                            <span>Send Message</span><i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Spinning Vinyl CD -->
+    <div class="vinyl-cd" id="vinylCd">
+        <div class="vinyl-groove"></div>
+        <div class="vinyl-groove vinyl-groove-2"></div>
+        <div class="vinyl-groove vinyl-groove-3"></div>
+        <div class="vinyl-label">
+            <span class="vinyl-name">DA</span>
+            <span class="vinyl-sub">Portfolio</span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo"><span class="logo-text">&lt;</span>DA<span class="logo-text">/&gt;</span></div>
+                <p class="footer-text">Designed & Built by Dutpala Aishwarya</p>
+                <div class="footer-socials">
+                    <a href="https://www.linkedin.com/in/aishwaryadutpala/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/art_works284?igsh=MXMwa3d2aWVpZWFu" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="mailto:aishwaryadutpala@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+                <p class="footer-copyright">&copy; 2025 Dutpala Aishwarya. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" aria-label="Close"><i class="fas fa-times"></i></button>
+        <img src="" alt="Artwork fullscreen" id="lightboxImg">
+    </div>
+
+    <!-- Resume Modal -->
+    <div class="resume-modal" id="resumeModal" aria-hidden="true">
+        <div class="resume-modal-backdrop" id="resumeModalBackdrop"></div>
+        <div class="resume-modal-content" role="dialog" aria-modal="true" aria-label="Resume preview">
+            <button class="resume-modal-close" id="resumeModalClose" aria-label="Close resume preview">×</button>
+            <iframe id="resumeFrame" src="pictures/Aishwarya_Dutpala_Resume.pdf#zoom=page-width" frameborder="0" title="Preview of resume" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Libraries -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
