@@ -115,21 +115,7 @@ window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 50);
 });
 
-// --- Mobile Navigation ---
-const navToggle = document.getElementById('navToggle');
-const navLinks = document.getElementById('navLinks');
-
-navToggle.addEventListener('click', () => {
-    navToggle.classList.toggle('active');
-    navLinks.classList.toggle('active');
-});
-
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-        navToggle.classList.remove('active');
-        navLinks.classList.remove('active');
-    });
-});
+// --- Mobile Navigation (removed) ---
 
 // --- Active Nav Link on Scroll ---
 const sections = document.querySelectorAll('section[id]');
@@ -147,6 +133,12 @@ function setActiveNavLink() {
                     if (link.getAttribute('href') === `#${id}`) {
                         link.classList.add('active');
                     }
+                }
+            });
+            document.querySelectorAll('.side-nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${id}`) {
+                    link.classList.add('active');
                 }
             });
         }
@@ -474,9 +466,13 @@ document.querySelectorAll('.skill-category, .interest-card').forEach(card => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        card.style.background = `radial-gradient(circle 200px at ${x}px ${y}px, rgba(109,40,217,0.05), transparent), white`;
+        card.style.background = `radial-gradient(circle 220px at ${x}px ${y}px, rgba(217,155,184,0.18), transparent 70%)`;
+        card.style.boxShadow = `0 0 30px rgba(217,155,184,0.25), 0 18px 40px rgba(0,0,0,0.4)`;
     });
-    card.addEventListener('mouseleave', () => { card.style.background = ''; });
+    card.addEventListener('mouseleave', () => {
+        card.style.background = '';
+        card.style.boxShadow = '';
+    });
 });
 
 // --- Lightbox ---
@@ -600,4 +596,63 @@ function initResumeModal() {
 }
 
 initResumeModal();
+
+// ===== PROFILE MODAL (Floating top-left button) =====
+function initProfileModal() {
+    const modal = document.getElementById('profileModal');
+    const fab = document.getElementById('profileFab');
+    const closeBtn = document.getElementById('profileModalClose');
+    const backdrop = document.getElementById('profileModalBackdrop');
+    if (!modal || !fab) return;
+
+    const open = () => {
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        if (typeof lenis !== 'undefined') lenis.stop();
+    };
+    const close = () => {
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (typeof lenis !== 'undefined') lenis.start();
+    };
+
+    fab.addEventListener('click', open);
+    closeBtn.addEventListener('click', close);
+    backdrop.addEventListener('click', close);
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) close();
+    });
+}
+initProfileModal();
+
+// ===== SKY INTRO SCROLL FADE =====
+function initSkyIntro() {
+    const sky = document.getElementById('skyIntro');
+    if (!sky) return;
+    const content = sky.querySelector('.sky-content');
+    const birds = sky.querySelectorAll('.sky-bird');
+    const hint = sky.querySelector('.sky-scroll-hint');
+
+    function update() {
+        const h = sky.offsetHeight;
+        const y = Math.min(window.scrollY, h);
+        const p = y / h; // 0 -> 1
+        const fade = Math.max(0, 1 - p * 1.4);
+        const blur = p * 14;
+        if (content) {
+            content.style.opacity = fade;
+            content.style.filter = `blur(${blur}px)`;
+            content.style.transform = `translateY(${p * -40}px)`;
+        }
+        birds.forEach(b => {
+            b.style.opacity = Math.max(0, 0.85 - p * 1.2);
+        });
+        if (hint) hint.style.opacity = Math.max(0, 0.6 - p * 1.5);
+    }
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+}
+initSkyIntro();
 

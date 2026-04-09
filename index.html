@@ -7,13 +7,82 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Serif+4:wght@500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- AOS Animate On Scroll -->
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
 </head>
 <body>
+    <!-- Floating Profile Button (top-left) -->
+    <button class="profile-fab" id="profileFab" aria-label="Open profile" title="View Profile">
+        <span class="profile-fab-letter">A</span>
+    </button>
+
+    <!-- Profile Card Modal -->
+    <div class="profile-modal" id="profileModal" aria-hidden="true">
+        <div class="profile-modal-backdrop" id="profileModalBackdrop"></div>
+        <div class="profile-modal-content" role="dialog" aria-modal="true" aria-label="Profile preview" data-lenis-prevent>
+            <button class="profile-modal-close" id="profileModalClose" aria-label="Close">&times;</button>
+            <div class="profile-card-header">
+                <div class="profile-avatar-circle">AD</div>
+                <div>
+                    <h2 class="profile-name">Aishwarya Dutpala</h2>
+                    <p class="profile-title">Software Engineer</p>
+                    <div class="profile-contact">
+                        <a href="mailto:aishwaryadutpala@gmail.com"><i class="fas fa-envelope"></i> aishwaryadutpala@gmail.com</a>
+                        <a href="https://www.linkedin.com/in/aishwaryadutpala/" target="_blank"><i class="fab fa-linkedin"></i> linkedin.com/in/aishwaryadutpala</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h3>Summary</h3>
+                <p>Dedicated Software Engineer with hands-on expertise in frontend programming, UI/UX design, and data-driven apps. Proficient in JavaScript (ES6+), React, HTML, CSS, and Python, with experience integrating business requirements, data workflows, and accessible, scalable web interfaces.</p>
+            </div>
+
+            <div class="profile-section">
+                <h3>Technical Skills</h3>
+                <ul class="profile-list">
+                    <li><strong>Languages:</strong> Python, JavaScript (ES6+)</li>
+                    <li><strong>Web:</strong> HTML, CSS, React, Tailwind CSS</li>
+                    <li><strong>Tools:</strong> Git, Adobe XD, VS Code, MS Office</li>
+                    <li><strong>Soft Skills:</strong> Communication, Teamwork, Problem Solving</li>
+                </ul>
+            </div>
+
+            <div class="profile-section">
+                <h3>Experience</h3>
+                <div class="profile-exp">
+                    <h4>Fisec Global &mdash; Hyderabad <span>Aug 2025 &ndash; Present</span></h4>
+                    <p><em>Project Quantum Data Leap:</em> Transformed complex data operations into user-friendly interfaces, built reusable UI component libraries, and implemented accessibility standards across desktop and mobile platforms.</p>
+                    <p><em>Intelli-Hire:</em> Built a role-based authentication system, AI-powered resume matching, and modular micro-frontend dashboards with data visualizations.</p>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h3>Education</h3>
+                <ul class="profile-list">
+                    <li>B.E. IT &mdash; Stanley College of Engineering &amp; Technology for Women (CGPA 8.0, 2021&ndash;2025)</li>
+                    <li>Narayana Junior College (CGPA 8.3, 2019&ndash;2021)</li>
+                </ul>
+            </div>
+
+            <div class="profile-section">
+                <h3>Certifications</h3>
+                <ul class="profile-list">
+                    <li>Introduction to Generative AI &mdash; IBM (edX)</li>
+                    <li>Python, Java &mdash; Spoken Tutorial (IIT Bombay)</li>
+                    <li>Python for ML, Applications of AI &mdash; Great Learning</li>
+                </ul>
+            </div>
+
+            <a href="pictures/Aishwarya_Dutpala_Resume.pdf" download class="profile-download-btn">
+                <i class="fas fa-download"></i> Download Resume
+            </a>
+        </div>
+    </div>
+
     <!-- Retro Loading Screen -->
     <div id="retro-loader" class="retro-loader">
         <div class="retro-loader-content">
@@ -45,7 +114,6 @@
         <div class="sidebar-line"></div>
         <div class="sidebar-socials">
             <a href="https://www.linkedin.com/in/aishwaryadutpala/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://www.instagram.com/art_works284?igsh=MXMwa3d2aWVpZWFu" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             <a href="mailto:aishwaryadutpala@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
         </div>
         <div class="sidebar-line"></div>
@@ -65,29 +133,65 @@
                 Dutpala Aishwarya
             </div>
 
-            <div class="nav-right-elements">
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="#home" class="nav-link active"><span>Home</span></a></li>
-                    <li><a href="#about" class="nav-link"><span>About</span></a></li>
-                    <li><a href="#experience" class="nav-link"><span>Experience</span></a></li>
-                    <li><a href="#skills" class="nav-link"><span>Skills</span></a></li>
-                    <li><a href="#projects" class="nav-link"><span>Projects</span></a></li>
-                    <li><a href="#gallery" class="nav-link"><span>Art</span></a></li>
-                    <li><a href="#contact" class="nav-link"><span>Contact</span></a></li>
-                    <li><a href="pictures/Aishwarya_Dutpala_Resume.pdf" target="_blank" class="nav-link nav-link-special" title="Download Resume"><i class="fas fa-file-pdf" style="margin-right:5px;"></i><span>Resume</span></a></li>
-                </ul>
-                
-                <div class="nav-eyes" id="navEyes">
-                    <div class="eye"><div class="pupil"></div></div>
-                    <div class="eye"><div class="pupil"></div></div>
-                </div>
-
-                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-                    <span></span><span></span><span></span>
-                </button>
-            </div>
+            <div class="nav-right-elements"></div>
         </div>
     </nav>
+
+    <!-- Right Side Navigation -->
+    <aside class="side-nav" aria-label="Section navigation">
+        <a href="#home" class="side-nav-link active">Home</a>
+        <a href="#about" class="side-nav-link">About</a>
+        <a href="#experience" class="side-nav-link">Experience</a>
+        <a href="#skills" class="side-nav-link">Skills</a>
+        <a href="#projects" class="side-nav-link">Projects</a>
+        <a href="#gallery" class="side-nav-link">Art</a>
+        <a href="#contact" class="side-nav-link">Contact</a>
+    </aside>
+
+    <!-- Sky Intro Header -->
+    <section class="sky-intro" id="skyIntro">
+        <div class="sky-bg"></div>
+        <div class="sky-cloud sky-cloud-1"></div>
+        <div class="sky-cloud sky-cloud-2"></div>
+        <div class="sky-cloud sky-cloud-3"></div>
+        <div class="sky-cloud sky-cloud-4"></div>
+
+        <div class="sky-bird sky-bird-1"><i class="fas fa-dove"></i></div>
+
+        <div class="sky-trees">
+            <div class="sky-tree sky-tree-1">
+                <div class="tree-trunk"></div>
+                <div class="tree-canopy"></div>
+                <span class="petal p1"></span><span class="petal p2"></span><span class="petal p3"></span>
+                <span class="petal p4"></span><span class="petal p5"></span>
+            </div>
+            <div class="sky-tree sky-tree-2">
+                <div class="tree-trunk"></div>
+                <div class="tree-canopy"></div>
+                <span class="petal p1"></span><span class="petal p2"></span><span class="petal p3"></span>
+                <span class="petal p4"></span>
+            </div>
+            <div class="sky-tree sky-tree-3">
+                <div class="tree-trunk"></div>
+                <div class="tree-canopy"></div>
+                <span class="petal p1"></span><span class="petal p2"></span><span class="petal p3"></span>
+                <span class="petal p4"></span><span class="petal p5"></span>
+            </div>
+        </div>
+
+        <div class="falling-petals">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span>
+        </div>
+        <div class="sky-content">
+            <div class="sky-photo">
+                <img src="pictures/profile.jpg" alt="Aishwarya Dutpala" onerror="this.style.display='none';this.parentNode.classList.add('no-photo');this.parentNode.setAttribute('data-initials','AD');">
+            </div>
+            <h1 class="sky-name">Aishwarya Dutpala</h1>
+            <p class="sky-tagline">software engineer, designer, creator<br>building accessible &amp; beautiful web experiences</p>
+        </div>
+        <div class="sky-scroll-hint"><i class="fas fa-chevron-down"></i></div>
+    </section>
 
     <!-- Hero Section with Cinematic Narration -->
     <section class="hero" id="home">
@@ -144,26 +248,35 @@
                 </div>
                 <div class="hero-socials">
                     <a href="https://www.linkedin.com/in/aishwaryadutpala/" target="_blank" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.instagram.com/art_works284?igsh=MXMwa3d2aWVpZWFu" target="_blank" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     <a href="mailto:aishwaryadutpala@gmail.com" class="social-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
             <div class="hero-visual">
-                <div class="hero-code-card">
-                    <h3>About Me (JS)</h3>
-                    <pre><code>// I build interactive, accessible UI.
-const me = {
-  name: 'Dutpala Aishwarya',
-  role: 'Software Engineer',
-  stack: ['JavaScript', 'React', 'HTML', 'CSS']
-};
-
-function greet() {
-  console.log(`Hi, I'm ${me.name}, building your next product with pixel precision.`);
-}
-
-greet();
-                    </code></pre>
+                <div class="designer-scene" aria-hidden="true">
+                    <div class="ds-desk"></div>
+                    <div class="ds-monitor">
+                        <div class="ds-screen">
+                            <div class="ds-browser-bar">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <div class="ds-canvas">
+                                <div class="ds-block ds-b1"></div>
+                                <div class="ds-block ds-b2"></div>
+                                <div class="ds-block ds-b3"></div>
+                                <div class="ds-cursor"></div>
+                            </div>
+                        </div>
+                        <div class="ds-stand"></div>
+                    </div>
+                    <div class="ds-coffee">
+                        <div class="ds-cup"></div>
+                        <div class="ds-steam ds-s1"></div>
+                        <div class="ds-steam ds-s2"></div>
+                    </div>
+                    <div class="ds-floating ds-f1"><i class="fab fa-html5"></i></div>
+                    <div class="ds-floating ds-f2"><i class="fab fa-css3-alt"></i></div>
+                    <div class="ds-floating ds-f3"><i class="fab fa-react"></i></div>
+                    <div class="ds-floating ds-f4"><i class="fab fa-js"></i></div>
                 </div>
             </div>
         </div>
@@ -584,10 +697,6 @@ greet();
                         <div class="contact-card-icon"><i class="fab fa-linkedin-in"></i></div>
                         <div><h4>LinkedIn</h4><a href="https://www.linkedin.com/in/aishwaryadutpala/" target="_blank">linkedin.com/in/aishwaryadutpala</a></div>
                     </div>
-                    <div class="contact-card" data-aos="fade-right" data-aos-delay="200">
-                        <div class="contact-card-icon"><i class="fab fa-instagram"></i></div>
-                        <div><h4>Instagram (Art)</h4><a href="https://www.instagram.com/art_works284?igsh=MXMwa3d2aWVpZWFu" target="_blank">@art_works284</a></div>
-                    </div>
                     <div class="contact-card" data-aos="fade-right" data-aos-delay="300">
                         <div class="contact-card-icon"><i class="fas fa-map-marker-alt"></i></div>
                         <div><h4>Location</h4><span>Hyderabad, Telangana</span></div>
@@ -639,7 +748,6 @@ greet();
                 <p class="footer-text">Designed & Built by Dutpala Aishwarya</p>
                 <div class="footer-socials">
                     <a href="https://www.linkedin.com/in/aishwaryadutpala/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.instagram.com/art_works284?igsh=MXMwa3d2aWVpZWFu" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     <a href="mailto:aishwaryadutpala@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
                 </div>
                 <p class="footer-copyright">&copy; 2025 Dutpala Aishwarya. All Rights Reserved.</p>
