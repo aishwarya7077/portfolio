@@ -4,6 +4,8 @@
    AOS + GSAP ScrollTrigger + Lenis
    ============================================ */
 
+// scrollRestoration handled in <head> inline script
+
 // --- Retro Loading Screen ---
 document.addEventListener('DOMContentLoaded', () => {
     const loader = document.getElementById('retro-loader');
@@ -39,6 +41,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 clearInterval(interval);
                 setTimeout(() => {
                     loader.classList.add('hidden');
+                    if (window.location.hash !== '#skyIntro') {
+                        history.replaceState(null, '', '#skyIntro');
+                    }
+                    window.scrollTo(0, 0);
+                    if (typeof lenis !== 'undefined') {
+                        lenis.scrollTo(0, { immediate: true });
+                    }
                     document.body.style.overflow = '';
                     // We can restart lenis later if needed, but it's set up outside DOMContentLoaded anyway
                 }, 800);
