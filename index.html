@@ -18,6 +18,17 @@
     </script>
 </head>
 <body>
+    <!-- Click Effects Overlay (sections below hero) -->
+    <div class="click-effects-layer" id="clickEffectsLayer" aria-hidden="true"></div>
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <!-- Back To Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top" title="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
     <!-- Floating Profile Button (top-left) -->
     <button class="profile-fab" id="profileFab" aria-label="Open profile" title="View Profile">
         <span class="profile-fab-letter">A</span>
@@ -155,23 +166,15 @@
     <!-- Sky Intro Header -->
     <section class="sky-intro" id="skyIntro">
         <div class="sky-bg"></div>
-        <div class="sky-cloud sky-cloud-1"></div>
-        <div class="sky-cloud sky-cloud-2"></div>
-        <div class="sky-cloud sky-cloud-3"></div>
-        <div class="sky-cloud sky-cloud-4"></div>
-
-        <div class="sky-bird sky-bird-1"><i class="fas fa-dove"></i></div>
-
-        <div class="falling-petals">
-            <span></span><span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span>
-        </div>
+        <!-- Ribbon Trails Cursor Background -->
+        <canvas id="ribbonTrailsCanvas" aria-hidden="true"></canvas>
         <div class="sky-content">
-            <div class="sky-photo">
-                <img src="pictures/profile.jpg" alt="Aishwarya Dutpala" onerror="this.style.display='none';this.parentNode.classList.add('no-photo');this.parentNode.setAttribute('data-initials','AD');">
-            </div>
-            <h1 class="sky-name">Aishwarya Dutpala</h1>
-            <p class="sky-tagline">software engineer, designer, creator<br>building accessible &amp; beautiful web experiences</p>
+            <h1 class="sky-name">
+                <span class="particle-text" data-particle-text="Aishwarya Dutpala" data-particle-variant="name" role="img" aria-label="Aishwarya Dutpala"></span>
+            </h1>
+            <p class="sky-tagline">
+                <span class="particle-text particle-text-line" data-particle-text="software engineer, designer, creator" data-particle-variant="tagline" role="img" aria-label="software engineer, designer, creator"></span>
+            </p>
         </div>
         <div class="sky-scroll-hint"><i class="fas fa-chevron-down"></i></div>
     </section>
@@ -235,32 +238,7 @@
                 </div>
             </div>
             <div class="hero-visual">
-                <div class="designer-scene" aria-hidden="true">
-                    <div class="ds-desk"></div>
-                    <div class="ds-monitor">
-                        <div class="ds-screen">
-                            <div class="ds-browser-bar">
-                                <span></span><span></span><span></span>
-                            </div>
-                            <div class="ds-canvas">
-                                <div class="ds-block ds-b1"></div>
-                                <div class="ds-block ds-b2"></div>
-                                <div class="ds-block ds-b3"></div>
-                                <div class="ds-cursor"></div>
-                            </div>
-                        </div>
-                        <div class="ds-stand"></div>
-                    </div>
-                    <div class="ds-coffee">
-                        <div class="ds-cup"></div>
-                        <div class="ds-steam ds-s1"></div>
-                        <div class="ds-steam ds-s2"></div>
-                    </div>
-                    <div class="ds-floating ds-f1"><i class="fab fa-html5"></i></div>
-                    <div class="ds-floating ds-f2"><i class="fab fa-css3-alt"></i></div>
-                    <div class="ds-floating ds-f3"><i class="fab fa-react"></i></div>
-                    <div class="ds-floating ds-f4"><i class="fab fa-js"></i></div>
-                </div>
+                <div class="particle-image-wrap" id="particleImageWrap" data-particle-image="pictures/profile-particle.jpeg" role="img" aria-label="Aishwarya Dutpala"></div>
             </div>
         </div>
         <div class="scroll-indicator">
@@ -295,6 +273,10 @@
 
     <!-- About Section -->
     <section class="section about" id="about">
+        <div class="blob-container">
+            <div class="morph-blob morph-blob-1"></div>
+            <div class="morph-blob morph-blob-2"></div>
+        </div>
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">About</span>
@@ -413,6 +395,10 @@
 
     <!-- Skills Section -->
     <section class="section skills" id="skills">
+        <div class="blob-container">
+            <div class="morph-blob morph-blob-3"></div>
+            <div class="morph-blob morph-blob-1" style="animation-delay:-6s;width:350px;height:350px;"></div>
+        </div>
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Skills</span>
@@ -457,6 +443,17 @@
                     </div>
                 </div>
             </div>
+            <!-- Floating 3D Skill Orbs -->
+            <div class="skills-orbs-container" id="skillOrbs" data-aos="zoom-in">
+                <div class="skill-orb" style="animation-delay:0s"><i class="fab fa-react"></i><span>React</span></div>
+                <div class="skill-orb" style="animation-delay:0.5s"><i class="fab fa-js"></i><span>JavaScript</span></div>
+                <div class="skill-orb" style="animation-delay:1s"><i class="fab fa-python"></i><span>Python</span></div>
+                <div class="skill-orb" style="animation-delay:1.5s"><i class="fab fa-html5"></i><span>HTML5</span></div>
+                <div class="skill-orb" style="animation-delay:2s"><i class="fab fa-css3-alt"></i><span>CSS3</span></div>
+                <div class="skill-orb" style="animation-delay:0.7s"><i class="fab fa-git-alt"></i><span>Git</span></div>
+                <div class="skill-orb" style="animation-delay:1.3s"><i class="fab fa-node-js"></i><span>Node.js</span></div>
+                <div class="skill-orb" style="animation-delay:1.8s"><i class="fas fa-database"></i><span>APIs</span></div>
+            </div>
             <!-- Soft Skills -->
             <div class="soft-skills" data-aos="fade-up">
                 <h3 class="soft-skills-title">Soft Skills</h3>
@@ -479,9 +476,24 @@
                 <h2 class="section-title">Featured <span class="highlight">Projects</span></h2>
                 <div class="section-line"></div>
             </div>
+
+            <!-- Project Filter Tabs -->
+            <div class="project-filters" role="tablist" aria-label="Filter projects">
+                <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true">
+                    <i class="fas fa-layer-group"></i><span>All</span>
+                </button>
+                <button class="filter-tab" data-filter="professional" role="tab" aria-selected="false">
+                    <i class="fas fa-briefcase"></i><span>Professional</span>
+                </button>
+                <button class="filter-tab" data-filter="academic" role="tab" aria-selected="false">
+                    <i class="fas fa-graduation-cap"></i><span>Academic</span>
+                </button>
+                <span class="filter-tab-indicator"></span>
+            </div>
+
             <!-- Professional Projects -->
-            <div class="projects-grid">
-                <div class="project-card" data-aos="flip-left" data-aos-duration="900">
+            <div class="projects-grid" id="professionalProjects">
+                <div class="project-card" data-category="professional" data-aos="flip-left" data-aos-duration="900">
                     <div class="project-card-inner">
                         <div class="project-image">
                             <div class="project-image-placeholder qdl">
@@ -507,7 +519,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card" data-aos="flip-left" data-aos-duration="900">
+                <div class="project-card" data-category="professional" data-aos="flip-left" data-aos-duration="900">
                     <div class="project-card-inner">
                         <div class="project-image">
                             <div class="project-image-placeholder intellihire">
@@ -536,9 +548,9 @@
             </div>
 
             <!-- Academic Projects -->
-            <h3 class="subsection-title" data-aos="fade-up">Academic <span class="highlight">Projects</span></h3>
-            <div class="projects-grid" style="margin-top:30px;">
-                <div class="project-card" data-aos="flip-left" data-aos-duration="900">
+            <h3 class="subsection-title" data-aos="fade-up" id="academicHeading">Academic <span class="highlight">Projects</span></h3>
+            <div class="projects-grid" style="margin-top:30px;" id="academicProjects">
+                <div class="project-card" data-category="academic" data-aos="flip-left" data-aos-duration="900">
                     <div class="project-card-inner">
                         <div class="project-image">
                             <div class="project-image-placeholder academic-1">
@@ -559,7 +571,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card" data-aos="flip-left" data-aos-duration="900">
+                <div class="project-card" data-category="academic" data-aos="flip-left" data-aos-duration="900">
                     <div class="project-card-inner">
                         <div class="project-image">
                             <div class="project-image-placeholder academic-2">
@@ -645,7 +657,8 @@
             <div class="gallery-showcase" data-aos="zoom-in" data-aos-duration="800">
                 <div class="gallery-main">
                     <div class="gallery-frame">
-                        <img src="pictures/Art.jpg" alt="Lord Krishna - Colorful Art" class="gallery-img" loading="lazy">
+                        <img src="pictures/Art.jpg" alt="Lord Krishna - Colorful Art" class="gallery-img gallery-img-source" loading="lazy">
+                        <div class="particle-image-wrap gallery-particle-wrap" data-particle-image="pictures/Art.jpg" role="img" aria-label="Lord Krishna - Colorful Art"></div>
                         <div class="gallery-shine"></div>
                     </div>
                     <div class="gallery-info">
@@ -675,6 +688,10 @@
                     <div class="contact-card" data-aos="fade-right" data-aos-delay="0">
                         <div class="contact-card-icon"><i class="fas fa-envelope"></i></div>
                         <div><h4>Email</h4><a href="mailto:aishwaryadutpala@gmail.com">aishwaryadutpala@gmail.com</a></div>
+                        <button class="copy-btn" data-copy="aishwaryadutpala@gmail.com" aria-label="Copy email address" title="Copy email">
+                            <i class="fas fa-copy"></i>
+                            <span class="copy-btn-tooltip">Copy</span>
+                        </button>
                     </div>
                     <div class="contact-card" data-aos="fade-right" data-aos-delay="100">
                         <div class="contact-card-icon"><i class="fab fa-linkedin-in"></i></div>
@@ -752,6 +769,16 @@
             <iframe id="resumeFrame" src="pictures/Aishwarya_Dutpala_Resume.pdf#zoom=page-width" frameborder="0" title="Preview of resume" allowfullscreen></iframe>
         </div>
     </div>
+
+    <!-- SVG Filters for Morphing Blobs -->
+    <svg class="svg-filters" style="position:absolute;width:0;height:0;">
+        <defs>
+            <filter id="gooey">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="gooey"/>
+            </filter>
+        </defs>
+    </svg>
 
     <!-- Libraries -->
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
