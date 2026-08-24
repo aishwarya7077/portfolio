@@ -12,6 +12,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- AOS Animate On Scroll -->
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+    <!-- Three.js (ES modules, for the Space-Time Fabric showcase) -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
     <script>
         if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
         window.scrollTo(0, 0);
@@ -134,9 +143,6 @@
         <div class="sidebar-line"></div>
     </div>
 
-    <!-- Floating Particles Canvas -->
-    <canvas id="particleCanvas"></canvas>
-
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container nav-custom-header">
@@ -159,6 +165,8 @@
         <a href="#experience" class="side-nav-link">Experience</a>
         <a href="#skills" class="side-nav-link">Skills</a>
         <a href="#projects" class="side-nav-link">Projects</a>
+        <a href="#games" class="side-nav-link">Games</a>
+        <a href="#fabric" class="side-nav-link">Fabric</a>
         <a href="#gallery" class="side-nav-link">Art</a>
         <a href="#contact" class="side-nav-link">Contact</a>
     </aside>
@@ -238,7 +246,7 @@
                 </div>
             </div>
             <div class="hero-visual">
-                <div class="particle-image-wrap" id="particleImageWrap" data-particle-image="pictures/profile-particle.jpeg" role="img" aria-label="Aishwarya Dutpala"></div>
+                <div class="particle-image-wrap" id="particleImageWrap" data-particle-image="pictures/papercraft.jpeg" role="img" aria-label="Aishwarya Dutpala"></div>
             </div>
         </div>
         <div class="scroll-indicator">
@@ -596,6 +604,70 @@
         </div>
     </section>
 
+    <!-- Games Section -->
+    <section class="section games" id="games">
+        <div class="blob-container">
+            <div class="morph-blob morph-blob-2" style="animation-delay:-3s;"></div>
+        </div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Play</span>
+                <h2 class="section-title">Mini <span class="highlight">Games</span></h2>
+                <div class="section-line"></div>
+                <p class="section-subtitle">Take a break and play a game I built for fun.</p>
+            </div>
+            <div class="games-grid games-grid-single">
+                <div class="game-card" data-aos="fade-up" data-aos-duration="800">
+                    <div class="game-card-icon"><i class="fas fa-clone"></i></div>
+                    <h3 class="game-card-title">Tile Match</h3>
+                    <p class="game-card-description">
+                        Flip tiles, find matching pairs, and clear the board in as few moves as possible.
+                    </p>
+                    <button class="btn btn-primary game-play-btn" id="openTileGame" type="button">
+                        <span>Play Now</span>
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Space-Time Fabric Showcase -->
+    <section class="section fabric-section" id="fabric">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Experiment</span>
+                <h2 class="section-title">Space-Time <span class="highlight">Fabric</span></h2>
+                <div class="section-line"></div>
+                <p class="section-subtitle">A WebGL particle grid bent by moving gravity wells. Drag to orbit.</p>
+            </div>
+            <div class="fabric-stage" id="fabricStage" data-aos="zoom-in" data-aos-duration="800">
+                <canvas id="fabricCanvas"></canvas>
+                <div class="fabric-loading" id="fabricLoading">
+                    <span>Loading WebGL scene&hellip;</span>
+                </div>
+                <div class="fabric-controls" id="fabricControls">
+                    <label class="fabric-control">
+                        <span>Wave Frequency <em id="fabricFreqVal">2.2</em></span>
+                        <input type="range" id="fabricFreq" min="0.5" max="6" step="0.1" value="2.2">
+                    </label>
+                    <label class="fabric-control">
+                        <span>Wave Amplitude <em id="fabricAmpVal">8</em></span>
+                        <input type="range" id="fabricAmp" min="0" max="20" step="0.5" value="8">
+                    </label>
+                    <label class="fabric-control">
+                        <span>Well Strength <em id="fabricPullVal">8</em></span>
+                        <input type="range" id="fabricPull" min="0" max="20" step="0.5" value="8">
+                    </label>
+                    <label class="fabric-control">
+                        <span>Shear Twist <em id="fabricTwistVal">2</em></span>
+                        <input type="range" id="fabricTwist" min="0" max="6" step="0.1" value="2">
+                    </label>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Interests Section -->
     <section class="section interests" id="interests">
         <div class="container">
@@ -770,6 +842,39 @@
         </div>
     </div>
 
+    <!-- Tile Match Game Modal -->
+    <div class="game-modal" id="tileGameModal" aria-hidden="true">
+        <div class="game-modal-backdrop" id="tileGameBackdrop"></div>
+        <div class="game-modal-content" role="dialog" aria-modal="true" aria-label="Tile Match game">
+            <button class="game-modal-close" id="tileGameClose" aria-label="Close game">&times;</button>
+            <div class="game-app tile-game">
+                <div class="game-app-header">
+                    <h3><i class="fas fa-clone"></i> Tile Match</h3>
+                    <div class="game-stats">
+                        <div class="game-stat"><span class="game-stat-label">Moves</span><span class="game-stat-value" id="tileMoves">0</span></div>
+                        <div class="game-stat"><span class="game-stat-label">Matches</span><span class="game-stat-value" id="tileMatches">0/8</span></div>
+                        <div class="game-stat"><span class="game-stat-label">Time</span><span class="game-stat-value" id="tileTimer">0:00</span></div>
+                    </div>
+                </div>
+                <div class="tile-board" id="tileBoard" aria-label="Tile match board"></div>
+                <div class="game-app-footer">
+                    <button class="btn btn-outline" id="tileRestartBtn">
+                        <span>Restart</span><i class="fas fa-rotate-right"></i>
+                    </button>
+                </div>
+                <div class="game-overlay" id="tileGameOverlay">
+                    <div class="game-overlay-card">
+                        <h4>Board Cleared!</h4>
+                        <p>Solved in <span id="tileFinalMoves">0</span> moves and <span id="tileFinalTime">0:00</span>.</p>
+                        <button class="btn btn-primary" id="tilePlayAgainBtn">
+                            <span>Play Again</span><i class="fas fa-rotate-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- SVG Filters for Morphing Blobs -->
     <svg class="svg-filters" style="position:absolute;width:0;height:0;">
         <defs>
@@ -786,5 +891,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
     <script src="script.js"></script>
+    <script src="games.js"></script>
+    <script type="module" src="fabric.js"></script>
 </body>
 </html>
