@@ -149,27 +149,47 @@
             <a href="#home" class="nav-logo">
                 <span class="logo-text">&lt;</span><span class="logo-main">DA</span><span class="logo-text">/&gt;</span>
             </a>
-            
+
             <div class="nav-center-name">
                 Dutpala Aishwarya
             </div>
 
             <div class="nav-right-elements"></div>
+
+            <button class="nav-menu-toggle" id="navMenuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </nav>
 
-    <!-- Right Side Navigation -->
+    <!-- Right Side Navigation (desktop) -->
     <aside class="side-nav" aria-label="Section navigation">
         <a href="#home" class="side-nav-link active">Home</a>
         <a href="#about" class="side-nav-link">About</a>
         <a href="#experience" class="side-nav-link">Experience</a>
         <a href="#skills" class="side-nav-link">Skills</a>
         <a href="#projects" class="side-nav-link">Projects</a>
+        <a href="#fabric" class="side-nav-link">Lab</a>
         <a href="#games" class="side-nav-link">Games</a>
-        <a href="#fabric" class="side-nav-link">Fabric</a>
         <a href="#gallery" class="side-nav-link">Art</a>
         <a href="#contact" class="side-nav-link">Contact</a>
     </aside>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+        <div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+        <nav class="mobile-nav-panel" aria-label="Mobile section navigation">
+            <a href="#home" class="mobile-nav-link active">Home</a>
+            <a href="#about" class="mobile-nav-link">About</a>
+            <a href="#experience" class="mobile-nav-link">Experience</a>
+            <a href="#skills" class="mobile-nav-link">Skills</a>
+            <a href="#projects" class="mobile-nav-link">Projects</a>
+            <a href="#fabric" class="mobile-nav-link">Lab</a>
+            <a href="#games" class="mobile-nav-link">Games</a>
+            <a href="#gallery" class="mobile-nav-link">Art</a>
+            <a href="#contact" class="mobile-nav-link">Contact</a>
+        </nav>
+    </div>
 
     <!-- Sky Intro Header -->
     <section class="sky-intro" id="skyIntro">
@@ -187,25 +207,15 @@
         <div class="sky-scroll-hint"><i class="fas fa-chevron-down"></i></div>
     </section>
 
-    <!-- Hero Section with Cinematic Narration -->
+    <!-- Hero Section -->
     <section class="hero" id="home">
-        <!-- Cinematic Background Narration -->
+        <!-- Cinematic Background Narration (reduced word count, lower opacity) -->
         <div class="cinematic-bg" id="cinematicBg">
             <span class="cine-word cine-w1">Software</span>
-            <span class="cine-word cine-w2">Engineer</span>
-            <span class="cine-word cine-w3">React</span>
             <span class="cine-word cine-w4">JavaScript</span>
             <span class="cine-word cine-w5">UI/UX</span>
-            <span class="cine-word cine-w6">Python</span>
-            <span class="cine-word cine-w7">Innovation</span>
-            <span class="cine-word cine-w8">Design</span>
             <span class="cine-word cine-w9">Frontend</span>
-            <span class="cine-word cine-w10">Creative</span>
-            <span class="cine-word cine-w11">Data</span>
-            <span class="cine-word cine-w12">Artist</span>
             <span class="cine-word cine-w13">Code</span>
-            <span class="cine-word cine-w14">Build</span>
-            <span class="cine-word cine-w15">Scale</span>
         </div>
 
         <div class="hero-content">
@@ -215,34 +225,29 @@
                     Hello, I'm
                 </p>
                 <h1 class="hero-name">
-                    <span class="name-line">Dutpala</span>
-                    <span class="name-line highlight">Aishwarya</span>
+                    <span class="name-line">Aishwarya</span>
+                    <span class="name-line highlight">Dutpala</span>
                 </h1>
                 <div class="hero-role-wrapper">
-                    <span class="hero-role-prefix">I'm a&nbsp;</span>
-                    <div class="typewriter">
-                        <span class="typewriter-text" id="typewriter"></span>
-                        <span class="typewriter-cursor">|</span>
-                    </div>
+                    <span class="hero-role-static">Software Engineer &middot; UI/UX Developer</span>
                 </div>
                 <p class="hero-description">
-                    Dedicated Software Engineer with hands-on expertise in frontend development,
-                    UI/UX design, and data-driven applications. Crafting accessible, scalable
-                    web interfaces with React, JavaScript, and modern design systems.
+                    Building thoughtful, data-driven interfaces with React, Next.js and TypeScript.
                 </p>
                 <div class="hero-cta">
                     <a href="#projects" class="btn btn-primary">
                         <span>View My Work</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
-                    <a href="#gallery" class="btn btn-outline">
-                        <span>See My Art</span>
-                        <i class="fas fa-palette"></i>
+                    <a href="resume.html" target="_blank" class="btn btn-outline">
+                        <span>Download Resume</span>
+                        <i class="fas fa-download"></i>
                     </a>
                 </div>
                 <div class="hero-socials">
                     <a href="https://www.linkedin.com/in/aishwaryadutpala/" target="_blank" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     <a href="mailto:aishwaryadutpala@gmail.com" class="social-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="https://github.com/" target="_blank" class="social-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
                 </div>
             </div>
             <div class="hero-visual">
@@ -305,43 +310,37 @@
                 <div class="about-text-col" data-aos="fade-left" data-aos-duration="800">
                     <h3 class="about-subtitle">Software Engineer & Artist turning complex data into beautiful experiences</h3>
                     <p class="about-description">
-                        I'm Dutpala Aishwarya, a dedicated Software Engineer with hands-on expertise in
-                        frontend programming, UI/UX design, and data-driven applications. Currently working
-                        at <strong>Fisec Global</strong> on Project Quantum Data Leap, transforming complex
-                        data operations into accessible, user-friendly interfaces.
-                    </p>
-                    <p class="about-description">
-                        Proficient in JavaScript (ES6+), React, HTML, CSS, and Python, with experience in
-                        component-based architecture, usability optimization, cross-functional collaboration,
-                        and modern design platforms. Beyond code, I express creativity through hand-drawn art.
+                        I build accessible, data-driven interfaces at <strong>Fisec Global</strong>, working
+                        across UI/UX design, component systems, and frontend engineering. Beyond code, I
+                        express the same eye for detail through hand-drawn art.
                     </p>
                     <div class="about-info-grid">
                         <div class="about-info-item" data-aos="fade-up" data-aos-delay="0">
                             <i class="fas fa-graduation-cap"></i>
                             <div>
                                 <span class="info-label">Education</span>
-                                <span class="info-value">B.E. in IT (CGPA: 8.0)</span>
+                                <span class="info-value">B.E. in Information Technology</span>
                             </div>
                         </div>
                         <div class="about-info-item" data-aos="fade-up" data-aos-delay="100">
-                            <i class="fas fa-university"></i>
+                            <i class="fas fa-building"></i>
                             <div>
-                                <span class="info-label">College</span>
-                                <span class="info-value">Stanley College of Engg. & Tech.</span>
+                                <span class="info-label">Role</span>
+                                <span class="info-value">Software Engineer</span>
                             </div>
                         </div>
                         <div class="about-info-item" data-aos="fade-up" data-aos-delay="200">
-                            <i class="fas fa-building"></i>
+                            <i class="fas fa-layer-group"></i>
                             <div>
-                                <span class="info-label">Current Role</span>
-                                <span class="info-value">Software Engineer @ Fisec Global</span>
+                                <span class="info-label">Focus</span>
+                                <span class="info-value">Frontend Development &middot; UI/UX</span>
                             </div>
                         </div>
                         <div class="about-info-item" data-aos="fade-up" data-aos-delay="300">
                             <i class="fas fa-map-marker-alt"></i>
                             <div>
                                 <span class="info-label">Location</span>
-                                <span class="info-value">Hyderabad, Telangana</span>
+                                <span class="info-value">Hyderabad</span>
                             </div>
                         </div>
                     </div>
@@ -375,25 +374,37 @@
                         </div>
                         <div class="timeline-project">
                             <h4><img src="pictures/QDL-logo.png" alt="" class="timeline-logo"> Quantum Data Leap</h4>
+                            <p class="timeline-project-desc">
+                                A data-driven platform turning complex, data-intensive operations into accessible,
+                                user-friendly interfaces for clients.
+                            </p>
+                            <span class="timeline-label">My Contribution</span>
                             <ul>
-                                <li>Transformed complex, data-intensive operations into accessible and user-friendly interfaces for clients</li>
-                                <li>Collaborated with cross-functional stakeholders to collect requirements and transform data use cases into effective UI/UX solutions</li>
-                                <li>Created user journeys, information architecture, and low-fidelity designs enhancing visibility and navigation</li>
-                                <li>Built reusable UI component library with typography, spacing, and layout patterns for design consistency</li>
-                                <li>Implemented responsive design and accessibility standards for seamless cross-platform experiences</li>
+                                <li><strong>UI/UX design</strong> &mdash; user journeys, information architecture, and low-fidelity designs that improved navigation</li>
+                                <li><strong>Reusable components</strong> &mdash; a UI component library with shared typography, spacing, and layout patterns</li>
+                                <li><strong>Accessibility</strong> &mdash; responsive, standards-compliant markup across desktop and mobile</li>
+                                <li><strong>Cross-functional collaboration</strong> &mdash; partnered with stakeholders to turn data use cases into UI/UX solutions</li>
                             </ul>
+                            <div class="timeline-tech">
+                                <span>React</span><span>TypeScript</span><span>Next.js</span><span>Chart.js</span><span>Tailwind CSS</span>
+                            </div>
                         </div>
                         <div class="timeline-project">
                             <h4><img src="pictures/Intelli-hire.png" alt="" class="timeline-logo"> Intelli-Hire</h4>
+                            <p class="timeline-project-desc">
+                                An AI-powered recruitment platform for candidate matching, resume screening, and
+                                hiring insights.
+                            </p>
+                            <span class="timeline-label">My Contribution</span>
                             <ul>
-                                <li>Built role-based authentication system with admin controls for user management and security</li>
-                                <li>Developed AI-powered resume matching system to rank candidates based on job descriptions</li>
-                                <li>Created searchable resume database with advanced filters and structured candidate profiles</li>
-                                <li>Designed modular frontend architecture using micro frontends with interactive dashboards</li>
+                                <li><strong>Frontend development</strong> &mdash; modular architecture using micro-frontends with interactive dashboards</li>
+                                <li><strong>API integration</strong> &mdash; role-based authentication with admin controls for user management and security</li>
+                                <li><strong>Data visualization</strong> &mdash; an AI-powered resume matching view ranking candidates against job descriptions</li>
+                                <li><strong>UI/UX design</strong> &mdash; a searchable resume database with advanced filters and structured candidate profiles</li>
                             </ul>
-                        </div>
-                        <div class="timeline-tech">
-                            <span>React</span><span>TypeScript</span><span>Next.js</span><span>Tailwind CSS</span><span>Chart.js</span><span>AI/ML</span><span>Node.js</span>
+                            <div class="timeline-tech">
+                                <span>React</span><span>Next.js</span><span>Node.js</span><span>AI/ML</span><span>Tailwind CSS</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -417,37 +428,48 @@
                 <div class="skill-category" data-aos="flip-up" data-aos-duration="800">
                     <div class="skill-category-header">
                         <div class="skill-icon-wrapper"><i class="fas fa-code"></i></div>
-                        <h3>Languages</h3>
+                        <h3>Core Technologies</h3>
                     </div>
-                    <div class="skill-items">
-                        <div class="skill-item"><i class="fab fa-js"></i><span>JavaScript (ES6+)</span><div class="skill-bar"><div class="skill-fill" data-width="92"></div></div></div>
-                        <div class="skill-item"><i class="fab fa-python"></i><span>Python</span><div class="skill-bar"><div class="skill-fill" data-width="80"></div></div></div>
-                        <div class="skill-item"><i class="fab fa-html5"></i><span>HTML5</span><div class="skill-bar"><div class="skill-fill" data-width="95"></div></div></div>
-                        <div class="skill-item"><i class="fab fa-css3-alt"></i><span>CSS3</span><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
+                    <div class="skill-badges">
+                        <span class="skill-badge"><i class="fab fa-react"></i>React</span>
+                        <span class="skill-badge"><i class="fas fa-n"></i>Next.js</span>
+                        <span class="skill-badge"><i class="fab fa-js"></i>TypeScript</span>
+                        <span class="skill-badge"><i class="fab fa-js-square"></i>JavaScript</span>
                     </div>
                 </div>
                 <div class="skill-category" data-aos="flip-up" data-aos-duration="800">
                     <div class="skill-category-header">
                         <div class="skill-icon-wrapper"><i class="fas fa-layer-group"></i></div>
-                        <h3>Frameworks & Libraries</h3>
+                        <h3>UI Engineering</h3>
                     </div>
-                    <div class="skill-items">
-                        <div class="skill-item"><i class="fab fa-react"></i><span>React.js</span><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
-                        <div class="skill-item"><i class="fas fa-n"></i><span>Next.js</span><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
-                        <div class="skill-item"><i class="fab fa-css3"></i><span>Tailwind CSS</span><div class="skill-bar"><div class="skill-fill" data-width="88"></div></div></div>
-                        <div class="skill-item"><i class="fas fa-wand-magic-sparkles"></i><span>Framer Motion</span><div class="skill-bar"><div class="skill-fill" data-width="75"></div></div></div>
+                    <div class="skill-badges">
+                        <span class="skill-badge"><i class="fab fa-css3"></i>Tailwind CSS</span>
+                        <span class="skill-badge"><i class="fas fa-mobile-screen"></i>Responsive Design</span>
+                        <span class="skill-badge"><i class="fas fa-universal-access"></i>Accessibility</span>
+                        <span class="skill-badge"><i class="fas fa-swatchbook"></i>Design Systems</span>
+                    </div>
+                </div>
+                <div class="skill-category" data-aos="flip-up" data-aos-duration="800">
+                    <div class="skill-category-header">
+                        <div class="skill-icon-wrapper"><i class="fas fa-server"></i></div>
+                        <h3>Backend / Integration</h3>
+                    </div>
+                    <div class="skill-badges">
+                        <span class="skill-badge"><i class="fas fa-database"></i>REST APIs</span>
+                        <span class="skill-badge"><i class="fab fa-node-js"></i>Node.js</span>
+                        <span class="skill-badge"><i class="fas fa-table"></i>SQL</span>
                     </div>
                 </div>
                 <div class="skill-category" data-aos="flip-up" data-aos-duration="800">
                     <div class="skill-category-header">
                         <div class="skill-icon-wrapper"><i class="fas fa-tools"></i></div>
-                        <h3>Tools & Platforms</h3>
+                        <h3>Tools</h3>
                     </div>
-                    <div class="skill-items">
-                        <div class="skill-item"><i class="fab fa-git-alt"></i><span>Git & GitHub</span><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
-                        <div class="skill-item"><i class="fas fa-pen-ruler"></i><span>Adobe XD</span><div class="skill-bar"><div class="skill-fill" data-width="80"></div></div></div>
-                        <div class="skill-item"><i class="fas fa-code"></i><span>VS Code</span><div class="skill-bar"><div class="skill-fill" data-width="92"></div></div></div>
-                        <div class="skill-item"><i class="fas fa-database"></i><span>REST APIs</span><div class="skill-bar"><div class="skill-fill" data-width="78"></div></div></div>
+                    <div class="skill-badges">
+                        <span class="skill-badge"><i class="fab fa-git-alt"></i>Git</span>
+                        <span class="skill-badge"><i class="fab fa-github"></i>GitHub</span>
+                        <span class="skill-badge"><i class="fas fa-code"></i>VS Code</span>
+                        <span class="skill-badge"><i class="fas fa-pen-ruler"></i>Figma / Adobe XD</span>
                     </div>
                 </div>
             </div>
@@ -505,8 +527,35 @@
                     <div class="project-card-inner">
                         <div class="project-image">
                             <div class="project-image-placeholder qdl">
-                                <img src="pictures/QDL-logo.png" alt="Quantum Data Leap" class="project-logo project-logo-scroll">
+                                <svg class="project-cover" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                                    <defs>
+                                        <linearGradient id="qdlBar1" x1="0" y1="1" x2="0" y2="0">
+                                            <stop offset="0%" stop-color="var(--accent-secondary)" stop-opacity="0.5"/>
+                                            <stop offset="100%" stop-color="var(--accent-primary)" stop-opacity="0.15"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <line x1="0" y1="210" x2="400" y2="210" stroke="var(--accent-primary)" stroke-opacity="0.15"/>
+                                    <line x1="0" y1="150" x2="400" y2="150" stroke="var(--accent-primary)" stroke-opacity="0.1"/>
+                                    <line x1="0" y1="90" x2="400" y2="90" stroke="var(--accent-primary)" stroke-opacity="0.1"/>
+                                    <g fill="url(#qdlBar1)">
+                                        <rect x="40" y="140" width="26" height="70" rx="4"/>
+                                        <rect x="86" y="100" width="26" height="110" rx="4"/>
+                                        <rect x="132" y="160" width="26" height="50" rx="4"/>
+                                        <rect x="178" y="70" width="26" height="140" rx="4"/>
+                                        <rect x="224" y="120" width="26" height="90" rx="4"/>
+                                        <rect x="270" y="50" width="26" height="160" rx="4"/>
+                                        <rect x="316" y="95" width="26" height="115" rx="4"/>
+                                    </g>
+                                    <polyline points="40,155 86,95 132,130 178,55 224,105 270,35 316,75 362,60" fill="none" stroke="var(--accent-tertiary)" stroke-opacity="0.55" stroke-width="2"/>
+                                    <g fill="var(--accent-tertiary)" fill-opacity="0.7">
+                                        <circle cx="86" cy="95" r="3"/>
+                                        <circle cx="178" cy="55" r="3"/>
+                                        <circle cx="270" cy="35" r="3"/>
+                                    </g>
+                                </svg>
+                                <div class="project-icon-large"><i class="fas fa-chart-line"></i></div>
                                 <div class="project-pattern"></div>
+                                <img src="pictures/QDL-logo.png" alt="Quantum Data Leap" class="project-logo">
                             </div>
                             <div class="project-overlay">
                                 <div class="project-links">
@@ -515,14 +564,27 @@
                             </div>
                         </div>
                         <div class="project-info">
-                            <div class="project-tag">Fisec Global</div>
+                            <div class="project-tag">Fisec Global &middot; Professional</div>
                             <h3 class="project-title">Quantum Data Leap</h3>
-                            <p class="project-description">
-                                Data-driven platform transforming complex operations into accessible interfaces
-                                with dashboards, charts, and visual components for data insights.
-                            </p>
+                            <dl class="project-breakdown">
+                                <div>
+                                    <dt>Problem</dt>
+                                    <dd>Complex, data-intensive operations were hard for clients to navigate and act on.</dd>
+                                </div>
+                                <div>
+                                    <dt>My Contribution</dt>
+                                    <dd>UI/UX design, a reusable component library, and accessible dashboards with data visualizations.</dd>
+                                </div>
+                                <div>
+                                    <dt>Outcome</dt>
+                                    <dd>A consistent, accessible design system now used across the product's desktop and mobile views.</dd>
+                                </div>
+                            </dl>
                             <div class="project-tech">
                                 <span>React</span><span>TypeScript</span><span>Next.js</span><span>Chart.js</span><span>Tailwind CSS</span>
+                            </div>
+                            <div class="project-actions">
+                                <a href="#" class="project-action-btn"><i class="fas fa-file-lines"></i>View Case Study</a>
                             </div>
                         </div>
                     </div>
@@ -531,8 +593,30 @@
                     <div class="project-card-inner">
                         <div class="project-image">
                             <div class="project-image-placeholder intellihire">
-                                <img src="pictures/Intelli-hire.png" alt="Intelli Hire" class="project-logo project-logo-scroll">
+                                <svg class="project-cover" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                                    <g stroke="var(--accent-tertiary)" stroke-opacity="0.4" stroke-width="1.3">
+                                        <line x1="200" y1="120" x2="90" y2="60"/>
+                                        <line x1="200" y1="120" x2="80" y2="150"/>
+                                        <line x1="200" y1="120" x2="130" y2="205"/>
+                                        <line x1="200" y1="120" x2="270" y2="55"/>
+                                        <line x1="200" y1="120" x2="320" y2="110"/>
+                                        <line x1="200" y1="120" x2="290" y2="190"/>
+                                        <line x1="90" y1="60" x2="320" y2="110" stroke-opacity="0.18"/>
+                                        <line x1="80" y1="150" x2="290" y2="190" stroke-opacity="0.18"/>
+                                    </g>
+                                    <g fill="var(--accent-primary)">
+                                        <circle cx="200" cy="120" r="9" fill-opacity="0.9"/>
+                                        <circle cx="90" cy="60" r="5" fill-opacity="0.55"/>
+                                        <circle cx="80" cy="150" r="5" fill-opacity="0.55"/>
+                                        <circle cx="130" cy="205" r="5" fill-opacity="0.45"/>
+                                        <circle cx="270" cy="55" r="5" fill-opacity="0.55"/>
+                                        <circle cx="320" cy="110" r="5" fill-opacity="0.45"/>
+                                        <circle cx="290" cy="190" r="5" fill-opacity="0.45"/>
+                                    </g>
+                                </svg>
+                                <div class="project-icon-large"><i class="fas fa-users-gear"></i></div>
                                 <div class="project-pattern"></div>
+                                <img src="pictures/Intelli-hire.png" alt="Intelli Hire" class="project-logo">
                             </div>
                             <div class="project-overlay">
                                 <div class="project-links">
@@ -541,14 +625,27 @@
                             </div>
                         </div>
                         <div class="project-info">
-                            <div class="project-tag">Fisec Global</div>
+                            <div class="project-tag">Fisec Global &middot; Professional</div>
                             <h3 class="project-title">Intelli-Hire</h3>
-                            <p class="project-description">
-                                AI-powered recruitment platform with intelligent candidate matching,
-                                automated resume screening, and data-driven hiring insights.
-                            </p>
+                            <dl class="project-breakdown">
+                                <div>
+                                    <dt>Problem</dt>
+                                    <dd>Manual resume screening slowed hiring and made candidate matching inconsistent.</dd>
+                                </div>
+                                <div>
+                                    <dt>My Contribution</dt>
+                                    <dd>Frontend architecture with micro-frontends, role-based auth UI, and an AI-matching dashboard.</dd>
+                                </div>
+                                <div>
+                                    <dt>Outcome</dt>
+                                    <dd>A searchable, filterable candidate database that cut manual screening time significantly.</dd>
+                                </div>
+                            </dl>
                             <div class="project-tech">
                                 <span>React</span><span>Next.js</span><span>AI/ML</span><span>Node.js</span><span>Tailwind CSS</span>
+                            </div>
+                            <div class="project-actions">
+                                <a href="#" class="project-action-btn"><i class="fas fa-file-lines"></i>View Case Study</a>
                             </div>
                         </div>
                     </div>
@@ -562,19 +659,38 @@
                     <div class="project-card-inner">
                         <div class="project-image">
                             <div class="project-image-placeholder academic-1">
+                                <svg class="project-cover" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                                    <g fill="none" stroke="var(--accent-primary)">
+                                        <circle cx="200" cy="125" r="40" stroke-opacity="0.5"/>
+                                        <circle cx="200" cy="125" r="70" stroke-opacity="0.3"/>
+                                        <circle cx="200" cy="125" r="100" stroke-opacity="0.16"/>
+                                    </g>
+                                    <path d="M200 90 L226 102 L226 128 C226 148 216 160 200 168 C184 160 174 148 174 128 L174 102 Z" fill="var(--accent-primary)" fill-opacity="0.22" stroke="var(--accent-primary)" stroke-opacity="0.55"/>
+                                    <path d="M188 126 L197 136 L214 114" fill="none" stroke="var(--accent-tertiary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.85"/>
+                                    <g stroke="var(--accent-tertiary)" stroke-opacity="0.4">
+                                        <line x1="200" y1="25" x2="200" y2="45"/>
+                                        <line x1="200" y1="205" x2="200" y2="225"/>
+                                        <line x1="80" y1="125" x2="100" y2="125"/>
+                                        <line x1="300" y1="125" x2="320" y2="125"/>
+                                    </g>
+                                </svg>
                                 <div class="project-icon-large"><i class="fas fa-shield-halved"></i></div>
                                 <div class="project-pattern"></div>
+                                <div class="project-logo project-logo-icon"><i class="fas fa-shield-halved"></i></div>
                             </div>
                         </div>
                         <div class="project-info">
-                            <div class="project-tag">Sept 2024 - Apr 2025</div>
+                            <div class="project-tag">Academic &middot; Sept 2024 - Apr 2025</div>
                             <h3 class="project-title">Smart Home Security</h3>
                             <p class="project-description">
-                                IoT-based security system detecting unauthorized access using cloud-based
-                                image storage, AI forensic analysis, real-time alerts, and RBAC controls.
+                                An IoT-based system for detecting unauthorized access using cloud image
+                                storage, AI forensic analysis, real-time alerts, and role-based access control.
                             </p>
                             <div class="project-tech">
                                 <span>IoT</span><span>AI</span><span>Cloud</span><span>Python</span><span>RBAC</span>
+                            </div>
+                            <div class="project-actions">
+                                <a href="#" class="project-action-btn"><i class="fab fa-github"></i>GitHub</a>
                             </div>
                         </div>
                     </div>
@@ -583,19 +699,44 @@
                     <div class="project-card-inner">
                         <div class="project-image">
                             <div class="project-image-placeholder academic-2">
+                                <svg class="project-cover" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                                    <ellipse cx="200" cy="125" rx="62" ry="78" fill="var(--accent-primary)" fill-opacity="0.14" stroke="var(--accent-primary)" stroke-opacity="0.4"/>
+                                    <g stroke="var(--accent-tertiary)" stroke-opacity="0.5" stroke-width="1">
+                                        <line x1="150" y1="90" x2="250" y2="90"/>
+                                        <line x1="145" y1="115" x2="255" y2="115"/>
+                                        <line x1="145" y1="140" x2="255" y2="140"/>
+                                        <line x1="150" y1="165" x2="250" y2="165"/>
+                                        <line x1="200" y1="55" x2="200" y2="195"/>
+                                        <line x1="170" y1="60" x2="170" y2="190"/>
+                                        <line x1="230" y1="60" x2="230" y2="190"/>
+                                    </g>
+                                    <g fill="var(--accent-primary)" fill-opacity="0.85">
+                                        <circle cx="178" cy="112" r="3"/>
+                                        <circle cx="222" cy="112" r="3"/>
+                                        <circle cx="200" cy="135" r="2.5"/>
+                                        <circle cx="185" cy="158" r="2.5"/>
+                                        <circle cx="215" cy="158" r="2.5"/>
+                                    </g>
+                                    <path d="M185 158 Q200 168 215 158" fill="none" stroke="var(--accent-primary)" stroke-width="1.5" stroke-opacity="0.7"/>
+                                    <rect x="140" y="60" width="120" height="130" fill="none" stroke="var(--accent-tertiary)" stroke-opacity="0.3" stroke-dasharray="4 4" rx="6"/>
+                                </svg>
                                 <div class="project-icon-large"><i class="fas fa-user-check"></i></div>
                                 <div class="project-pattern"></div>
+                                <div class="project-logo project-logo-icon"><i class="fas fa-user-check"></i></div>
                             </div>
                         </div>
                         <div class="project-info">
-                            <div class="project-tag">Feb 2024 - Apr 2024</div>
+                            <div class="project-tag">Academic &middot; Feb 2024 - Apr 2024</div>
                             <h3 class="project-title">Person Identification System</h3>
                             <p class="project-description">
-                                AI-based identification system using CNN and face recognition libraries
+                                An AI-based identification system using CNN and face recognition libraries,
                                 with ML frameworks for accurate recognition and cloud-based storage.
                             </p>
                             <div class="project-tech">
                                 <span>Python</span><span>CNN</span><span>ML</span><span>OpenCV</span><span>Cloud</span>
+                            </div>
+                            <div class="project-actions">
+                                <a href="#" class="project-action-btn"><i class="fab fa-github"></i>GitHub</a>
                             </div>
                         </div>
                     </div>
@@ -604,47 +745,28 @@
         </div>
     </section>
 
-    <!-- Games Section -->
-    <section class="section games" id="games">
-        <div class="blob-container">
-            <div class="morph-blob morph-blob-2" style="animation-delay:-3s;"></div>
-        </div>
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Play</span>
-                <h2 class="section-title">Mini <span class="highlight">Games</span></h2>
-                <div class="section-line"></div>
-                <p class="section-subtitle">Take a break and play a game I built for fun.</p>
-            </div>
-            <div class="games-grid games-grid-single">
-                <div class="game-card" data-aos="fade-up" data-aos-duration="800">
-                    <div class="game-card-icon"><i class="fas fa-clone"></i></div>
-                    <h3 class="game-card-title">Tile Match</h3>
-                    <p class="game-card-description">
-                        Flip tiles, find matching pairs, and clear the board in as few moves as possible.
-                    </p>
-                    <button class="btn btn-primary game-play-btn" id="openTileGame" type="button">
-                        <span>Play Now</span>
-                        <i class="fas fa-play"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Space-Time Fabric Showcase -->
+    <!-- Interactive Lab: Space-Time WebGL Experiment -->
     <section class="section fabric-section" id="fabric">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Experiment</span>
-                <h2 class="section-title">Space-Time <span class="highlight">Fabric</span></h2>
+                <span class="section-tag">Lab</span>
+                <h2 class="section-title">Interactive <span class="highlight">Lab</span></h2>
                 <div class="section-line"></div>
-                <p class="section-subtitle">A WebGL particle grid bent by moving gravity wells. Drag to orbit.</p>
+                <p class="section-subtitle">Experiments where code becomes visual.</p>
+                <p class="fabric-intro">
+                    A space for WebGL, particle systems, motion, and interaction &mdash; creative frontend
+                    engineering built to explore how code can feel physical. Below is <strong>Space-Time</strong>,
+                    a particle field bent in real time by moving gravity wells.
+                </p>
             </div>
             <div class="fabric-stage" id="fabricStage" data-aos="zoom-in" data-aos-duration="800">
                 <canvas id="fabricCanvas"></canvas>
                 <div class="fabric-loading" id="fabricLoading">
                     <span>Loading WebGL scene&hellip;</span>
+                </div>
+                <div class="fabric-hint">
+                    <i class="fas fa-arrows-rotate"></i>
+                    <span>Drag to orbit &middot; Move the gravity wells</span>
                 </div>
                 <div class="fabric-controls" id="fabricControls">
                     <label class="fabric-control">
@@ -663,6 +785,34 @@
                         <span>Shear Twist <em id="fabricTwistVal">2</em></span>
                         <input type="range" id="fabricTwist" min="0" max="6" step="0.1" value="2">
                     </label>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section class="section games" id="games">
+        <div class="blob-container">
+            <div class="morph-blob morph-blob-2" style="animation-delay:-3s;"></div>
+        </div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Play</span>
+                <h2 class="section-title">Mini <span class="highlight">Games</span></h2>
+                <div class="section-line"></div>
+                <p class="section-subtitle">Small experiments, interactive ideas and things I build for fun.</p>
+            </div>
+            <div class="games-grid games-grid-single">
+                <div class="game-card" data-aos="fade-up" data-aos-duration="800">
+                    <div class="game-card-icon"><i class="fas fa-clone"></i></div>
+                    <h3 class="game-card-title">Tile Match</h3>
+                    <p class="game-card-description">
+                        Flip tiles, find matching pairs, and clear the board in as few moves as possible.
+                    </p>
+                    <button class="btn btn-primary game-play-btn" id="openTileGame" type="button">
+                        <span>Play Now</span>
+                        <i class="fas fa-play"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -722,9 +872,9 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Gallery</span>
-                <h2 class="section-title">My <span class="highlight">Art</span></h2>
+                <h2 class="section-title">Art <span class="highlight">&times;</span> Code</h2>
                 <div class="section-line"></div>
-                <p class="section-subtitle">Expressing creativity beyond code through hand-drawn art</p>
+                <p class="section-subtitle">Exploring visual storytelling beyond software.</p>
             </div>
             <div class="gallery-showcase" data-aos="zoom-in" data-aos-duration="800">
                 <div class="gallery-main">
@@ -751,9 +901,9 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Contact</span>
-                <h2 class="section-title">Get In <span class="highlight">Touch</span></h2>
+                <h2 class="section-title">Let's build something <span class="highlight">meaningful</span>.</h2>
                 <div class="section-line"></div>
-                <p class="section-subtitle">Have a project in mind or want to collaborate? Let's talk!</p>
+                <p class="section-subtitle">Have a project in mind or want to collaborate? I'd love to hear from you.</p>
             </div>
             <div class="contact-content">
                 <div class="contact-info-col">

@@ -15,7 +15,10 @@ function initFabric() {
     const loading = document.getElementById('fabricLoading');
     if (!stage || !canvas) return;
 
-    const COUNT = window.matchMedia('(max-width: 768px)').matches ? 6000 : 16000;
+    const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+    const isLowPower = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const COUNT = isSmallScreen ? 5000 : (isLowPower ? 9000 : 16000);
 
     // Live-tunable params, wired to the range inputs below
     const params = { scale: 140, freq: 2.2, amp: 8, speed: 1.4, wells: 2, pull: 8, twist: 2 };
@@ -34,7 +37,7 @@ function initFabric() {
     controls.target.set(0, 0, 0);
     controls.enableDamping = true;
     controls.dampingFactor = 0.06;
-    controls.autoRotate = true;
+    controls.autoRotate = !prefersReducedMotion;
     controls.autoRotateSpeed = 0.5;
     controls.minDistance = 60;
     controls.maxDistance = 320;
@@ -60,7 +63,8 @@ function initFabric() {
 
     const composer = new EffectComposer(renderer);
     composer.addPass(new RenderPass(scene, camera));
-    const bloomPass = new UnrealBloomPass(new THREE.Vector2(1, 1), 1.4, 0.4, 0.15);
+    const bloomStrength = isLowPower ? 1.0 : 1.4;
+    const bloomPass = new UnrealBloomPass(new THREE.Vector2(1, 1), bloomStrength, 0.4, 0.15);
     composer.addPass(bloomPass);
 
     function resize() {

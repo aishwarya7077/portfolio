@@ -86,48 +86,48 @@ AOS.init({
     offset: 60,
 });
 
-// --- Typewriter Effect ---
-const typewriterTexts = [
-    'Software Engineer',
-    'Frontend Developer',
-    'React.js Enthusiast',
-    'UI/UX Designer',
-    'Digital Artist'
-];
-
-let textIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-const typewriterEl = document.getElementById('typewriter');
-
-function typeWriter() {
-    const currentText = typewriterTexts[textIndex];
-    if (isDeleting) {
-        typewriterEl.textContent = currentText.substring(0, charIndex - 1);
-        charIndex--;
-    } else {
-        typewriterEl.textContent = currentText.substring(0, charIndex + 1);
-        charIndex++;
-    }
-    let speed = isDeleting ? 40 : 80;
-    if (!isDeleting && charIndex === currentText.length) {
-        speed = 2000; isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        textIndex = (textIndex + 1) % typewriterTexts.length;
-        speed = 400;
-    }
-    setTimeout(typeWriter, speed);
-}
-typeWriter();
-
 // --- Navbar Scroll ---
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 50);
 });
 
-// --- Mobile Navigation (removed) ---
+// --- Mobile Navigation ---
+function initMobileNav() {
+    const toggle = document.getElementById('navMenuToggle');
+    const panel = document.getElementById('mobileNav');
+    const backdrop = document.getElementById('mobileNavBackdrop');
+    if (!toggle || !panel || !backdrop) return;
+
+    const open = () => {
+        panel.classList.add('active');
+        toggle.classList.add('active');
+        toggle.setAttribute('aria-expanded', 'true');
+        panel.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        if (typeof lenis !== 'undefined') lenis.stop();
+    };
+    const close = () => {
+        panel.classList.remove('active');
+        toggle.classList.remove('active');
+        toggle.setAttribute('aria-expanded', 'false');
+        panel.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (typeof lenis !== 'undefined') lenis.start();
+    };
+
+    toggle.addEventListener('click', () => {
+        panel.classList.contains('active') ? close() : open();
+    });
+    backdrop.addEventListener('click', close);
+    panel.querySelectorAll('.mobile-nav-link').forEach((link) => {
+        link.addEventListener('click', close);
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && panel.classList.contains('active')) close();
+    });
+}
+initMobileNav();
 
 // --- Active Nav Link on Scroll ---
 const sections = document.querySelectorAll('section[id]');
@@ -147,7 +147,7 @@ function setActiveNavLink() {
                     }
                 }
             });
-            document.querySelectorAll('.side-nav-link').forEach(link => {
+            document.querySelectorAll('.side-nav-link, .mobile-nav-link').forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('href') === `#${id}`) {
                     link.classList.add('active');
@@ -263,20 +263,6 @@ document.querySelectorAll('.cine-word').forEach((word, i) => {
             start: 'top top',
             end: '70% top',
             scrub: true,
-        }
-    });
-});
-
-// --- GSAP Skill Bars ---
-document.querySelectorAll('.skill-fill').forEach(fill => {
-    gsap.to(fill, {
-        width: fill.getAttribute('data-width') + '%',
-        duration: 1.5,
-        ease: 'power2.out',
-        scrollTrigger: {
-            trigger: fill,
-            start: 'top 85%',
-            once: true,
         }
     });
 });
