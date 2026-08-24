@@ -180,16 +180,18 @@ function initCodeCanvas() {
     const drops = Array(columns).fill(0);
 
     function drawCode() {
-        cCtx.fillStyle = 'rgba(15, 15, 26, 0.12)';
+        cCtx.fillStyle = 'rgba(250, 248, 244, 0.14)';
         cCtx.fillRect(0, 0, codeCanvas.width, codeCanvas.height);
 
         cCtx.font = '12px monospace';
 
         drops.forEach((y, i) => {
             const char = chars[Math.floor(Math.random() * chars.length)];
-            const hue = 270 + Math.random() * 40;
-            const brightness = 50 + Math.random() * 30;
-            cCtx.fillStyle = `hsl(${hue}, 80%, ${brightness}%)`;
+            // Ink on paper: warm vermilion..sage, low saturation, dark
+            // enough to read against a cream ground.
+            const hue = 12 + Math.random() * 18;
+            const brightness = 30 + Math.random() * 18;
+            cCtx.fillStyle = `hsl(${hue}, 45%, ${brightness}%)`;
             cCtx.fillText(char.charAt(Math.floor(Math.random() * char.length)), i * 14, y * 14);
 
             if (y * 14 > codeCanvas.height && Math.random() > 0.96) {
@@ -393,8 +395,12 @@ document.querySelectorAll('.skill-category, .interest-card').forEach(card => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        card.style.background = `radial-gradient(circle 220px at ${x}px ${y}px, rgba(217,155,184,0.18), transparent 70%)`;
-        card.style.boxShadow = `0 0 30px rgba(217,155,184,0.25), 0 18px 40px rgba(0,0,0,0.4)`;
+        // Paper is matte: no glow. A faint warm wash tracks the cursor
+        // like light raking across the sheet, and the cast shadow deepens.
+        // Clean surface: a faint warm sheen tracks the cursor, and the
+        // natural shadow deepens. No colour wash over the card body.
+        card.style.background = `radial-gradient(circle 300px at ${x}px ${y}px, rgba(180,85,61,0.045), rgba(255,255,255,0) 68%), #FFFFFF`;
+        card.style.boxShadow = `0 8px 16px rgba(60,50,40,0.08), 0 24px 56px rgba(60,50,40,0.12)`;
     });
     card.addEventListener('mouseleave', () => {
         card.style.background = '';
@@ -1213,7 +1219,7 @@ function initParticleText() {
 
     const VARIANTS = {
         name: {
-            colors: ['#ffffff', '#e8b8d0', '#ffffff'],
+            colors: ['#23201C', '#B4553D', '#55504A'],
             particleCount: 48,
             particleSize: 6,
             fontSize: 54,
@@ -1222,7 +1228,7 @@ function initParticleText() {
             transition: { type: 'tween', duration: 2.2, ease: 'easeOut' },
         },
         tagline: {
-            colors: ['#ffffff', '#e8b8d0', '#ffffff'],
+            colors: ['#23201C', '#B4553D', '#55504A'],
             particleCount: 50,
             particleSize: 4,
             fontSize: 34,
@@ -1267,7 +1273,7 @@ function initRibbonTrails() {
     if (!ctx) return;
 
     const cfg = {
-        colors: ['#d99bb8', '#c8a8e0', '#b06a9c', '#f3e9f1'],
+        colors: ['#B4553D', '#3F5A50', '#93402C', '#A9A29A'],
         colorShift: 1.4,
         opacity: 45,
         thickness: 2,
@@ -1523,7 +1529,7 @@ function initClickEffects() {
     if (!layer || typeof gsap === 'undefined') return;
 
     const cfg = {
-        color: '#d99bb8',
+        color: '#B4553D',
         duration: 0.3,
         strokeWidth: 2,
         effectSize: 90,
@@ -1640,18 +1646,28 @@ function createParticleImage(container, cfgOverrides) {
 
     const cfg = Object.assign({
         particleCount: 50,
-        particleSize: 5,
+        particleSize: 11,
         particleShape: 'circle',
         hoverEnabled: true,
         hoverType: 'roam',
         transition: { duration: 2.5, ease: 'easeInOut' },
-        roamOpacity: 0.5,
+        roamOpacity: 1,
         roamShape: 'circle',
         repulsionEnabled: true,
         repulsionForce: 8,
         repulsionRadius: 60,
         scale: 10,
         viewportTrigger: false,
+        // Tone shaping: the raw photo has large pale areas (sky,
+        // paper, highlights) whose dots all but vanish against a
+        // light page. These deepen and firm up each sampled dot so
+        // the image reads clearly without losing its colour.
+        contrast: 1.15,     // gentle S-curve; too much blows out pale areas
+        darken: 0.34,       // 0..1, multiplies overall brightness down
+        maxLum: 205,        // ceiling: no dot may be paler than this, so
+                            // sky/skin/paper still register as real marks
+        minAlpha: 255,      // every dot fully opaque
+        saturate: 1.15,     // restores colour lost to the darkening
     }, cfgOverrides || {});
 
     function containRect(iW, iH, cW, cH) {
@@ -1756,6 +1772,31 @@ function createParticleImage(container, cfgOverrides) {
         }, durMs);
     };
 
+    // Deepen a sampled pixel so it stays legible as a discrete dot
+    // on a light background: apply contrast about mid-grey, pull
+    // brightness down, restore a little saturation lost to the
+    // darkening, and enforce an alpha floor.
+    function shapeTone(r, g, b, a) {
+        const C = cfg.contrast, D = 1 - cfg.darken, S = cfg.saturate;
+        let rr = ((r / 255 - 0.5) * C + 0.5) * 255 * D;
+        let gg = ((g / 255 - 0.5) * C + 0.5) * 255 * D;
+        let bb = ((b / 255 - 0.5) * C + 0.5) * 255 * D;
+        const lum = 0.2126 * rr + 0.7152 * gg + 0.0722 * bb;
+        rr = lum + (rr - lum) * S;
+        gg = lum + (gg - lum) * S;
+        bb = lum + (bb - lum) * S;
+        // Cap brightness: pale dots are scaled toward the ceiling as a
+        // whole colour, which preserves their hue instead of greying
+        // them out the way a per-channel clamp would.
+        const lum2 = 0.2126 * rr + 0.7152 * gg + 0.0722 * bb;
+        if (lum2 > cfg.maxLum && lum2 > 0) {
+            const k = cfg.maxLum / lum2;
+            rr *= k; gg *= k; bb *= k;
+        }
+        const clamp = (v) => (v < 0 ? 0 : v > 255 ? 255 : Math.round(v));
+        return [clamp(rr), clamp(gg), clamp(bb), Math.max(cfg.minAlpha, a)];
+    }
+
     function initParticles() {
         const { W, H } = dims;
         if (!W || !H) return;
@@ -1788,7 +1829,8 @@ function createParticleImage(container, cfgOverrides) {
                 for (let x = 0; x < W; x += gap) {
                     const i = (y * W + x) * 4;
                     if (px[i + 3] >= 20) {
-                        src.push({ homeX: x, homeY: y, r: px[i], g: px[i + 1], b: px[i + 2], a: px[i + 3] });
+                        const t = shapeTone(px[i], px[i + 1], px[i + 2], px[i + 3]);
+                        src.push({ homeX: x, homeY: y, r: t[0], g: t[1], b: t[2], a: t[3] });
                     }
                 }
             }
@@ -2012,7 +2054,7 @@ function initParticleImage() {
             ? { hoverEnabled: false, roamOpacity: 1 }
             : null;
         if (el.id === 'particleImageWrap') {
-            createParticleImage(el, Object.assign({ particleCount: 35, particleSize: 3 }, overrides));
+            createParticleImage(el, Object.assign({ particleCount: 30, particleSize: 17 }, overrides));
         } else if (el.classList.contains('gallery-particle-wrap')) {
             createParticleImage(el, Object.assign({ viewportTrigger: true }, overrides));
         } else {
@@ -2140,3 +2182,69 @@ gsap.utils.toArray('.stat-item').forEach((item, i) => {
 });
 
 
+
+
+
+// ===== INTERACTIVE LAB MODAL =====
+// The Lab is not part of the page flow; it opens from the nav.
+// The WebGL scene keeps its own IntersectionObserver (see fabric.js):
+// while the modal is display:none the stage never intersects, so the
+// render loop stays parked and only spins up once the panel is open.
+function initLabModal() {
+    const modal = document.getElementById('labModal');
+    const backdrop = document.getElementById('labModalBackdrop');
+    const closeBtn = document.getElementById('labModalClose');
+    const stage = document.getElementById('fabricStage');
+    if (!modal || !backdrop || !closeBtn) return;
+
+    let lastFocus = null;
+
+    const open = (e) => {
+        if (e) e.preventDefault();
+        lastFocus = document.activeElement;
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        if (typeof lenis !== 'undefined') lenis.stop();
+        // The stage was laid out at zero size while hidden, so the
+        // renderer needs a nudge once the panel has real dimensions.
+        requestAnimationFrame(() => {
+            window.dispatchEvent(new Event('resize'));
+            if (stage) stage.dispatchEvent(new Event('lab:shown'));
+        });
+        closeBtn.focus();
+    };
+
+    const close = () => {
+        if (!modal.classList.contains('active')) return;
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (typeof lenis !== 'undefined') lenis.start();
+        if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+    };
+
+    document.querySelectorAll('[data-open-lab]').forEach((el) => {
+        el.addEventListener('click', (e) => {
+            open(e);
+            // Close the mobile drawer if the link came from there.
+            const drawer = document.getElementById('mobileNav');
+            if (drawer && drawer.classList.contains('active')) {
+                drawer.classList.remove('active');
+                drawer.setAttribute('aria-hidden', 'true');
+                const toggle = document.getElementById('navMenuToggle');
+                if (toggle) toggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    });
+
+    closeBtn.addEventListener('click', close);
+    backdrop.addEventListener('click', close);
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') close();
+    });
+
+    // Deep link: /#lab opens the panel directly.
+    if (window.location.hash === '#lab') open();
+}
+initLabModal();

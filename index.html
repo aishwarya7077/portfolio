@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Serif+4:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Work+Sans:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Serif+4:wght@500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- AOS Animate On Scroll -->
@@ -86,7 +86,7 @@
 
             <div class="profile-section">
                 <h3>Education</h3>
-                <ul class="profile-list">
+                <ul class="profile-list profile-list-sticky">
                     <li>B.E. IT &mdash; Stanley College of Engineering &amp; Technology for Women (CGPA 8.0, 2021&ndash;2025)</li>
                     <li>Narayana Junior College (CGPA 8.3, 2019&ndash;2021)</li>
                 </ul>
@@ -94,7 +94,7 @@
 
             <div class="profile-section">
                 <h3>Certifications</h3>
-                <ul class="profile-list">
+                <ul class="profile-list profile-list-sticky">
                     <li>Introduction to Generative AI &mdash; IBM (edX)</li>
                     <li>Python, Java &mdash; Spoken Tutorial (IIT Bombay)</li>
                     <li>Python for ML, Applications of AI &mdash; Great Learning</li>
@@ -160,6 +160,7 @@
                 <span></span><span></span><span></span>
             </button>
         </div>
+        <span class="nav-bookmark" aria-hidden="true"></span>
     </nav>
 
     <!-- Right Side Navigation (desktop) -->
@@ -169,8 +170,9 @@
         <a href="#experience" class="side-nav-link">Experience</a>
         <a href="#skills" class="side-nav-link">Skills</a>
         <a href="#projects" class="side-nav-link">Projects</a>
-        <a href="#fabric" class="side-nav-link">Lab</a>
-        <a href="#games" class="side-nav-link">Games</a>
+        <a href="#certificates" class="side-nav-link">Certificates</a>
+        <a href="#lab" class="side-nav-link" data-open-lab>Lab</a>
+        <a href="#games" class="side-nav-link" data-open-game>Games</a>
         <a href="#gallery" class="side-nav-link">Art</a>
         <a href="#contact" class="side-nav-link">Contact</a>
     </aside>
@@ -184,8 +186,9 @@
             <a href="#experience" class="mobile-nav-link">Experience</a>
             <a href="#skills" class="mobile-nav-link">Skills</a>
             <a href="#projects" class="mobile-nav-link">Projects</a>
-            <a href="#fabric" class="mobile-nav-link">Lab</a>
-            <a href="#games" class="mobile-nav-link">Games</a>
+            <a href="#certificates" class="mobile-nav-link">Certificates</a>
+            <a href="#lab" class="mobile-nav-link" data-open-lab>Lab</a>
+            <a href="#games" class="mobile-nav-link" data-open-game>Games</a>
             <a href="#gallery" class="mobile-nav-link">Art</a>
             <a href="#contact" class="mobile-nav-link">Contact</a>
         </nav>
@@ -196,6 +199,17 @@
         <div class="sky-bg"></div>
         <!-- Ribbon Trails Cursor Background -->
         <canvas id="ribbonTrailsCanvas" aria-hidden="true"></canvas>
+        <!-- Art marks scattered around the title (decorative) -->
+        <div class="sky-doodles" aria-hidden="true">
+            <span class="doodle-palette sky-d1"></span>
+            <span class="doodle-sketchface sky-d2"></span>
+            <span class="doodle-rabbit sky-d3"></span>
+            <span class="doodle-butterfly sky-d4"></span>
+            <span class="doodle-swatch sky-d5"></span>
+            <span class="doodle-bird sky-d6"></span>
+            <span class="doodle-squiggle sky-d7"></span>
+            <span class="doodle-plane sky-d8"></span>
+        </div>
         <div class="sky-content">
             <h1 class="sky-name">
                 <span class="particle-text" data-particle-text="Aishwarya Dutpala" data-particle-variant="name" role="img" aria-label="Aishwarya Dutpala"></span>
@@ -217,6 +231,33 @@
             <span class="cine-word cine-w9">Frontend</span>
             <span class="cine-word cine-w13">Code</span>
         </div>
+
+        <!-- Origami decoration: folded planes, tinted per face -->
+        <div class="hero-origami hero-origami--tl" aria-hidden="true">
+            <svg viewBox="0 0 200 200">
+                <path d="M20 132 L100 26 L100 132 Z" fill="#EDE4D2"/>
+                <path d="M100 26 L180 132 L100 132 Z" fill="#E0D3BA"/>
+                <path d="M20 132 L100 132 L100 176 Z" fill="#F5EFE2"/>
+                <path d="M180 132 L100 132 L100 176 Z" fill="#D5C4A6"/>
+                <g fill="none" stroke="#B9A88A" stroke-width="1.1" stroke-opacity="0.75">
+                    <path d="M20 132 L100 26 L180 132 L100 176 Z"/>
+                    <path d="M100 26 L100 176"/>
+                </g>
+            </svg>
+        </div>
+        <div class="hero-origami hero-origami--br" aria-hidden="true">
+            <svg viewBox="0 0 200 200">
+                <path d="M28 60 L172 60 L100 150 Z" fill="#EDE4D2"/>
+                <path d="M100 150 L172 60 L136 105 Z" fill="#DACBB0"/>
+                <path d="M28 60 L100 105 L172 60 Z" fill="#F5EFE2"/>
+                <g fill="none" stroke="#B9A88A" stroke-width="1.1" stroke-opacity="0.75">
+                    <path d="M28 60 L172 60 L100 150 Z"/>
+                    <path d="M28 60 L100 105 L172 60"/>
+                </g>
+            </svg>
+        </div>
+        <!-- Torn sheets stacked at the section foot -->
+        <div class="hero-paper-layers" aria-hidden="true"><span></span><span></span></div>
 
         <div class="hero-content">
             <div class="hero-text">
@@ -251,48 +292,30 @@
                 </div>
             </div>
             <div class="hero-visual">
-                <div class="particle-image-wrap" id="particleImageWrap" data-particle-image="pictures/papercraft.jpeg" role="img" aria-label="Aishwarya Dutpala"></div>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="mouse"><div class="mouse-wheel"></div></div>
-            <span>Scroll Down</span>
-        </div>
-    </section>
-
-    <!-- Stats Strip -->
-    <section class="section" style="padding: 0 0 60px;" id="stats">
-        <div class="container">
-            <div class="stats-strip" data-aos="zoom-in" data-aos-duration="800">
-                <div class="stat-item">
-                    <div class="stat-number"><span class="count-up" data-target="4">0</span>+</div>
-                    <div class="stat-label">Projects</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number"><span class="count-up" data-target="8">0</span>+</div>
-                    <div class="stat-label">Technologies</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number"><span class="count-up" data-target="8">0</span>.0</div>
-                    <div class="stat-label">CGPA</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number"><span class="count-up" data-target="3">0</span>+</div>
-                    <div class="stat-label">Certifications</div>
-                </div>
+                <figure class="photo-print">
+                    <span class="photo-print-tape" aria-hidden="true"></span>
+                    <div class="photo-print-window">
+                        <img src="pictures/papercraft.jpeg" alt="Papercraft portrait of Aishwarya Dutpala" class="photo-print-img">
+                    </div>
+                    <figcaption class="photo-print-caption">Aishwarya &mdash; cut &amp; folded</figcaption>
+                </figure>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section class="section about" id="about">
+    <section class="section about paper-stock paper-ledger-bg" id="about">
+        <div class="desk-scatter" aria-hidden="true">
+            <span class="doodle-rabbit scatter-a"></span>
+            <span class="doodle-sketchface scatter-b"></span>
+            <span class="doodle-swatch scatter-c"></span>
+        </div>
         <div class="blob-container">
             <div class="morph-blob morph-blob-1"></div>
             <div class="morph-blob morph-blob-2"></div>
         </div>
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">About</span>
                 <h2 class="section-title">About <span class="highlight">Me</span></h2>
                 <div class="section-line"></div>
             </div>
@@ -302,13 +325,18 @@
                         <img src="pictures/photographs.jpeg" alt="Dutpala Aishwarya" class="about-image-img">
                         <div class="about-image-border"></div>
                     </div>
+                    <span class="about-caption" aria-hidden="true">Hyderabad, 2025</span>
                     <div class="experience-badge">
                         <span class="exp-number">2025</span>
                         <span class="exp-text">B.E. Graduate</span>
                     </div>
                 </div>
                 <div class="about-text-col" data-aos="fade-left" data-aos-duration="800">
+                    <div class="about-holes" aria-hidden="true">
+                        <i></i><i></i><i></i><i></i><i></i><i></i>
+                    </div>
                     <h3 class="about-subtitle">Software Engineer & Artist turning complex data into beautiful experiences</h3>
+                    <span class="about-annotation" aria-hidden="true">&mdash; a little of both, always</span>
                     <p class="about-description">
                         I build accessible, data-driven interfaces at <strong>Fisec Global</strong>, working
                         across UI/UX design, component systems, and frontend engineering. Beyond code, I
@@ -354,17 +382,22 @@
     </section>
 
     <!-- Professional Experience Section -->
-    <section class="section experience" id="experience">
+    <section class="section experience paper-stock paper-graph-bg" id="experience">
+        <div class="desk-scatter" aria-hidden="true">
+            <span class="doodle-cat scatter-d"></span>
+            <span class="doodle-boat scatter-c"></span>
+            <span class="doodle-bird scatter-e"></span>
+        </div>
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Experience</span>
                 <h2 class="section-title">Professional <span class="highlight">Experience</span></h2>
                 <div class="section-line"></div>
             </div>
             <div class="timeline">
                 <div class="timeline-item" data-aos="fade-right" data-aos-duration="800">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-card">
+                    <div class="timeline-card has-clip">
+                        <span class="timeline-marker" aria-hidden="true"></span>
                         <div class="timeline-header">
                             <div>
                                 <h3>Software Engineer</h3>
@@ -413,19 +446,24 @@
     </section>
 
     <!-- Skills Section -->
-    <section class="section skills" id="skills">
+    <section class="section skills paper-stock paper-kraft-bg" id="skills">
+        <div class="desk-scatter" aria-hidden="true">
+            <span class="doodle-origami scatter-a"></span>
+            <span class="doodle-palette scatter-b"></span>
+            <span class="doodle-star scatter-f"></span>
+        </div>
         <div class="blob-container">
             <div class="morph-blob morph-blob-3"></div>
             <div class="morph-blob morph-blob-1" style="animation-delay:-6s;width:350px;height:350px;"></div>
         </div>
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Skills</span>
                 <h2 class="section-title">Technical <span class="highlight">Skills</span></h2>
                 <div class="section-line"></div>
             </div>
             <div class="skills-grid">
-                <div class="skill-category" data-aos="flip-up" data-aos-duration="800">
+                <div class="skill-category has-fold" data-aos="fade-up" data-aos-duration="700">
+                    <span class="skill-tab" aria-hidden="true"></span>
                     <div class="skill-category-header">
                         <div class="skill-icon-wrapper"><i class="fas fa-code"></i></div>
                         <h3>Core Technologies</h3>
@@ -437,7 +475,8 @@
                         <span class="skill-badge"><i class="fab fa-js-square"></i>JavaScript</span>
                     </div>
                 </div>
-                <div class="skill-category" data-aos="flip-up" data-aos-duration="800">
+                <div class="skill-category" data-aos="fade-up" data-aos-duration="700">
+                    <span class="skill-tab" aria-hidden="true"></span>
                     <div class="skill-category-header">
                         <div class="skill-icon-wrapper"><i class="fas fa-layer-group"></i></div>
                         <h3>UI Engineering</h3>
@@ -449,7 +488,8 @@
                         <span class="skill-badge"><i class="fas fa-swatchbook"></i>Design Systems</span>
                     </div>
                 </div>
-                <div class="skill-category" data-aos="flip-up" data-aos-duration="800">
+                <div class="skill-category" data-aos="fade-up" data-aos-duration="700">
+                    <span class="skill-tab" aria-hidden="true"></span>
                     <div class="skill-category-header">
                         <div class="skill-icon-wrapper"><i class="fas fa-server"></i></div>
                         <h3>Backend / Integration</h3>
@@ -460,7 +500,8 @@
                         <span class="skill-badge"><i class="fas fa-table"></i>SQL</span>
                     </div>
                 </div>
-                <div class="skill-category" data-aos="flip-up" data-aos-duration="800">
+                <div class="skill-category has-fold" data-aos="fade-up" data-aos-duration="700">
+                    <span class="skill-tab" aria-hidden="true"></span>
                     <div class="skill-category-header">
                         <div class="skill-icon-wrapper"><i class="fas fa-tools"></i></div>
                         <h3>Tools</h3>
@@ -472,17 +513,6 @@
                         <span class="skill-badge"><i class="fas fa-pen-ruler"></i>Figma / Adobe XD</span>
                     </div>
                 </div>
-            </div>
-            <!-- Floating 3D Skill Orbs -->
-            <div class="skills-orbs-container" id="skillOrbs" data-aos="zoom-in">
-                <div class="skill-orb" style="animation-delay:0s"><i class="fab fa-react"></i><span>React</span></div>
-                <div class="skill-orb" style="animation-delay:0.5s"><i class="fab fa-js"></i><span>JavaScript</span></div>
-                <div class="skill-orb" style="animation-delay:1s"><i class="fab fa-python"></i><span>Python</span></div>
-                <div class="skill-orb" style="animation-delay:1.5s"><i class="fab fa-html5"></i><span>HTML5</span></div>
-                <div class="skill-orb" style="animation-delay:2s"><i class="fab fa-css3-alt"></i><span>CSS3</span></div>
-                <div class="skill-orb" style="animation-delay:0.7s"><i class="fab fa-git-alt"></i><span>Git</span></div>
-                <div class="skill-orb" style="animation-delay:1.3s"><i class="fab fa-node-js"></i><span>Node.js</span></div>
-                <div class="skill-orb" style="animation-delay:1.8s"><i class="fas fa-database"></i><span>APIs</span></div>
             </div>
             <!-- Soft Skills -->
             <div class="soft-skills" data-aos="fade-up">
@@ -499,10 +529,14 @@
     </section>
 
     <!-- Projects Section -->
-    <section class="section projects" id="projects">
+    <section class="section projects paper-stock paper-origami-bg" id="projects">
+        <div class="desk-scatter" aria-hidden="true">
+            <span class="doodle-fox scatter-d"></span>
+            <span class="doodle-butterfly scatter-c"></span>
+            <span class="doodle-squiggle scatter-e"></span>
+        </div>
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Projects</span>
                 <h2 class="section-title">Featured <span class="highlight">Projects</span></h2>
                 <div class="section-line"></div>
             </div>
@@ -523,7 +557,9 @@
 
             <!-- Professional Projects -->
             <div class="projects-grid" id="professionalProjects">
-                <div class="project-card" data-category="professional" data-aos="flip-left" data-aos-duration="900">
+                <div class="project-card is-featured" data-category="professional" data-aos="fade-up" data-aos-duration="700">
+                    <span class="project-tape" aria-hidden="true"></span>
+                    <span class="project-bookmark" aria-hidden="true"></span>
                     <div class="project-card-inner">
                         <div class="project-image">
                             <div class="project-image-placeholder qdl">
@@ -589,7 +625,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card" data-category="professional" data-aos="flip-left" data-aos-duration="900">
+                <div class="project-card is-featured" data-category="professional" data-aos="fade-up" data-aos-duration="700">
+                    <span class="project-tape" aria-hidden="true"></span>
+                    <span class="project-bookmark" aria-hidden="true"></span>
                     <div class="project-card-inner">
                         <div class="project-image">
                             <div class="project-image-placeholder intellihire">
@@ -655,7 +693,8 @@
             <!-- Academic Projects -->
             <h3 class="subsection-title" data-aos="fade-up" id="academicHeading">Academic <span class="highlight">Projects</span></h3>
             <div class="projects-grid" style="margin-top:30px;" id="academicProjects">
-                <div class="project-card" data-category="academic" data-aos="flip-left" data-aos-duration="900">
+                <div class="project-card" data-category="academic" data-aos="fade-up" data-aos-duration="700">
+                    <span class="project-bookmark" aria-hidden="true"></span>
                     <div class="project-card-inner">
                         <div class="project-image">
                             <div class="project-image-placeholder academic-1">
@@ -695,7 +734,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card" data-category="academic" data-aos="flip-left" data-aos-duration="900">
+                <div class="project-card" data-category="academic" data-aos="fade-up" data-aos-duration="700">
+                    <span class="project-bookmark" aria-hidden="true"></span>
                     <div class="project-card-inner">
                         <div class="project-image">
                             <div class="project-image-placeholder academic-2">
@@ -745,21 +785,60 @@
         </div>
     </section>
 
-    <!-- Interactive Lab: Space-Time WebGL Experiment -->
-    <section class="section fabric-section" id="fabric">
+    <!-- Certificates Section -->
+    <section class="section certificates paper-stock paper-handmade-bg" id="certificates">
+        <div class="desk-scatter" aria-hidden="true">
+            <span class="doodle-fish scatter-a"></span>
+            <span class="doodle-crane scatter-d"></span>
+            <span class="doodle-star scatter-g"></span>
+        </div>
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Lab</span>
-                <h2 class="section-title">Interactive <span class="highlight">Lab</span></h2>
+                <h2 class="section-title">Certificates &amp; <span class="highlight">Training</span></h2>
                 <div class="section-line"></div>
-                <p class="section-subtitle">Experiments where code becomes visual.</p>
-                <p class="fabric-intro">
-                    A space for WebGL, particle systems, motion, and interaction &mdash; creative frontend
-                    engineering built to explore how code can feel physical. Below is <strong>Space-Time</strong>,
-                    a particle field bent in real time by moving gravity wells.
-                </p>
+                <p class="section-subtitle">Coursework and certifications behind the practice.</p>
             </div>
-            <div class="fabric-stage" id="fabricStage" data-aos="zoom-in" data-aos-duration="800">
+            <div class="certificates-grid">
+                <article class="certificate-card" data-aos="fade-up" data-aos-duration="700">
+                    <div class="certificate-seal" aria-hidden="true"><i class="fas fa-certificate"></i></div>
+                    <h3 class="certificate-title">Introduction to Generative AI</h3>
+                    <span class="certificate-issuer">IBM &middot; edX</span>
+                    <p class="certificate-meta">Foundations of generative models and applied use cases.</p>
+                </article>
+                <article class="certificate-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="80">
+                    <div class="certificate-seal" aria-hidden="true"><i class="fas fa-certificate"></i></div>
+                    <h3 class="certificate-title">Python &amp; Java Programming</h3>
+                    <span class="certificate-issuer">Spoken Tutorial &middot; IIT Bombay</span>
+                    <p class="certificate-meta">Language fundamentals, tooling, and practical assessments.</p>
+                </article>
+                <article class="certificate-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="160">
+                    <div class="certificate-seal" aria-hidden="true"><i class="fas fa-certificate"></i></div>
+                    <h3 class="certificate-title">Python for Machine Learning</h3>
+                    <span class="certificate-issuer">Great Learning</span>
+                    <p class="certificate-meta">Data handling, model building, and evaluation workflows.</p>
+                </article>
+                <article class="certificate-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="240">
+                    <div class="certificate-seal" aria-hidden="true"><i class="fas fa-certificate"></i></div>
+                    <h3 class="certificate-title">Applications of AI</h3>
+                    <span class="certificate-issuer">Great Learning</span>
+                    <p class="certificate-meta">Applied AI across real-world product and analysis scenarios.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Lab (opens from the nav; not part of page flow) -->
+    <div class="lab-modal" id="labModal" aria-hidden="true">
+        <div class="lab-modal-backdrop" id="labModalBackdrop"></div>
+        <div class="lab-modal-content" role="dialog" aria-modal="true" aria-labelledby="labModalTitle">
+            <div class="lab-modal-head">
+                <div>
+                    <h2 class="lab-modal-title" id="labModalTitle">Interactive <span class="highlight">Lab</span></h2>
+                    <p class="lab-modal-sub">Space-Time &mdash; a particle field bent in real time by moving gravity wells.</p>
+                </div>
+                <button class="lab-modal-close" id="labModalClose" aria-label="Close lab">&times;</button>
+            </div>
+<div class="fabric-stage" id="fabricStage">
                 <canvas id="fabricCanvas"></canvas>
                 <div class="fabric-loading" id="fabricLoading">
                     <span>Loading WebGL scene&hellip;</span>
@@ -788,76 +867,57 @@
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Games Section -->
-    <section class="section games" id="games">
-        <div class="blob-container">
-            <div class="morph-blob morph-blob-2" style="animation-delay:-3s;"></div>
-        </div>
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Play</span>
-                <h2 class="section-title">Mini <span class="highlight">Games</span></h2>
-                <div class="section-line"></div>
-                <p class="section-subtitle">Small experiments, interactive ideas and things I build for fun.</p>
-            </div>
-            <div class="games-grid games-grid-single">
-                <div class="game-card" data-aos="fade-up" data-aos-duration="800">
-                    <div class="game-card-icon"><i class="fas fa-clone"></i></div>
-                    <h3 class="game-card-title">Tile Match</h3>
-                    <p class="game-card-description">
-                        Flip tiles, find matching pairs, and clear the board in as few moves as possible.
-                    </p>
-                    <button class="btn btn-primary game-play-btn" id="openTileGame" type="button">
-                        <span>Play Now</span>
-                        <i class="fas fa-play"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
 
     <!-- Interests Section -->
-    <section class="section interests" id="interests">
+    <section class="section interests paper-stock paper-kraft-bg" id="interests">
+        <div class="desk-scatter" aria-hidden="true">
+            <span class="doodle-palette scatter-a"></span>
+            <span class="doodle-boat scatter-b"></span>
+        </div>
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Interests</span>
                 <h2 class="section-title">Interests & <span class="highlight">Hobbies</span></h2>
                 <div class="section-line"></div>
             </div>
             <div class="interests-grid">
                 <div class="interest-card" data-aos="fade-up" data-aos-delay="0">
+                    <span class="interest-pin" aria-hidden="true"></span>
                     <div class="interest-icon"><i class="fas fa-headphones-simple"></i></div>
                     <h3>Music</h3>
                     <p>Bollywood music enthusiast who loves soulful Indian melodies while coding.</p>
                     <div class="interest-bg-icon"><i class="fas fa-headphones-simple"></i></div>
                 </div>
                 <div class="interest-card" data-aos="fade-up" data-aos-delay="100">
+                    <span class="interest-pin" aria-hidden="true"></span>
                     <div class="interest-icon"><i class="fas fa-clapperboard"></i></div>
                     <h3>Movies</h3>
                     <p>Enjoy genres from sci-fi thrillers to heartwarming dramas and anime.</p>
                     <div class="interest-bg-icon"><i class="fas fa-clapperboard"></i></div>
                 </div>
                 <div class="interest-card" data-aos="fade-up" data-aos-delay="200">
+                    <span class="interest-pin" aria-hidden="true"></span>
                     <div class="interest-icon"><i class="fas fa-vr-cardboard"></i></div>
                     <h3>Gaming</h3>
                     <p>Exploring virtual worlds, strategy games, and competitive multiplayer.</p>
                     <div class="interest-bg-icon"><i class="fas fa-vr-cardboard"></i></div>
                 </div>
                 <div class="interest-card" data-aos="fade-up" data-aos-delay="50">
+                    <span class="interest-pin" aria-hidden="true"></span>
                     <div class="interest-icon"><i class="fas fa-bolt"></i></div>
                     <h3>Tech</h3>
                     <p>Always exploring the latest in AI, web tech, and software trends.</p>
                     <div class="interest-bg-icon"><i class="fas fa-bolt"></i></div>
                 </div>
-                <div class="interest-card" data-aos="fade-up" data-aos-delay="150">
+                <div class="interest-card has-fold" data-aos="fade-up" data-aos-delay="150">
+                    <span class="interest-pin" aria-hidden="true"></span>
                     <div class="interest-icon"><i class="fas fa-earth-americas"></i></div>
                     <h3>Travel</h3>
                     <p>Discovering new places and finding inspiration in diverse cultures.</p>
                     <div class="interest-bg-icon"><i class="fas fa-earth-americas"></i></div>
                 </div>
                 <div class="interest-card" data-aos="fade-up" data-aos-delay="250">
+                    <span class="interest-pin" aria-hidden="true"></span>
                     <div class="interest-icon"><i class="fas fa-pen-nib"></i></div>
                     <h3>Art</h3>
                     <p>Creating vibrant hand-drawn art bringing mythological themes to life.</p>
@@ -868,10 +928,13 @@
     </section>
 
     <!-- Art Gallery Section -->
-    <section class="section gallery" id="gallery">
+    <section class="section gallery paper-stock paper-handmade-bg" id="gallery">
+        <div class="desk-scatter" aria-hidden="true">
+            <span class="doodle-cat scatter-d"></span>
+            <span class="doodle-sketchface scatter-c"></span>
+        </div>
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Gallery</span>
                 <h2 class="section-title">Art <span class="highlight">&times;</span> Code</h2>
                 <div class="section-line"></div>
                 <p class="section-subtitle">Exploring visual storytelling beyond software.</p>
@@ -897,10 +960,14 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="section contact" id="contact">
+    <section class="section contact paper-stock paper-origami-bg" id="contact">
+        <div class="desk-scatter" aria-hidden="true">
+            <span class="doodle-crane scatter-b"></span>
+            <span class="doodle-plane scatter-a"></span>
+            <span class="doodle-swatch scatter-g"></span>
+        </div>
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Contact</span>
                 <h2 class="section-title">Let's build something <span class="highlight">meaningful</span>.</h2>
                 <div class="section-line"></div>
                 <p class="section-subtitle">Have a project in mind or want to collaborate? I'd love to hear from you.</p>
@@ -925,7 +992,8 @@
                     </div>
                 </div>
                 <div class="contact-form-col" data-aos="fade-left" data-aos-duration="800">
-                    <form class="contact-form" id="contactForm">
+                    <form class="contact-form has-tape" id="contactForm">
+                        <p class="contact-salutation" aria-hidden="true">Hello there,</p>
                         <div class="form-group">
                             <input type="text" id="name" placeholder=" " required>
                             <label for="name">Your Name</label><span class="form-line"></span>
@@ -945,6 +1013,7 @@
                         <button type="submit" class="btn btn-primary btn-submit">
                             <span>Send Message</span><i class="fas fa-paper-plane"></i>
                         </button>
+                        <span class="contact-signoff" aria-hidden="true">Talk soon &mdash; Aishwarya</span>
                     </form>
                 </div>
             </div>

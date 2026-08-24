@@ -1,40 +1,65 @@
 /* ============================================
-   PORTFOLIO - Professional High-Tech + Artistic
-   Dutpala Aishwarya
+   PORTFOLIO - Dutpala Aishwarya
+   Modern editorial base + stationery accents.
+   The UI is clean and premium; papercraft appears
+   as deliberate decoration (tape, clips, folds,
+   sketch marks), never as the whole surface.
    ============================================ */
 
 :root {
-    --bg-primary: #0f0a14;
-    --bg-secondary: #161020;
-    --bg-tertiary: #1d1628;
-    --bg-card: rgba(28,20,38,0.92);
-    --bg-glass: rgba(28,20,38,0.7);
-    --border-color: rgba(217,155,184,0.12);
-    --border-hover: rgba(217,155,184,0.28);
-    --text-primary: #f3e9f1;
-    --text-secondary: #c9bcd1;
-    --text-muted: #8a7a96;
-    --accent-primary: #d99bb8;
-    --accent-secondary: #b06a9c;
-    --accent-tertiary: #c8a8e0;
-    --accent-gradient: linear-gradient(135deg, #d99bb8, #b06a9c);
-    --accent-glow: rgba(217,155,184,0.25);
-    --accent-light: rgba(217,155,184,0.08);
-    --font-primary: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-heading: 'Source Serif 4', 'Source Sans 3', sans-serif;
-    --radius-sm: 6px;
-    --radius-md: 10px;
-    --radius-lg: 14px;
-    --radius-xl: 18px;
-    --shadow-sm: 0 1px 2px rgba(15,23,42,0.04);
-    --shadow-md: 0 6px 18px rgba(15,23,42,0.08);
-    --shadow-lg: 0 12px 30px rgba(15,23,42,0.1);
-    --shadow-xl: 0 18px 50px rgba(15,23,42,0.12);
-    --shadow-glow: 0 0 18px rgba(29,78,216,0.08);
-    --shadow-card: 0 1px 2px rgba(15,23,42,0.05), 0 8px 24px rgba(15,23,42,0.06);
+    /* --- ground: near-white studio paper, not kraft --- */
+    --bg-primary: #FAF8F4;
+    --bg-secondary: #F4F1EA;
+    --bg-tertiary: #EDE8DE;
+    --bg-card: #FFFFFF;
+    --bg-glass: rgba(255,255,255,0.86);
+
+    /* --- stationery accents (decoration only) --- */
+    --paper-cream: #F7F2E7;
+    --paper-kraft: #E4D7BF;
+    --paper-shade: #D5C4A6;
+    --tape: rgba(226,214,186,0.72);
+    --sticky: #FCEFA8;
+    --sticky-edge: #EBD97F;
+    --pencil: #8A8078;
+
+    --border-color: rgba(38,34,30,0.10);
+    --border-hover: rgba(38,34,30,0.20);
+
+    --text-primary: #23201C;
+    --text-secondary: #55504A;
+    --text-muted: #8A837B;
+
+    --accent-primary: #B4553D;
+    --accent-secondary: #93402C;
+    --accent-tertiary: #3F5A50;
+    --accent-gradient: linear-gradient(135deg, #B4553D, #93402C);
+    --accent-glow: rgba(180,85,61,0.18);
+    --accent-light: rgba(180,85,61,0.07);
+
+    --font-primary: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-heading: 'Fraunces', 'Source Serif 4', Georgia, serif;
+    --font-hand: 'Caveat', 'Bradley Hand', cursive;
+
+    /* modern radii — the clean UI keeps its softness.
+       Paper accents opt out individually. */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+
+    /* natural shadows: warm, soft, physically plausible */
+    --shadow-sm: 0 1px 2px rgba(60,50,40,0.06);
+    --shadow-md: 0 2px 4px rgba(60,50,40,0.06), 0 6px 16px rgba(60,50,40,0.07);
+    --shadow-lg: 0 4px 8px rgba(60,50,40,0.07), 0 14px 32px rgba(60,50,40,0.09);
+    --shadow-xl: 0 8px 16px rgba(60,50,40,0.08), 0 24px 56px rgba(60,50,40,0.11);
+    --shadow-glow: 0 4px 14px rgba(180,85,61,0.16);
+    --shadow-card: 0 1px 2px rgba(60,50,40,0.05), 0 8px 24px rgba(60,50,40,0.07);
+    --edge-light: inset 0 1px 0 rgba(255,255,255,0.9);
+
     --transition-fast: 0.15s ease;
-    --transition-normal: 0.25s ease;
-    --transition-slow: 0.4s ease;
+    --transition-normal: 0.25s cubic-bezier(.2,.7,.3,1);
+    --transition-slow: 0.45s cubic-bezier(.2,.7,.3,1);
 }
 
 *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
@@ -358,7 +383,7 @@ img { max-width: 100%; display: block; }
     padding: 90px 24px 24px;
     background: var(--bg-card);
     border-left: 1px solid var(--border-color);
-    box-shadow: -20px 0 60px rgba(0,0,0,0.4);
+    box-shadow: -20px 0 60px rgba(60,50,40,0.18);
     transform: translateX(100%);
     transition: transform var(--transition-normal);
     overflow-y: auto;
@@ -1257,7 +1282,7 @@ img { max-width: 100%; display: block; }
     height: calc(100% - 12px);
     border-radius: var(--radius-lg);
     background: var(--accent-gradient);
-    box-shadow: 0 6px 16px rgba(217,155,184,0.35);
+    box-shadow: 0 6px 16px rgba(180,85,61,0.35);
     transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), width 0.4s cubic-bezier(0.4,0,0.2,1);
     z-index: 1;
 }
@@ -1324,14 +1349,14 @@ img { max-width: 100%; display: block; }
     content: '';
     position: absolute; inset: 0;
     background:
-        radial-gradient(circle at 15% 15%, var(--mesh-a, rgba(217,155,184,0.28)), transparent 55%),
-        radial-gradient(circle at 85% 85%, var(--mesh-b, rgba(200,168,224,0.22)), transparent 55%);
+        radial-gradient(circle at 15% 15%, var(--mesh-a, rgba(180,85,61,0.28)), transparent 55%),
+        radial-gradient(circle at 85% 85%, var(--mesh-b, rgba(63,90,80,0.22)), transparent 55%);
 }
 
-.project-image-placeholder.qdl { --mesh-a: rgba(217,155,184,0.3); --mesh-b: rgba(176,106,156,0.22); }
-.project-image-placeholder.intellihire { --mesh-a: rgba(200,168,224,0.3); --mesh-b: rgba(217,155,184,0.2); }
-.project-image-placeholder.academic-1 { --mesh-a: rgba(200,168,224,0.32); --mesh-b: rgba(217,155,184,0.16); }
-.project-image-placeholder.academic-2 { --mesh-a: rgba(217,155,184,0.24); --mesh-b: rgba(200,168,224,0.28); }
+.project-image-placeholder.qdl { --mesh-a: rgba(180,85,61,0.3); --mesh-b: rgba(147,64,44,0.22); }
+.project-image-placeholder.intellihire { --mesh-a: rgba(63,90,80,0.3); --mesh-b: rgba(180,85,61,0.2); }
+.project-image-placeholder.academic-1 { --mesh-a: rgba(63,90,80,0.32); --mesh-b: rgba(180,85,61,0.16); }
+.project-image-placeholder.academic-2 { --mesh-a: rgba(180,85,61,0.24); --mesh-b: rgba(63,90,80,0.28); }
 
 .project-card:hover .project-image-placeholder { transform: scale(1.02); }
 
@@ -1375,7 +1400,7 @@ img { max-width: 100%; display: block; }
 .project-pattern {
     position: absolute; inset: 0;
     z-index: 1;
-    background-image: radial-gradient(rgba(217,155,184,0.16) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(180,85,61,0.16) 1px, transparent 1px);
     background-size: 22px 22px;
     -webkit-mask-image: linear-gradient(to top, transparent, #000 70%);
     mask-image: linear-gradient(to top, transparent, #000 70%);
@@ -1383,7 +1408,7 @@ img { max-width: 100%; display: block; }
 
 .project-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(15,10,20,0) 0%, rgba(15,10,20,0.88) 100%);
+    background: linear-gradient(180deg, rgba(35,32,28,0) 0%, rgba(35,32,28,0.84) 100%);
     display: flex; align-items: flex-end; justify-content: flex-end;
     padding: 18px;
     opacity: 0; transition: opacity var(--transition-normal);
@@ -2789,7 +2814,7 @@ img { max-width: 100%; display: block; }
     position: fixed;
     top: 0; left: 0;
     width: 40px; height: 40px;
-    border: 2px solid rgba(217,155,184,0.5);
+    border: 2px solid rgba(180,85,61,0.5);
     border-radius: 50%;
     pointer-events: none;
     z-index: 99998;
@@ -2800,7 +2825,7 @@ img { max-width: 100%; display: block; }
 .cursor-ring.hover {
     width: 60px; height: 60px;
     border-color: var(--accent-primary);
-    background: rgba(217,155,184,0.08);
+    background: rgba(180,85,61,0.08);
 }
 
 .cursor-dot.click {
@@ -2849,26 +2874,24 @@ img { max-width: 100%; display: block; }
 
 /* ===== ENHANCED GLASSMORPHISM ===== */
 .navbar.scrolled {
-    background: rgba(15,10,20,0.65) !important;
+    background: rgba(255,255,255,0.94) !important;
     backdrop-filter: blur(24px) saturate(180%) !important;
     -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
-    border-bottom: 1px solid rgba(217,155,184,0.1) !important;
+    border-bottom: 1px solid var(--border-color) !important;
 }
 
 .glass-card {
-    background: rgba(28,20,38,0.5) !important;
-    backdrop-filter: blur(20px) saturate(160%);
-    -webkit-backdrop-filter: blur(20px) saturate(160%);
-    border: 1px solid rgba(217,155,184,0.12);
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-color);
     box-shadow: 0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.05);
 }
 
 /* Side nav glassmorphism */
 .side-nav {
-    background: rgba(15,10,20,0.7) !important;
+    background: rgba(255,255,255,0.92) !important;
     backdrop-filter: blur(20px) saturate(160%) !important;
     -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
-    border: 1px solid rgba(217,155,184,0.1) !important;
+    border: 1px solid var(--border-color) !important;
 }
 
 .side-nav-link {
@@ -2877,13 +2900,13 @@ img { max-width: 100%; display: block; }
 
 .side-nav-link:hover {
     color: #fff !important;
-    background: rgba(217,155,184,0.16) !important;
+    background: var(--accent-light) !important;
 }
 
 .side-nav-link.active {
     color: var(--accent-primary) !important;
-    background: rgba(217,155,184,0.15) !important;
-    box-shadow: 0 4px 12px rgba(217,155,184,0.2) !important;
+    background: var(--accent-primary) !important;
+    box-shadow: var(--shadow-md) !important;
 }
 
 /* ===== 3D PROJECT CARDS ===== */
@@ -2906,7 +2929,7 @@ img { max-width: 100%; display: block; }
     position: absolute;
     inset: -1px;
     border-radius: inherit;
-    background: linear-gradient(135deg, rgba(217,155,184,0.3), transparent 50%, rgba(200,168,224,0.2));
+    background: linear-gradient(135deg, rgba(180,85,61,0.3), transparent 50%, rgba(63,90,80,0.2));
     opacity: 0;
     transition: opacity 0.4s ease;
     z-index: -1;
@@ -2920,7 +2943,7 @@ img { max-width: 100%; display: block; }
 .project-card:hover {
     box-shadow:
         0 30px 60px rgba(0,0,0,0.25),
-        0 0 40px rgba(217,155,184,0.1),
+        0 0 40px rgba(180,85,61,0.1),
         inset 0 1px 0 rgba(255,255,255,0.05) !important;
 }
 
@@ -2936,7 +2959,7 @@ img { max-width: 100%; display: block; }
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    background: radial-gradient(ellipse at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(217,155,184,0.15), transparent 60%);
+    background: radial-gradient(ellipse at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(180,85,61,0.15), transparent 60%);
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
@@ -2962,8 +2985,8 @@ img { max-width: 100%; display: block; }
     position: relative;
     width: 80px; height: 80px;
     border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, rgba(217,155,184,0.3), rgba(176,106,156,0.15));
-    border: 1px solid rgba(217,155,184,0.2);
+    background: radial-gradient(circle at 30% 30%, rgba(180,85,61,0.3), rgba(147,64,44,0.15));
+    border: 1px solid rgba(180,85,61,0.2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2971,7 +2994,7 @@ img { max-width: 100%; display: block; }
     font-size: 26px;
     color: var(--accent-primary);
     backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px rgba(217,155,184,0.15), inset 0 2px 4px rgba(255,255,255,0.1);
+    box-shadow: 0 8px 32px rgba(180,85,61,0.15), inset 0 2px 4px rgba(255,255,255,0.1);
     animation: orb-float 6s ease-in-out infinite;
     cursor: default;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -2979,7 +3002,7 @@ img { max-width: 100%; display: block; }
 
 .skill-orb:hover {
     transform: scale(1.2) translateZ(30px) !important;
-    box-shadow: 0 16px 48px rgba(217,155,184,0.35), inset 0 2px 4px rgba(255,255,255,0.15);
+    box-shadow: 0 16px 48px rgba(180,85,61,0.35), inset 0 2px 4px rgba(255,255,255,0.15);
 }
 
 .skill-orb span {
@@ -3067,10 +3090,10 @@ img { max-width: 100%; display: block; }
 
 /* ===== ENHANCED STATS STRIP ===== */
 .stats-strip {
-    background: rgba(28,20,38,0.7) !important;
+    background: var(--paper-cream) !important;
     backdrop-filter: blur(20px) saturate(160%);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
-    border: 1px solid rgba(217,155,184,0.12) !important;
+    border: 1px solid rgba(180,85,61,0.12) !important;
 }
 
 .stat-item {
@@ -3082,7 +3105,7 @@ img { max-width: 100%; display: block; }
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 50% 100%, rgba(217,155,184,0.1), transparent 70%);
+    background: radial-gradient(ellipse at 50% 100%, rgba(180,85,61,0.1), transparent 70%);
     opacity: 0;
     transition: opacity 0.4s ease;
 }
@@ -3101,27 +3124,25 @@ img { max-width: 100%; display: block; }
     transform: translateY(-8px) rotateX(1deg) !important;
     box-shadow:
         0 25px 50px rgba(0,0,0,0.2),
-        0 0 30px rgba(217,155,184,0.08) !important;
+        0 0 30px rgba(180,85,61,0.08) !important;
 }
 
 /* ===== CONTACT FORM 3D ===== */
 .contact-form {
     transform-style: preserve-3d;
     perspective: 1000px;
-    background: rgba(28,20,38,0.6) !important;
-    backdrop-filter: blur(16px) saturate(150%);
-    -webkit-backdrop-filter: blur(16px) saturate(150%);
 }
 
 .contact-card {
-    background: rgba(28,20,38,0.5) !important;
-    backdrop-filter: blur(12px);
-    transition: all 0.4s cubic-bezier(0.2,0.8,0.2,1) !important;
+    transition: transform 0.3s cubic-bezier(0.2,0.8,0.2,1),
+                box-shadow 0.3s cubic-bezier(0.2,0.8,0.2,1),
+                border-color 0.3s ease;
 }
 
+/* Contact rows slide toward the reader rather than lifting, so the
+   column reads as a stack of cards being thumbed through. */
 .contact-card:hover {
-    transform: translateX(8px) translateZ(10px) !important;
-    box-shadow: 0 12px 32px rgba(0,0,0,0.2), 0 0 20px rgba(217,155,184,0.08) !important;
+    transform: translateX(6px);
 }
 
 /* ===== GALLERY 3D ENHANCEMENTS ===== */
@@ -3134,7 +3155,7 @@ img { max-width: 100%; display: block; }
     transform: translateY(-8px) rotateX(2deg) !important;
     box-shadow:
         0 30px 60px rgba(0,0,0,0.25),
-        0 0 40px rgba(217,155,184,0.12) !important;
+        0 0 40px rgba(180,85,61,0.12) !important;
 }
 
 /* ===== GLOW ACCENTS ===== */
@@ -3193,7 +3214,7 @@ img { max-width: 100%; display: block; }
     color: #fff;
     border-color: transparent;
     transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 12px 28px rgba(217,155,184,0.35);
+    box-shadow: 0 12px 28px rgba(180,85,61,0.35);
 }
 
 @media (max-width: 768px) {
@@ -3209,7 +3230,7 @@ img { max-width: 100%; display: block; }
     background: var(--accent-gradient);
     z-index: 99999;
     transition: width 0.1s linear;
-    box-shadow: 0 0 10px rgba(217,155,184,0.5);
+    box-shadow: 0 0 10px rgba(180,85,61,0.5);
 }
 
 /* ===== CLICK EFFECTS OVERLAY ===== */
@@ -3253,7 +3274,7 @@ img { max-width: 100%; display: block; }
     position: absolute;
     width: 600px; height: 600px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(217,155,184,0.08), transparent 70%);
+    background: radial-gradient(circle, rgba(180,85,61,0.08), transparent 70%);
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     pointer-events: none;
@@ -3278,7 +3299,7 @@ img { max-width: 100%; display: block; }
     transform: translateX(-50%);
     width: 200px; height: 1px;
     background: var(--accent-gradient);
-    box-shadow: 0 0 20px rgba(217,155,184,0.3);
+    box-shadow: 0 0 20px rgba(180,85,61,0.3);
 }
 
 /* ===== LOADING SCREEN ENHANCEMENT ===== */
@@ -3287,8 +3308,8 @@ img { max-width: 100%; display: block; }
 }
 
 .retro-progress-bar {
-    background: linear-gradient(90deg, #fca311, #d99bb8, #b06a9c) !important;
-    box-shadow: 0 0 15px rgba(217,155,184,0.4);
+    background: linear-gradient(90deg, #C0553F, #9E3F2C) !important;
+    box-shadow: 0 0 15px rgba(180,85,61,0.4);
 }
 
 /* ===== SMOOTH SECTION TRANSITIONS ===== */
@@ -3710,7 +3731,7 @@ img { max-width: 100%; display: block; }
     border-radius: 50%;
     background: var(--accent-gradient);
     cursor: pointer;
-    box-shadow: 0 0 6px rgba(217,155,184,0.5);
+    box-shadow: 0 0 6px rgba(180,85,61,0.5);
 }
 
 .fabric-control input[type="range"]::-moz-range-thumb {
@@ -3719,7 +3740,7 @@ img { max-width: 100%; display: block; }
     border-radius: 50%;
     background: var(--accent-gradient);
     cursor: pointer;
-    box-shadow: 0 0 6px rgba(217,155,184,0.5);
+    box-shadow: 0 0 6px rgba(180,85,61,0.5);
 }
 
 @media (max-width: 768px), (hover: none) {
@@ -3740,4 +3761,2744 @@ img { max-width: 100%; display: block; }
 @media (max-width: 480px) {
     .fabric-stage { height: 360px; }
     .fabric-controls { grid-template-columns: 1fr; }
+}
+
+
+/* ============================================================
+   STATIONERY ACCENT SYSTEM
+   ------------------------------------------------------------
+   Rule of thumb followed throughout: the SURFACE stays clean
+   (white card, modern radius, soft shadow) and the PAPER is an
+   object placed on it (tape, clip, fold, sticky, sketch line).
+   Decoration is opt-in per component, never a global skin.
+   ============================================================ */
+
+/* --- 1. Ground: premium off-white, texture barely there ---- */
+body {
+    background-color: var(--bg-primary);
+    /* One very low-contrast fibre pass. At 2% it registers as
+       "warm stock" rather than "textured wallpaper". */
+    background-image:
+        repeating-linear-gradient(96deg,
+            rgba(120,100,75,0.014) 0 1px, transparent 1px 4px),
+        repeating-linear-gradient(2deg,
+            rgba(120,100,75,0.010) 0 1px, transparent 1px 5px);
+    color: var(--text-primary);
+    letter-spacing: -0.002em;
+}
+
+.morph-blob, .blob-container, .cinematic-bg { display: none !important; }
+
+::selection { background: var(--accent-primary); color: #fff; }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb {
+    background: var(--paper-shade);
+    border-radius: 99px;
+    border: 3px solid var(--bg-secondary);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
+
+/* --- 2. Typography ---------------------------------------- */
+.section-title, .hero-name, .about-subtitle, .subsection-title,
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    font-optical-sizing: auto;
+    letter-spacing: -0.018em;
+    color: var(--text-primary);
+}
+.section-title { font-weight: 600; }
+
+.highlight {
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    -webkit-text-fill-color: currentColor !important;
+    color: var(--accent-primary) !important;
+}
+
+/* --- 3. SIGNATURE: the section eyebrow is a bookmark ------- */
+/* Sections are chapters, so the eyebrow is a ribbon bookmark
+   with a notched tail. It nudges down on hover of its header —
+   the movement a real bookmark makes when you tug it. */
+.section-tag {
+    position: relative;
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: #fff;
+    background: var(--accent-primary);
+    border: none;
+    border-radius: 3px 3px 0 0;
+    padding: 7px 15px 11px;
+    box-shadow: 0 2px 6px rgba(180,85,61,0.28);
+    transition: transform var(--transition-normal);
+}
+/* the V-notch cut into the ribbon's tail */
+.section-tag::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    height: 8px;
+    background: inherit;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 55%, 0 100%);
+}
+.section-header:hover .section-tag { transform: translateY(3px); }
+
+/* Section rule: a pencil stroke, tapered at both ends. */
+.section-line {
+    background: linear-gradient(90deg,
+        transparent, var(--pencil) 22%, var(--pencil) 78%, transparent) !important;
+    height: 1.5px !important;
+    opacity: 0.5;
+    box-shadow: none;
+}
+
+/* --- 4. Cards: clean surface, paper detail ---------------- */
+/* Modern white card with a soft natural shadow. The paper is
+   the folded corner, not the card itself. */
+.skill-category,
+.project-card,
+.timeline-card,
+.interest-card,
+.contact-card,
+.contact-form,
+.gallery-item,
+.game-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    position: relative;
+    transition: transform var(--transition-normal),
+                box-shadow var(--transition-normal),
+                border-color var(--transition-normal);
+}
+
+/* Paper lifting: a clean vertical lift, no rotation. The card is
+   a sheet being picked up, so the shadow grows beneath it. */
+.skill-category:hover,
+.project-card:hover,
+.timeline-card:hover,
+.interest-card:hover,
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--border-hover);
+}
+
+/* --- 5. Folded corner (opt-in via .has-fold) -------------- */
+/* Applied to a subset of cards, not all of them, so it reads as
+   a detail rather than a pattern. The fold is clipped inside the
+   card's own radius, and the underside is darker than the face. */
+.has-fold { overflow: hidden; }
+.has-fold::after {
+    content: "";
+    position: absolute;
+    top: 0; right: 0;
+    width: 28px; height: 28px;
+    background: linear-gradient(225deg,
+        var(--bg-secondary) 0%,
+        var(--paper-kraft) 52%,
+        var(--paper-shade) 100%);
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+    box-shadow: -2px 2px 4px rgba(60,50,40,0.14);
+    pointer-events: none;
+    z-index: 4;
+    transition: width var(--transition-normal), height var(--transition-normal);
+}
+.has-fold:hover::after { width: 40px; height: 40px; }
+
+/* --- 6. Washi tape (opt-in via .has-tape) ----------------- */
+/* Translucent strip crossing the card's top edge, with the
+   slightly torn ends real tape has. */
+.has-tape::before {
+    content: "";
+    position: absolute;
+    top: -9px; left: 50%;
+    width: 96px; height: 26px;
+    transform: translateX(-50%) rotate(-2.2deg);
+    background:
+        repeating-linear-gradient(90deg,
+            rgba(255,255,255,0.30) 0 3px, transparent 3px 7px),
+        var(--tape);
+    /* torn ends, not scissor-cut */
+    clip-path: polygon(
+        2% 12%, 9% 0, 17% 9%, 26% 2%, 35% 10%, 46% 3%, 57% 11%,
+        68% 2%, 78% 10%, 88% 1%, 97% 9%, 100% 24%,
+        98% 88%, 90% 99%, 80% 90%, 69% 98%, 58% 89%,
+        47% 97%, 36% 88%, 25% 98%, 14% 90%, 4% 99%, 0 80%);
+    box-shadow: 0 2px 4px rgba(60,50,40,0.14);
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* --- 7. Paper clip (opt-in via .has-clip) ----------------- */
+/* Drawn with two nested rounded rectangles in SVG so the wire
+   reads as bent metal rather than a flat glyph. */
+.has-clip::before {
+    content: "";
+    position: absolute;
+    top: -14px; left: 26px;
+    width: 26px; height: 58px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 58'%3E%3Cg fill='none' stroke='%23A9A29A' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M8 44 L8 15 a5.6 5.6 0 0 1 11.2 0 L19.2 47 a8.4 8.4 0 0 1-16.8 0 L2.4 13'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain;
+    filter: drop-shadow(0 2px 2px rgba(60,50,40,0.26));
+    pointer-events: none;
+    z-index: 6;
+    transform: rotate(-4deg);
+    transition: transform var(--transition-normal);
+}
+.has-clip:hover::before { transform: rotate(-1deg) translateY(-2px); }
+
+/* --- 8. Buttons: clean, with a pressed-paper response ----- */
+.btn {
+    border-radius: var(--radius-sm);
+    font-family: var(--font-primary);
+    font-weight: 600;
+    letter-spacing: 0.005em;
+    transition: transform var(--transition-fast),
+                box-shadow var(--transition-fast),
+                background var(--transition-fast);
+}
+.btn-primary {
+    background: var(--accent-primary) !important;
+    color: #fff !important;
+    border: none !important;
+    box-shadow: 0 2px 4px rgba(147,64,44,0.24),
+                0 6px 16px rgba(147,64,44,0.18) !important;
+}
+.btn-primary:hover {
+    transform: translateY(-2px);
+    background: var(--accent-secondary) !important;
+    box-shadow: 0 4px 8px rgba(147,64,44,0.26),
+                0 12px 24px rgba(147,64,44,0.20) !important;
+}
+.btn-primary:active { transform: translateY(0); }
+
+.btn-outline {
+    background: var(--bg-card) !important;
+    color: var(--accent-secondary) !important;
+    border: 1.5px solid var(--border-hover) !important;
+    box-shadow: var(--shadow-sm) !important;
+}
+.btn-outline:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-primary) !important;
+    color: var(--accent-primary) !important;
+    box-shadow: var(--shadow-md) !important;
+}
+.btn-outline:active { transform: translateY(0); }
+
+/* --- 9. Accessibility floor ------------------------------- */
+:where(a, button, input, textarea, [tabindex]):focus-visible {
+    outline: 2.5px solid var(--accent-primary);
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    .skill-category:hover, .project-card:hover,
+    .timeline-card:hover, .interest-card:hover,
+    .contact-card:hover { transform: none; }
+}
+
+/* ============================================================
+   SECTION ACCENTS — each gets ONE stationery gesture
+   ============================================================ */
+
+/* --- 10. Navbar: clean bar, torn lower edge --------------- */
+/* The bar itself is a crisp modern surface. Its bottom edge is
+   deckled, as though the header were torn from a larger sheet. */
+.navbar {
+    background: rgba(255,255,255,0.90) !important;
+    backdrop-filter: saturate(180%) blur(14px) !important;
+    -webkit-backdrop-filter: saturate(180%) blur(14px) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: var(--shadow-md) !important;
+}
+.navbar::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -7px;
+    height: 8px;
+    background: inherit;
+    -webkit-mask-image: var(--tear-bottom);
+    mask-image: var(--tear-bottom);
+    -webkit-mask-size: 1200px 8px;
+    mask-size: 1200px 8px;
+    -webkit-mask-repeat: repeat-x;
+    mask-repeat: repeat-x;
+    pointer-events: none;
+}
+.nav-link { color: var(--text-secondary) !important; font-weight: 500; }
+.nav-link:hover, .nav-link.active { color: var(--accent-primary) !important; }
+.nav-link.active { background: var(--accent-light) !important; border-radius: var(--radius-sm); }
+.logo-text, .logo-main, .nav-center-name {
+    color: var(--text-primary) !important;
+    text-shadow: none !important;
+}
+.nav-center-name { font-family: var(--font-heading); font-weight: 600; }
+
+.navbar.scrolled {
+    background: rgba(255,255,255,0.94) !important;
+    backdrop-filter: saturate(180%) blur(16px) !important;
+    -webkit-backdrop-filter: saturate(180%) blur(16px) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    box-shadow: var(--shadow-md) !important;
+}
+
+:root {
+    --tear-bottom: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='8' preserveAspectRatio='none'%3E%3Cpath d='M0 0 L0 4.3 C 24 5.4, 48 3.2, 73 4.5 C 99 5.8, 122 2.8, 148 3.9 C 175 5.0, 197 2.4, 224 3.5 C 250 4.6, 274 6.6, 301 5.1 C 327 3.7, 350 1.3, 377 2.6 C 403 3.9, 427 5.9, 454 4.6 C 480 3.3, 504 1.4, 531 2.9 C 557 4.4, 581 6.3, 608 4.9 C 634 3.5, 658 1.5, 685 2.8 C 711 4.1, 735 6.1, 762 4.7 C 788 3.4, 812 1.6, 839 3.0 C 865 4.4, 889 6.4, 916 5.0 C 942 3.6, 966 1.7, 993 3.1 C 1019 4.5, 1043 6.5, 1070 5.2 C 1096 3.8, 1120 1.8, 1147 3.2 C 1165 4.1, 1183 4.9, 1200 4.0 L 1200 0 Z' fill='%23000'/%3E%3C/svg%3E");
+}
+
+/* --- 11. Hero: pencil underline + margin annotation ------- */
+.hero { background: transparent !important; }
+.hero-name .name-line {
+    display: block;
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-variation-settings: 'SOFT' 30, 'WONK' 1;
+    letter-spacing: -0.028em;
+    line-height: 0.95;
+}
+.hero-name .name-line.highlight {
+    position: relative;
+    color: var(--accent-primary) !important;
+}
+/* A hand-drawn underline swept beneath the surname — the kind
+   you'd pencil under a name to emphasise it. */
+.hero-name .name-line.highlight::after {
+    content: "";
+    position: absolute;
+    left: -2px; right: -6px; bottom: 0.02em;
+    height: 12px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 12' preserveAspectRatio='none'%3E%3Cpath d='M2 8.4 C 46 3.6, 92 9.8, 138 5.2 C 184 1.2, 232 8.6, 297 4.2' fill='none' stroke='%23B4553D' stroke-width='2.6' stroke-linecap='round' opacity='0.5'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+    pointer-events: none;
+}
+.hero-greeting {
+    font-family: var(--font-primary);
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 11px;
+    color: var(--text-muted);
+}
+.greeting-line { background: var(--accent-primary) !important; }
+.hero-role-static { font-family: var(--font-primary); color: var(--text-secondary); font-weight: 500; }
+.hero-description { color: var(--text-secondary); }
+
+/* Portrait: a photo print, taped at one corner. */
+.particle-image-wrap {
+    background: #fff;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    box-shadow: var(--shadow-xl);
+    transform: rotate(-1.2deg);
+    position: relative;
+}
+.particle-image-wrap::before {
+    content: "";
+    position: absolute;
+    top: -12px; right: -16px;
+    width: 84px; height: 24px;
+    transform: rotate(38deg);
+    background:
+        repeating-linear-gradient(90deg,
+            rgba(255,255,255,0.3) 0 3px, transparent 3px 7px),
+        var(--tape);
+    clip-path: polygon(3% 10%, 12% 0, 24% 9%, 38% 1%, 52% 10%,
+        66% 2%, 79% 10%, 92% 1%, 100% 18%, 97% 86%, 86% 99%,
+        73% 90%, 60% 98%, 46% 89%, 32% 98%, 19% 89%, 7% 98%, 0 78%);
+    box-shadow: 0 2px 4px rgba(60,50,40,0.16);
+    z-index: 3;
+}
+
+.social-link {
+    background: var(--bg-card) !important;
+    color: var(--accent-primary) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: var(--shadow-sm) !important;
+    backdrop-filter: none !important;
+}
+.social-link:hover {
+    background: var(--accent-primary) !important;
+    color: #fff !important;
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md) !important;
+}
+
+/* --- 12. Stats: a torn strip of note paper --------------- */
+.stats-strip {
+    background: var(--paper-cream) !important;
+    border: 1px solid rgba(60,50,40,0.09) !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: var(--shadow-md), var(--edge-light) !important;
+    backdrop-filter: none !important;
+    position: relative;
+}
+.stat-number {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    color: var(--accent-primary) !important;
+}
+.stat-label {
+    font-family: var(--font-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.11em;
+    font-size: 10px;
+    color: var(--text-muted) !important;
+}
+/* Perforated dividers, like a tear-off pad. */
+.stat-item + .stat-item {
+    border-left: 1.5px dashed rgba(60,50,40,0.20);
+}
+
+/* --- 13. Timeline: a spiral-bound spine ------------------ */
+/* The rail is the binding edge; each entry's dot is a punched
+   hole with a ring through it. */
+.timeline::before {
+    background: repeating-linear-gradient(
+        180deg,
+        rgba(60,50,40,0.18) 0 12px,
+        transparent 12px 26px) !important;
+    width: 2px !important;
+    box-shadow: none;
+}
+.timeline-dot {
+    background: var(--bg-card) !important;
+    border: 2.5px solid var(--accent-primary) !important;
+    border-radius: 50% !important;
+    box-shadow: 0 2px 5px rgba(60,50,40,0.18), inset 0 1px 2px rgba(60,50,40,0.10) !important;
+}
+.timeline-company { font-family: var(--font-heading); color: var(--text-primary) !important; }
+.timeline-date {
+    font-family: var(--font-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 10px;
+    color: var(--accent-secondary) !important;
+    background: var(--accent-light);
+    border-radius: 99px;
+    padding: 5px 12px;
+}
+/* The nested project block reads as a memo stapled inside. */
+.timeline-project {
+    background: var(--paper-cream) !important;
+    border: 1px solid rgba(60,50,40,0.09) !important;
+    border-left: 3px solid var(--accent-primary) !important;
+    border-radius: var(--radius-sm) !important;
+}
+.timeline-label {
+    font-family: var(--font-primary);
+    letter-spacing: 0.1em;
+    color: var(--accent-secondary) !important;
+}
+.timeline-project-desc { color: var(--text-secondary) !important; }
+
+/* --- 14. Skills: chips as punched tabs -------------------- */
+.skill-category { overflow: visible !important; }
+.skill-icon-wrapper {
+    background: var(--accent-light) !important;
+    color: var(--accent-primary) !important;
+    border: 1px solid rgba(180,85,61,0.20) !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: none !important;
+}
+.skill-badge, .project-tech span, .timeline-tech span {
+    background: var(--bg-secondary) !important;
+    color: var(--text-secondary) !important;
+    border: 1px solid rgba(60,50,40,0.11) !important;
+    border-radius: 99px !important;
+    box-shadow: var(--edge-light) !important;
+    font-weight: 500;
+    transition: transform var(--transition-fast),
+                background var(--transition-fast),
+                color var(--transition-fast);
+}
+.skill-badge:hover {
+    background: var(--accent-primary) !important;
+    color: #fff !important;
+    border-color: var(--accent-primary) !important;
+    transform: translateY(-2px);
+}
+/* Orbs: punched paper discs, flat and matte. */
+.skill-orb {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-color) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    color: var(--accent-primary) !important;
+    box-shadow: var(--shadow-md), var(--edge-light) !important;
+}
+.skill-orb:hover {
+    background: var(--accent-primary) !important;
+    color: #fff !important;
+    box-shadow: var(--shadow-lg) !important;
+}
+
+/* --- 15. Projects: layered paper covers ------------------- */
+/* The cover art is a two-tone cut-paper collage; the card around
+   it stays a clean modern surface. */
+.project-card { overflow: hidden !important; }
+.project-image-placeholder { background: var(--bg-tertiary) !important; }
+.project-image-placeholder::before {
+    background:
+        linear-gradient(158deg,
+            var(--mesh-a, rgba(180,85,61,0.26)) 0%,
+            var(--mesh-a, rgba(180,85,61,0.26)) 47%,
+            var(--mesh-b, rgba(63,90,80,0.22)) 47%,
+            var(--mesh-b, rgba(63,90,80,0.22)) 100%) !important;
+}
+.project-image-placeholder.qdl        { --mesh-a: rgba(180,85,61,0.28); --mesh-b: rgba(147,64,44,0.17); }
+.project-image-placeholder.intellihire{ --mesh-a: rgba(63,90,80,0.26);  --mesh-b: rgba(180,85,61,0.17); }
+.project-image-placeholder.academic-1 { --mesh-a: rgba(168,132,68,0.26);--mesh-b: rgba(63,90,80,0.18); }
+.project-image-placeholder.academic-2 { --mesh-a: rgba(112,96,132,0.24);--mesh-b: rgba(180,85,61,0.17); }
+.project-pattern {
+    background-image: radial-gradient(rgba(60,50,40,0.16) 1px, transparent 1px) !important;
+    background-size: 16px 16px !important;
+}
+.project-overlay {
+    background: linear-gradient(180deg,
+        rgba(35,32,28,0) 0%, rgba(35,32,28,0.82) 100%) !important;
+}
+.project-card:hover .project-image-placeholder { transform: none !important; }
+.project-logo {
+    background: #fff !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: var(--shadow-md) !important;
+}
+.project-content { background: var(--bg-card) !important; }
+.project-title { font-family: var(--font-heading); color: var(--text-primary) !important; }
+.project-category {
+    font-family: var(--font-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.11em;
+    font-size: 10px;
+    color: var(--accent-secondary) !important;
+}
+.project-description { color: var(--text-secondary) !important; }
+
+/* Filter pills */
+.filter-btn, .project-filter button {
+    background: var(--bg-card) !important;
+    color: var(--text-secondary) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 99px !important;
+    box-shadow: var(--shadow-sm) !important;
+    backdrop-filter: none !important;
+}
+.filter-btn.active, .project-filter button.active {
+    background: var(--accent-primary) !important;
+    color: #fff !important;
+    border-color: var(--accent-primary) !important;
+    box-shadow: var(--shadow-glow) !important;
+}
+
+/* --- 16. Certificates: sticky notes on a board ------------ */
+/* Inside the profile panel, certifications and education read as
+   sticky notes — each slightly tilted, with a shadow that is
+   heavier at the bottom edge where the note lifts off. */
+.profile-section h3 {
+    font-family: var(--font-heading);
+    color: var(--text-primary) !important;
+    font-size: 15px;
+}
+.profile-list { list-style: none; padding: 0; }
+.profile-list li {
+    position: relative;
+    background: var(--sticky);
+    border: none;
+    border-radius: 2px;
+    padding: 13px 15px 14px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    line-height: 1.55;
+    color: #4A431E;
+    box-shadow: 0 1px 2px rgba(60,50,40,0.10),
+                0 6px 12px rgba(60,50,40,0.10);
+    transition: transform var(--transition-normal),
+                box-shadow var(--transition-normal);
+}
+/* Alternating tilt so the stack looks placed by hand. */
+.profile-list li:nth-child(odd)  { transform: rotate(-0.7deg); }
+.profile-list li:nth-child(even) { transform: rotate(0.6deg); }
+.profile-list li:hover {
+    transform: rotate(0deg) translateY(-3px);
+    box-shadow: 0 2px 4px rgba(60,50,40,0.12),
+                0 12px 22px rgba(60,50,40,0.14);
+}
+/* The curled bottom-right corner of a peeling sticky note. */
+.profile-list li::after {
+    content: "";
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 18px; height: 18px;
+    background: linear-gradient(135deg, transparent 50%, var(--sticky-edge) 50%);
+    border-radius: 0 0 2px 0;
+}
+
+/* --- 17. Contact: a form on a writing pad ---------------- */
+.contact-form { padding-top: 30px; }
+.form-group input, .form-group textarea {
+    background: var(--bg-card) !important;
+    border: 1px solid rgba(60,50,40,0.14) !important;
+    border-radius: var(--radius-sm) !important;
+    color: var(--text-primary) !important;
+    box-shadow: none !important;
+    font-family: var(--font-primary);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.form-group input:focus, .form-group textarea:focus {
+    border-color: var(--accent-primary) !important;
+    box-shadow: 0 0 0 3px var(--accent-light) !important;
+}
+.form-group label { color: var(--text-muted) !important; }
+.contact-icon {
+    background: var(--accent-light) !important;
+    color: var(--accent-primary) !important;
+    border: 1px solid rgba(180,85,61,0.18) !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: none !important;
+}
+
+/* --- 18. Gallery: prints pinned to a board --------------- */
+.gallery-item {
+    padding: 10px 10px 30px !important;
+    background: #fff !important;
+    border-radius: 3px !important;
+    transform: rotate(var(--tilt, 0deg));
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+.gallery-grid > .gallery-item:nth-child(3n+1) { --tilt: -1.2deg; }
+.gallery-grid > .gallery-item:nth-child(3n+2) { --tilt:  0.8deg; }
+.gallery-grid > .gallery-item:nth-child(3n+3) { --tilt: -0.5deg; }
+.gallery-item:hover { --tilt: 0deg; transform: translateY(-5px); }
+.gallery-overlay {
+    background: linear-gradient(to top,
+        rgba(35,32,28,0.80), rgba(35,32,28,0) 62%) !important;
+}
+
+/* --- 19. About + interests -------------------------------- */
+.about-image-card {
+    background: #fff !important;
+    padding: 12px;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 3px !important;
+    box-shadow: var(--shadow-xl) !important;
+}
+.experience-badge {
+    background: var(--accent-primary) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: var(--shadow-lg) !important;
+    transform: rotate(-2.5deg);
+}
+.exp-number { font-family: var(--font-heading); font-weight: 900; }
+.exp-text { font-family: var(--font-primary); letter-spacing: 0.07em; }
+.about-info-item i {
+    background: var(--accent-light) !important;
+    color: var(--accent-primary) !important;
+    border: 1px solid rgba(180,85,61,0.18) !important;
+    border-radius: var(--radius-sm) !important;
+}
+.interest-icon {
+    background: var(--accent-light) !important;
+    color: var(--accent-primary) !important;
+    border: 1px solid rgba(180,85,61,0.18) !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: none !important;
+}
+.interest-card { overflow: hidden !important; }
+.interest-bg-icon { color: rgba(60,50,40,0.045) !important; }
+.interest-title { font-family: var(--font-heading); color: var(--text-primary) !important; }
+.interest-desc { color: var(--text-secondary) !important; }
+
+/* --- 20. Alternating section grounds --------------------- */
+/* Two tones only, so sections separate without the page turning
+   into a patchwork. */
+.about, .projects, .interests { background: var(--bg-secondary) !important; }
+.experience, .skills, .contact, .gallery, .games { background: transparent !important; }
+.section { position: relative; }
+
+/* --- 21. Remaining surfaces ------------------------------- */
+.side-nav {
+    background: rgba(255,255,255,0.92) !important;
+    backdrop-filter: saturate(180%) blur(14px) !important;
+    -webkit-backdrop-filter: saturate(180%) blur(14px) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: var(--shadow-lg) !important;
+}
+.side-nav-link {
+    color: var(--text-secondary) !important;
+    border-radius: var(--radius-sm) !important;
+    font-family: var(--font-primary);
+}
+.side-nav-link:hover { color: var(--accent-primary) !important; background: var(--accent-light) !important; }
+.side-nav-link.active { color: #fff !important; background: var(--accent-primary) !important; }
+.side-email, .side-email a { color: var(--text-muted) !important; }
+.side-line, .side-rail { background: rgba(60,50,40,0.18) !important; }
+
+.footer {
+    background: var(--bg-tertiary) !important;
+    border-top: 1px solid var(--border-color) !important;
+    color: var(--text-secondary) !important;
+}
+.footer-logo, .footer h3, .footer h4 { font-family: var(--font-heading); }
+.footer a { color: var(--accent-secondary) !important; }
+.footer a:hover { color: var(--accent-primary) !important; }
+
+.back-to-top, .profile-fab {
+    background: var(--accent-primary) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: var(--shadow-lg) !important;
+    backdrop-filter: none !important;
+}
+.back-to-top:hover, .profile-fab:hover { background: var(--accent-secondary) !important; }
+.scroll-progress { background: var(--accent-primary) !important; }
+
+/* Modals: a sheet lifted onto the desk. */
+.resume-modal-content, .game-modal-content, .profile-modal-content {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: 0 24px 64px rgba(35,32,28,0.28) !important;
+    backdrop-filter: none !important;
+}
+.resume-modal-backdrop, .game-modal-backdrop,
+.profile-modal-backdrop, .mobile-nav-backdrop, .lightbox {
+    background: rgba(35,32,28,0.52) !important;
+    backdrop-filter: blur(3px) !important;
+}
+.mobile-nav-panel { background: var(--bg-card) !important; }
+
+/* Lab + games */
+.fabric-stage { background: var(--bg-secondary) !important; }
+.fabric-controls label, .fabric-controls span { color: var(--text-secondary) !important; }
+.fabric-controls input[type="range"] { accent-color: var(--accent-primary); }
+.tile-board { background: var(--bg-secondary) !important; border-radius: var(--radius-md) !important; }
+.tile-card, .tile {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: var(--shadow-sm) !important;
+}
+.game-stat-value { font-family: var(--font-heading); color: var(--accent-primary) !important; }
+.game-stat-label {
+    font-family: var(--font-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--text-muted) !important;
+}
+
+/* Loader: a sheet being printed. */
+.retro-loader {
+    background: radial-gradient(120% 90% at 14% 4%,
+        #FFFDF9 0%, #F7F3EA 48%, #EFE9DC 100%) !important;
+}
+.retro-progress-bar { background: var(--accent-primary) !important; box-shadow: none !important; }
+.retro-progress-track, .retro-loader-bar {
+    background: rgba(60,50,40,0.10) !important;
+    border: 1px solid rgba(60,50,40,0.14) !important;
+}
+.retro-percentage, .retro-loader-text, .retro-loader * {
+    color: var(--text-primary) !important;
+    text-shadow: none !important;
+}
+
+/* Intro sheet */
+.sky-intro { display: flex !important; }
+.sky-bg {
+    background: radial-gradient(120% 90% at 16% 5%,
+        #FFFDF9 0%, #F7F3EA 46%, #EEE8DB 100%) !important;
+}
+.sky-bg::after {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+        repeating-linear-gradient(96deg, rgba(120,100,75,0.016) 0 1px, transparent 1px 4px),
+        repeating-linear-gradient(2deg, rgba(120,100,75,0.012) 0 1px, transparent 1px 5px);
+    pointer-events: none;
+}
+.sky-name { color: var(--text-primary); }
+.sky-tagline {
+    color: var(--text-muted);
+    font-family: var(--font-primary);
+    font-style: normal;
+    letter-spacing: 0.02em;
+    font-size: clamp(13px,1.3vw,16px);
+}
+.sky-scroll-hint { color: var(--accent-primary) !important; }
+#ribbonTrailsCanvas { mix-blend-mode: multiply; opacity: 0.42; }
+
+.section-subtitle, .about-description, .contact-description { color: var(--text-secondary) !important; }
+.about-subtitle { color: var(--text-primary) !important; }
+
+/* Cursor */
+.cursor-dot { background: var(--accent-primary) !important; }
+.cursor-ring { border-color: var(--accent-primary) !important; mix-blend-mode: normal !important; }
+
+/* --- 22. Opacity sweep ----------------------------------- */
+/* Clear glass blur everywhere except the elements that legitimately
+   float above content (nav bars and modal scrims). */
+*:not(.navbar):not(.side-nav):not(.resume-modal-backdrop):not(.game-modal-backdrop):not(.profile-modal-backdrop):not(.mobile-nav-backdrop):not(.lightbox) {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+/* --- 23. Mobile ------------------------------------------ */
+@media (max-width: 768px) {
+    .stat-item + .stat-item { border-left: none; }
+    .particle-image-wrap { transform: none; padding: 8px; }
+    .particle-image-wrap::before { display: none; }
+    .has-tape::before { width: 74px; height: 20px; top: -7px; }
+    .has-clip::before { display: none; }
+    .gallery-item { --tilt: 0deg !important; }
+    .profile-list li { transform: none !important; }
+}
+
+/* --- 24. Hand annotation in the hero ---------------------- */
+/* One handwritten line, positioned like a note pencilled into
+   the margin. Decorative only, so it is hidden from screen
+   readers — the same fact is already stated in About. */
+.hero-note {
+    font-family: var(--font-hand);
+    font-size: 21px;
+    line-height: 1;
+    color: var(--pencil);
+    transform: rotate(-1.6deg);
+    margin: 6px 0 0 14px;
+    opacity: 0.88;
+}
+@media (max-width: 768px) { .hero-note { font-size: 18px; margin-left: 4px; } }
+
+/* --- 25. Corrections after visual review ------------------ */
+/* (a) A pre-existing .skill-category::after (mouse-follow glow)
+   occupied the pseudo-element my fold needed, and its old accent
+   colour was still pink. Retire it: the clean-surface hover in
+   rule 4 already covers this interaction. */
+.skill-category::after {
+    background: none !important;
+    opacity: 0 !important;
+}
+/* Re-issue the fold on a dedicated element so it cannot collide. */
+.skill-category.has-fold { overflow: hidden !important; }
+.skill-category.has-fold::before {
+    content: "";
+    position: absolute;
+    top: 0; right: 0;
+    width: 28px; height: 28px;
+    background: linear-gradient(225deg,
+        var(--bg-secondary) 0%, var(--paper-kraft) 52%, var(--paper-shade) 100%);
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+    box-shadow: -2px 2px 4px rgba(60,50,40,0.14);
+    pointer-events: none;
+    z-index: 4;
+    transition: width var(--transition-normal), height var(--transition-normal);
+}
+.skill-category.has-fold:hover::before { width: 40px; height: 40px; }
+
+/* (b) The clip sits ON the card's top edge, so the card must not
+   clip it. Padding keeps the title clear of the clip's footprint. */
+.timeline-card.has-clip {
+    overflow: visible !important;
+    padding-top: 30px;
+}
+
+/* (c) Sticky notes: only on credentials, and sized like real ones.
+   Education/Certifications are things you'd pin up; the technical
+   skills list stays a plain reference list. */
+.profile-list li {
+    background: none;
+    border-radius: 0;
+    padding: 0 0 0 16px;
+    margin-bottom: 9px;
+    box-shadow: none;
+    transform: none;
+    color: var(--text-secondary);
+    font-size: 13px;
+    position: relative;
+}
+.profile-list li::after { display: none; }
+/* a small pencil tick marking each reference item */
+.profile-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 9px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    opacity: 0.5;
+}
+
+.profile-list-sticky {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.profile-list-sticky li {
+    flex: 1 1 190px;
+    background: var(--sticky);
+    padding: 14px 16px 18px;
+    border-radius: 2px;
+    color: #4A431E;
+    font-size: 12.5px;
+    line-height: 1.5;
+    box-shadow: 0 1px 2px rgba(60,50,40,0.10),
+                0 7px 14px rgba(60,50,40,0.11);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+.profile-list-sticky li::before { display: none; }
+.profile-list-sticky li:nth-child(odd)  { transform: rotate(-0.9deg); }
+.profile-list-sticky li:nth-child(even) { transform: rotate(0.8deg); }
+.profile-list-sticky li:hover {
+    transform: rotate(0deg) translateY(-3px);
+    box-shadow: 0 2px 4px rgba(60,50,40,0.12),
+                0 13px 24px rgba(60,50,40,0.15);
+}
+/* peeling bottom-right corner */
+.profile-list-sticky li::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 17px; height: 17px;
+    background: linear-gradient(135deg, transparent 50%, var(--sticky-edge) 50%);
+}
+@media (max-width: 768px) {
+    .profile-list-sticky li { flex: 1 1 100%; transform: none !important; }
+}
+
+/* --- 26. Second review pass ------------------------------- */
+/* (a) The clip sat over the job title. Move it to the card's
+   right edge, where a real clip would hold the page without
+   covering the text, and give the header room. */
+.timeline-card.has-clip::before {
+    left: auto;
+    right: 34px;
+    top: -16px;
+}
+.timeline-card.has-clip { padding-top: 26px; }
+.timeline-card.has-clip .timeline-header { padding-right: 74px; }
+
+/* (b) Tape must overhang the card edge, so the taped card cannot
+   clip its own decoration. The interest cards' background glyph
+   is inset well away from the edges, so visible overflow is safe
+   here. */
+.interest-card.has-tape { overflow: visible !important; }
+.contact-form.has-tape { overflow: visible !important; }
+
+/* ============================================================
+   PAPERCRAFT REDESIGN — LAYER II
+   ------------------------------------------------------------
+   Deepens the stationery identity without turning the UI into
+   paper. Everything here is either (a) a decorative object laid
+   ON a clean surface, or (b) a scattered desk element behind the
+   content. Nothing decorative is announced to screen readers.
+   ============================================================ */
+
+/* --- 27. Shared ink for hand-drawn marks ------------------ */
+:root {
+    --ink-pencil: #8A8078;
+    --sticky-blue:  #CFE3F0;
+    --sticky-green: #D8E8D2;
+    --sticky-pink:  #F4D9D4;
+    --paper-line:   rgba(90,120,150,0.16);
+    --paper-margin: rgba(190,110,95,0.30);
+}
+
+/* A reusable handwritten annotation, for margin notes that sit
+   beside real content. Always aria-hidden in the markup. */
+.hand-note {
+    font-family: var(--font-hand);
+    font-size: 20px;
+    line-height: 1.15;
+    color: var(--ink-pencil);
+    opacity: 0.9;
+    pointer-events: none;
+}
+
+/* ============================================================
+   28. SCATTERED DESK ELEMENTS
+   Small stationery illustrations drifting behind sections.
+   Very low contrast, generous spacing, strictly decorative.
+   ============================================================ */
+.desk-scatter {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+.desk-scatter > * {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0.5;
+}
+/* Keep real content above the scatter layer. */
+.section > .container { position: relative; z-index: 1; }
+
+/* Stationery illustrations drawn as line art, so they read as
+   sketches on the page rather than printed clip-art. */
+.doodle-pencil {
+    width: 116px; height: 116px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%238A8078' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' opacity='0.5'%3E%3Cpath d='M18 96 L26 74 L86 16 a8 8 0 0 1 11 11 L38 86 Z'/%3E%3Cpath d='M26 74 L38 86'/%3E%3Cpath d='M78 24 L89 35'/%3E%3C/g%3E%3C/svg%3E");
+}
+.doodle-clip {
+    width: 78px; height: 78px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%238A8078' stroke-width='3' stroke-linecap='round' opacity='0.45'%3E%3Cpath d='M26 62 L26 24 a7 7 0 0 1 14 0 L40 66 a10 10 0 0 1-20 0 L20 20'/%3E%3C/g%3E%3C/svg%3E");
+}
+.doodle-star {
+    width: 46px; height: 46px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%238A8078' stroke-width='2' stroke-linecap='round' opacity='0.45'%3E%3Cpath d='M24 6 L24 42 M6 24 L42 24 M11 11 L37 37 M37 11 L11 37'/%3E%3C/g%3E%3C/svg%3E");
+}
+.doodle-squiggle {
+    width: 130px; height: 40px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 130 40'%3E%3Cpath d='M4 22 C 20 4, 34 40, 50 22 C 66 4, 80 40, 96 22 C 108 8, 118 18, 126 14' fill='none' stroke='%238A8078' stroke-width='2' stroke-linecap='round' opacity='0.42'/%3E%3C/svg%3E");
+}
+.doodle-origami {
+    width: 104px; height: 104px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 110'%3E%3Cg fill='none' stroke='%238A8078' stroke-width='2' stroke-linejoin='round' opacity='0.5'%3E%3Cpath d='M14 74 L55 20 L96 74 Z'/%3E%3Cpath d='M55 20 L55 74'/%3E%3Cpath d='M14 74 L55 92 L96 74'/%3E%3C/g%3E%3C/svg%3E");
+}
+.doodle-tack {
+    width: 44px; height: 44px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Cg fill='none' stroke='%238A8078' stroke-width='2' stroke-linecap='round' opacity='0.45'%3E%3Ccircle cx='22' cy='17' r='9'/%3E%3Cpath d='M22 26 L22 39'/%3E%3C/g%3E%3C/svg%3E");
+}
+.doodle-ruler {
+    width: 128px; height: 40px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 40'%3E%3Cg fill='none' stroke='%238A8078' stroke-width='1.8' stroke-linecap='round' opacity='0.42'%3E%3Crect x='4' y='12' width='120' height='18' rx='2'/%3E%3Cpath d='M18 12 L18 22 M32 12 L32 19 M46 12 L46 22 M60 12 L60 19 M74 12 L74 22 M88 12 L88 19 M102 12 L102 22'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Placements: the outer margins, clear of the content column. */
+.scatter-a { top: 8%;   left: 2.5%; transform: rotate(-14deg); }
+.scatter-b { top: 62%;  right: 3%;  transform: rotate(11deg); }
+.scatter-c { bottom: 9%; left: 5%;  transform: rotate(7deg); }
+.scatter-d { top: 16%;  right: 6%;  transform: rotate(-8deg); }
+.scatter-e { top: 44%;  left: 3%;   transform: rotate(4deg); }
+
+/* Below the content width there is no margin left to decorate,
+   so the scatter is withdrawn rather than overlapped. */
+@media (max-width: 1280px) {
+    .scatter-e, .scatter-c { display: none; }
+}
+@media (max-width: 1024px) {
+    .desk-scatter { display: none; }
+}
+
+/* ============================================================
+   29. NAVBAR — a bookmark tab clipped to the bar
+   ============================================================ */
+/* A ribbon bookmark hangs from the bar, notched like the section
+   eyebrows so the vocabulary stays consistent. */
+.nav-bookmark {
+    position: absolute;
+    top: 100%;
+    right: 30px;
+    width: 26px;
+    height: 38px;
+    background: var(--accent-primary);
+    border-radius: 0 0 2px 2px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 62%, 0 100%);
+    box-shadow: 0 3px 7px rgba(60,50,40,0.22);
+    pointer-events: none;
+    transition: height var(--transition-normal);
+}
+.navbar:hover .nav-bookmark { height: 48px; }
+
+/* The centred name gets a pencil rule that draws itself in on
+   hover, like underlining a title by hand. */
+.nav-center-name { position: relative; }
+.nav-center-name::after {
+    content: "";
+    position: absolute;
+    left: 50%; bottom: -5px;
+    width: 0; height: 7px;
+    transform: translateX(-50%);
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 7' preserveAspectRatio='none'%3E%3Cpath d='M2 4.6 C 40 1.8, 78 6.2, 118 3.0 C 134 1.8, 148 4.4, 158 3.2' fill='none' stroke='%23B4553D' stroke-width='1.8' stroke-linecap='round' opacity='0.6'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+    transition: width var(--transition-normal);
+    pointer-events: none;
+}
+.navbar:hover .nav-center-name::after { width: 100%; }
+
+/* Side nav: each link slides like a bookmark being tugged out. */
+.side-nav-link {
+    position: relative;
+    transition: transform var(--transition-normal),
+                color var(--transition-fast),
+                background var(--transition-fast);
+}
+.side-nav-link:hover { transform: translateX(-4px); }
+.side-nav-link.active::before {
+    content: "";
+    position: absolute;
+    left: -9px; top: 50%;
+    width: 4px; height: 16px;
+    transform: translateY(-50%);
+    background: var(--accent-secondary);
+    border-radius: 2px 0 0 2px;
+}
+
+/* ============================================================
+   30. HERO — origami decoration + layered paper
+   ============================================================ */
+/* Folded planes with slightly different tints, so the shape reads
+   as one sheet folded rather than several shapes stacked. */
+.hero-origami {
+    position: absolute;
+    width: 190px; height: 190px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.9;
+    animation: origamiDrift 14s ease-in-out infinite;
+}
+.hero-origami svg { width: 100%; height: 100%; display: block; }
+@keyframes origamiDrift {
+    0%,100% { transform: translateY(0)     rotate(-6deg); }
+    50%     { transform: translateY(-12px) rotate(-3deg); }
+}
+.hero-origami--tl { top: 6%; left: -4%; }
+.hero-origami--br {
+    bottom: 4%; right: 2%;
+    width: 130px; height: 130px;
+    animation-delay: -6s;
+}
+
+/* Torn paper layers stacked at the hero's foot, giving the
+   section depth like sheets laid on a desk. */
+.hero-paper-layers {
+    position: absolute;
+    inset: auto 0 -1px 0;
+    height: 120px;
+    pointer-events: none;
+    z-index: 0;
+}
+.hero-paper-layers span {
+    position: absolute;
+    left: -2%; right: -2%;
+    height: 78px;
+    background: var(--paper-cream);
+    -webkit-mask-image: var(--tear-bottom);
+    mask-image: var(--tear-bottom);
+    -webkit-mask-size: 1400px 8px;
+    mask-size: 1400px 8px;
+    -webkit-mask-repeat: repeat-x;
+    mask-repeat: repeat-x;
+    -webkit-mask-position: bottom;
+    mask-position: bottom;
+}
+.hero-paper-layers span:nth-child(1) {
+    bottom: 16px; opacity: 0.55; transform: rotate(-0.5deg);
+}
+.hero-paper-layers span:nth-child(2) {
+    bottom: 6px; opacity: 0.8; transform: rotate(0.35deg);
+    background: var(--bg-secondary);
+}
+
+@media (max-width: 1024px) {
+    .hero-origami { display: none; }
+}
+
+/* ============================================================
+   31. ABOUT — a notebook page
+   ============================================================ */
+/* The text column becomes a ruled sheet: faint rules, a red
+   margin line, and a punched-hole edge. The rules sit behind the
+   text at low enough contrast to stay out of its way. */
+.about-text-col {
+    position: relative;
+    background: #FFFDF8;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 34px 34px 34px 58px;
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+}
+.about-text-col::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+        180deg, transparent 0 31px, var(--paper-line) 31px 32px);
+    pointer-events: none;
+    opacity: 0.85;
+}
+.about-text-col::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0; left: 40px;
+    width: 1.5px;
+    background: var(--paper-margin);
+    pointer-events: none;
+}
+.about-text-col > * { position: relative; z-index: 1; }
+
+.about-holes {
+    position: absolute;
+    top: 0; bottom: 0; left: 13px;
+    width: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    pointer-events: none;
+    z-index: 2;
+}
+.about-holes i {
+    width: 13px; height: 13px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    box-shadow: inset 0 1px 2px rgba(60,50,40,0.22);
+}
+
+/* The photo becomes a print with a handwritten caption. */
+.about-image-card { position: relative; }
+.about-caption {
+    display: block;
+    text-align: center;
+    font-family: var(--font-hand);
+    font-size: 19px;
+    color: var(--ink-pencil);
+    margin-top: 10px;
+    transform: rotate(-1.4deg);
+}
+.about-annotation {
+    display: block;
+    font-family: var(--font-hand);
+    font-size: 19px;
+    color: var(--accent-primary);
+    opacity: 0.85;
+    transform: rotate(-1.6deg);
+    margin: 2px 0 14px;
+    pointer-events: none;
+}
+@media (max-width: 768px) {
+    .about-text-col { padding: 26px 20px 26px 40px; }
+    .about-holes { left: 9px; }
+}
+
+/* ============================================================
+   32. SKILLS — stationery notes
+   ============================================================ */
+/* Each card is a small note in a different paper stock, tilted
+   slightly so the grid looks arranged by hand. The tilt
+   straightens on hover, like a note being picked up. */
+.skill-category {
+    transform: rotate(var(--note-tilt, 0deg));
+    transition: transform var(--transition-normal),
+                box-shadow var(--transition-normal),
+                border-color var(--transition-normal);
+    padding-top: 30px !important;
+}
+.skills-grid > .skill-category:nth-child(4n+1) { --note-tilt: -0.9deg; }
+.skills-grid > .skill-category:nth-child(4n+2) { --note-tilt:  0.7deg; }
+.skills-grid > .skill-category:nth-child(4n+3) { --note-tilt: -0.5deg; }
+.skills-grid > .skill-category:nth-child(4n+4) { --note-tilt:  0.9deg; }
+.skill-category:hover { transform: rotate(0deg) translateY(-5px); }
+
+/* A coloured tab clipped to the top edge, the way you would index
+   a set of cards. The colour rotates through the pastel stocks. */
+.skill-tab {
+    position: absolute;
+    top: -9px; left: 24px;
+    width: 52px; height: 18px;
+    border-radius: 3px 3px 0 0;
+    background: var(--tab-color, var(--sticky));
+    box-shadow: 0 -1px 3px rgba(60,50,40,0.13);
+    pointer-events: none;
+    transition: height var(--transition-normal);
+}
+.skill-category:hover .skill-tab { height: 24px; }
+.skills-grid > .skill-category:nth-child(4n+1) .skill-tab { --tab-color: var(--sticky); }
+.skills-grid > .skill-category:nth-child(4n+2) .skill-tab { --tab-color: var(--sticky-blue); }
+.skills-grid > .skill-category:nth-child(4n+3) .skill-tab { --tab-color: var(--sticky-green); }
+.skills-grid > .skill-category:nth-child(4n+4) .skill-tab { --tab-color: var(--sticky-pink); }
+
+/* ============================================================
+   33. PROJECTS — bookmark ribbon + lifted corner
+   ============================================================ */
+/* The bookmark must overhang the card, so the card stops clipping
+   and the inner wrapper takes over clipping the cover art. */
+.project-card { overflow: visible !important; }
+.project-card-inner {
+    border-radius: inherit;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+.project-bookmark {
+    position: absolute;
+    top: -8px; right: 26px;
+    width: 24px; height: 46px;
+    background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 68%, 0 100%);
+    box-shadow: 0 3px 6px rgba(60,50,40,0.24);
+    pointer-events: none;
+    z-index: 0;
+    transition: transform var(--transition-normal);
+}
+.project-card:hover .project-bookmark { transform: translateY(9px); }
+
+/* Featured cards carry tape via a dedicated .project-tape element
+   (see rule 42a) because ::before was already occupied. */
+
+/* The card corner peels up on hover. */
+.project-card-inner::after {
+    content: "";
+    position: absolute;
+    right: 0; bottom: 0;
+    width: 0; height: 0;
+    background: linear-gradient(315deg,
+        var(--paper-shade) 0%, var(--paper-kraft) 48%, var(--bg-secondary) 100%);
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    box-shadow: -3px -3px 6px rgba(60,50,40,0.16);
+    pointer-events: none;
+    z-index: 4;
+    transition: width var(--transition-normal), height var(--transition-normal);
+}
+.project-card:hover .project-card-inner::after { width: 34px; height: 34px; }
+
+/* ============================================================
+   34. EXPERIENCE — notebook margin + paper markers
+   ============================================================ */
+/* Faint rules run behind the timeline, so entries read as though
+   written into a notebook. */
+.experience .timeline { position: relative; }
+.experience .timeline::after {
+    content: "";
+    position: absolute;
+    inset: -10px -20px;
+    background-image: repeating-linear-gradient(
+        180deg, transparent 0 33px, var(--paper-line) 33px 34px);
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: -1;
+}
+/* A paper marker tab on the card's left edge. */
+.timeline-marker {
+    position: absolute;
+    left: -10px; top: 34px;
+    width: 10px; height: 40px;
+    background: var(--sticky-green);
+    border-radius: 2px 0 0 2px;
+    box-shadow: -2px 2px 4px rgba(60,50,40,0.14);
+    pointer-events: none;
+    transition: height var(--transition-normal), width var(--transition-normal);
+}
+.timeline-card:hover .timeline-marker { height: 52px; width: 13px; }
+
+/* ============================================================
+   35. CERTIFICATES — document cards
+   ============================================================ */
+.certificates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 26px;
+}
+/* Each certificate is a small document: a sheet with a ruled
+   header band, a seal, and a deckled bottom edge. */
+.certificate-card {
+    position: relative;
+    background: #FFFDF8;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 26px 24px 32px;
+    box-shadow: var(--shadow-card);
+    transform: rotate(var(--cert-tilt, 0deg));
+    transition: transform var(--transition-normal),
+                box-shadow var(--transition-normal);
+    overflow: hidden;
+}
+.certificates-grid > .certificate-card:nth-child(3n+1) { --cert-tilt: -0.7deg; }
+.certificates-grid > .certificate-card:nth-child(3n+2) { --cert-tilt:  0.6deg; }
+.certificates-grid > .certificate-card:nth-child(3n+3) { --cert-tilt: -0.4deg; }
+.certificate-card:hover {
+    transform: rotate(0deg) translateY(-5px);
+    box-shadow: var(--shadow-xl);
+}
+/* double rule under the header, as on a printed certificate */
+.certificate-card::before {
+    content: "";
+    position: absolute;
+    left: 24px; right: 24px; top: 68px;
+    height: 3px;
+    border-top: 1px solid rgba(60,50,40,0.16);
+    border-bottom: 1px solid rgba(60,50,40,0.10);
+    pointer-events: none;
+}
+/* deckled lower edge */
+.certificate-card::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    height: 8px;
+    background: var(--bg-secondary);
+    -webkit-mask-image: var(--tear-bottom);
+    mask-image: var(--tear-bottom);
+    -webkit-mask-size: 600px 8px;
+    mask-size: 600px 8px;
+    -webkit-mask-repeat: repeat-x;
+    mask-repeat: repeat-x;
+    pointer-events: none;
+}
+.certificate-seal {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--accent-light);
+    border: 1.5px solid rgba(180,85,61,0.30);
+    color: var(--accent-primary);
+    font-size: 15px;
+    margin-bottom: 16px;
+}
+.certificate-title {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 22px;
+    line-height: 1.35;
+}
+.certificate-issuer {
+    display: block;
+    font-family: var(--font-primary);
+    font-size: 11px;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--accent-secondary);
+    font-weight: 600;
+}
+.certificate-meta {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* ============================================================
+   36. CONTACT — a written letter
+   ============================================================ */
+/* The form sits on a sheet with a faint crease across it, the way
+   a letter arrives folded from an envelope. */
+.contact-form { position: relative; background: #FFFDF8 !important; }
+.contact-form::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 38%;
+    height: 14px;
+    background: linear-gradient(180deg,
+        rgba(60,50,40,0) 0%,
+        rgba(60,50,40,0.055) 45%,
+        rgba(255,255,255,0.85) 55%,
+        rgba(60,50,40,0) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+.contact-form > * { position: relative; z-index: 1; }
+
+.contact-salutation {
+    font-family: var(--font-hand);
+    font-size: 26px;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    transform: rotate(-0.8deg);
+}
+.contact-signoff {
+    display: block;
+    font-family: var(--font-hand);
+    font-size: 21px;
+    color: var(--ink-pencil);
+    margin-top: 18px;
+    text-align: right;
+    transform: rotate(-1.2deg);
+}
+
+/* Contact cards read as correspondence slips, with a perforated
+   left edge. */
+.contact-card { position: relative; overflow: hidden; }
+.contact-card::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: radial-gradient(circle at 0 50%,
+        transparent 0 3px, var(--accent-light) 3px) 0 0 / 4px 9px repeat-y;
+    pointer-events: none;
+}
+.contact-card:hover { transform: translateY(-4px) rotate(-0.4deg); }
+
+/* Submit button: the plane takes off. */
+.btn-submit i { transition: transform var(--transition-normal); }
+.btn-submit:hover i { transform: translate(4px, -4px) rotate(-12deg); }
+
+/* ============================================================
+   37. BUTTONS — paper-cut hover
+   ============================================================ */
+/* An offset outline slides out from behind the button, as though
+   the label were cut from stacked paper. */
+.btn { position: relative; }
+.btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 1.5px solid var(--accent-primary);
+    opacity: 0;
+    transform: translate(0, 0);
+    transition: transform var(--transition-normal), opacity var(--transition-normal);
+    pointer-events: none;
+}
+.btn:hover::after { opacity: 0.42; transform: translate(4px, 4px); }
+.btn:active::after { transform: translate(1px, 1px); }
+
+/* ============================================================
+   38. SECTION HEADERS — sketch underlay
+   ============================================================ */
+/* A loose pencil ring around the accent word, as though someone
+   had circled it while reading. Fades in with the header. */
+.section-title .highlight { position: relative; }
+.section-title .highlight::after {
+    content: "";
+    position: absolute;
+    inset: -14% -8%;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 70' preserveAspectRatio='none'%3E%3Cpath d='M110 5 C 40 5, 8 20, 8 35 C 8 52, 46 65, 112 65 C 178 65, 212 51, 212 35 C 212 19, 176 6, 104 7' fill='none' stroke='%23B4553D' stroke-width='2' stroke-linecap='round' opacity='0.34'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.section-header:hover .section-title .highlight::after,
+.section-header.aos-animate .section-title .highlight::after { opacity: 1; }
+
+/* ============================================================
+   39. INTERESTS + GALLERY accents
+   ============================================================ */
+/* Interests: a push-pin at the top of each card. */
+.interest-card { padding-top: 34px !important; }
+.interest-pin {
+    position: absolute;
+    top: 10px; left: 50%;
+    width: 18px; height: 18px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 32%,
+        #E08C74 0%, var(--accent-primary) 55%, var(--accent-secondary) 100%);
+    box-shadow: 0 3px 5px rgba(60,50,40,0.28);
+    pointer-events: none;
+    transition: transform var(--transition-normal);
+}
+.interest-card:hover .interest-pin { transform: translateX(-50%) scale(1.12); }
+
+/* Gallery prints get a strip of tape at the top corner. */
+.gallery-item { position: relative; }
+.gallery-item::before {
+    content: "";
+    position: absolute;
+    top: -8px; left: 14px;
+    width: 62px; height: 20px;
+    transform: rotate(-6deg);
+    background:
+        repeating-linear-gradient(90deg,
+            rgba(255,255,255,0.28) 0 3px, transparent 3px 7px),
+        var(--tape);
+    clip-path: polygon(4% 12%, 14% 0, 28% 10%, 44% 1%, 60% 11%,
+        76% 2%, 90% 10%, 100% 20%, 96% 88%, 84% 99%, 70% 89%,
+        54% 98%, 38% 88%, 22% 98%, 8% 90%, 0 76%);
+    box-shadow: 0 2px 3px rgba(60,50,40,0.14);
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* ============================================================
+   40. FOOTER — torn top edge
+   ============================================================ */
+.footer { position: relative; }
+.footer::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: -7px;
+    height: 8px;
+    background: var(--bg-tertiary);
+    -webkit-mask-image: var(--tear-bottom);
+    mask-image: var(--tear-bottom);
+    -webkit-mask-size: 1200px 8px;
+    mask-size: 1200px 8px;
+    -webkit-mask-repeat: repeat-x;
+    mask-repeat: repeat-x;
+    transform: scaleY(-1);
+    pointer-events: none;
+}
+
+/* ============================================================
+   41. Motion + mobile discipline
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+    .hero-origami { animation: none !important; }
+    .skill-category:hover,
+    .certificate-card:hover,
+    .contact-card:hover { transform: none; }
+    .project-card:hover .project-bookmark,
+    .project-card:hover .project-card-inner::after { transform: none; }
+}
+@media (max-width: 768px) {
+    /* Decoration that needs margin space is dropped, not shrunk. */
+    .nav-bookmark { right: 14px; height: 30px; }
+    .skill-category { --note-tilt: 0deg !important; }
+    .certificate-card { --cert-tilt: 0deg !important; }
+    .project-tape { display: none; }
+    .gallery-item::before { width: 48px; height: 16px; }
+    .about-caption, .contact-signoff { font-size: 17px; }
+    .hero-paper-layers { display: none; }
+    .timeline-marker { display: none; }
+}
+
+/* ============================================================
+   42. RECONCILIATION WITH EARLIER RULES
+   ------------------------------------------------------------
+   Three older rules contradict the papercraft layer. Each is
+   retired here rather than edited in place, so the original
+   cascade stays readable and the reason is recorded.
+   ============================================================ */
+
+/* (a) .project-card::before was a glow gradient, which is both a
+   leftover from the pre-paper design and the pseudo-element the
+   featured tape needs. Retire the glow; re-issue the tape on a
+   dedicated child element so nothing collides. */
+.project-card::before { display: none !important; }
+
+.project-tape {
+    position: absolute;
+    top: -10px; left: -16px;
+    width: 84px; height: 24px;
+    transform: rotate(-40deg);
+    background:
+        repeating-linear-gradient(90deg,
+            rgba(255,255,255,0.30) 0 3px, transparent 3px 7px),
+        var(--tape);
+    clip-path: polygon(3% 10%, 12% 0, 24% 9%, 38% 1%, 52% 10%,
+        66% 2%, 79% 10%, 92% 1%, 100% 18%, 97% 86%, 86% 99%,
+        73% 90%, 60% 98%, 46% 89%, 32% 98%, 19% 89%, 7% 98%, 0 78%);
+    box-shadow: 0 2px 4px rgba(60,50,40,0.16);
+    pointer-events: none;
+    z-index: 6;
+}
+
+/* (b) The card was a 3D object: perspective, preserve-3d, a
+   translateZ lift and a heavy black glow shadow. Paper does not
+   float in Z — it lifts and casts a soft warm shadow. Flatten
+   the stack so the fold, tape and bookmark stay in plane. */
+.project-card {
+    transform-style: flat !important;
+    perspective: none !important;
+    overflow: visible !important;
+}
+.project-card-inner { transform-style: flat !important; }
+.project-card:hover .project-card-inner { transform: none !important; }
+.project-card:hover {
+    box-shadow: var(--shadow-xl) !important;
+    transform: translateY(-5px);
+}
+
+/* (c) .skill-category clipped its own overflow, which would cut
+   off the index tab sitting on its top edge, and its hover
+   shrank the shadow instead of growing it. */
+.skill-category {
+    overflow: visible !important;
+    box-shadow: var(--shadow-card);
+}
+.skill-category:hover {
+    box-shadow: var(--shadow-xl) !important;
+    border-color: var(--border-hover);
+}
+/* The top accent bar and the index tab are the same gesture, so
+   only the tab survives. */
+.skill-category::before { display: none !important; }
+/* has-fold re-issued its fold on ::before; with the bar retired
+   that element is free, but the tab now owns the top edge, so
+   the fold moves to the card's own ::after, which rule 25(a)
+   emptied out. */
+.skill-category.has-fold { overflow: hidden !important; }
+.skill-category.has-fold::after {
+    content: "" !important;
+    position: absolute;
+    top: 0; right: 0;
+    width: 28px; height: 28px;
+    background: linear-gradient(225deg,
+        var(--bg-secondary) 0%, var(--paper-kraft) 52%, var(--paper-shade) 100%) !important;
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+    box-shadow: -2px 2px 4px rgba(60,50,40,0.14);
+    opacity: 1 !important;
+    pointer-events: none;
+    z-index: 4;
+    transition: width var(--transition-normal), height var(--transition-normal);
+}
+.skill-category.has-fold:hover::after { width: 40px; height: 40px; }
+/* A card that clips its overflow cannot show a tab on its edge.
+   The fold is that card's gesture instead. */
+.skill-category.has-fold .skill-tab { display: none; }
+
+/* (d) .interest-card::after is an existing underline sweep; the
+   pin sits above it and needs the card to keep its own clipping,
+   so nothing is retired here — only the pin's stacking is set. */
+.interest-pin { z-index: 5; }
+
+/* (e) The generic lift at line 2474 applies a shared hover
+   transform to four card types. The tilt-straightening hovers
+   defined in the papercraft layer must win for skills and
+   certificates, so they are restated at higher specificity. */
+.skills-grid > .skill-category:hover {
+    transform: rotate(0deg) translateY(-5px);
+}
+.certificates-grid > .certificate-card:hover {
+    transform: rotate(0deg) translateY(-5px);
+}
+
+/* ============================================================
+   43. FIXES FROM VISUAL REVIEW
+   ============================================================ */
+
+/* (a) The project cards use AOS "flip-left", which leaves a
+   residual 3D matrix on the card even after animating in. That
+   matrix foreshortened the bookmark to a 7px sliver. The paper
+   theme wants a flat lift, not a flip, so these cards animate
+   with a fade-up instead (set in the markup) and any residual
+   transform on the settled card is cleared here. */
+.project-card.aos-animate { transform: none !important; }
+
+/* (b) The bookmark tucks BEHIND the card's top edge, so it must
+   sit under the inner surface but above the section ground.
+   A negative z-index on the ribbon plus a positive one on the
+   inner wrapper produces the tuck. */
+.project-bookmark { z-index: 0; }
+.project-card-inner { z-index: 1; }
+/* The visible portion is the tail below the card's top edge, so
+   the ribbon starts higher and extends further down. */
+.project-bookmark { top: -14px; height: 52px; }
+
+/* (c) .about-image-card clips its overflow (it frames the photo),
+   which cut off the handwritten caption sitting beneath it. Move
+   the caption outside the frame's box instead of unclipping the
+   frame, so the photo keeps its clean edge. */
+.about-image-card { overflow: visible !important; }
+.about-image-card .about-image-img { border-radius: 2px; }
+
+/* (d) The certificate deckle and contact perforation were drawn
+   on ::after/::before of a card that clips overflow. They sit
+   fully inside the padding box, so clipping is fine — but the
+   deckle needs to paint over the card's own background, and the
+   mask's tiling was wider than the card. Retune to the card. */
+.certificate-card::after {
+    -webkit-mask-size: 300px 8px;
+    mask-size: 300px 8px;
+    background: var(--bg-primary);
+    opacity: 0.9;
+}
+
+/* The perforation reads better as visible notches biting into the
+   card's left edge than as a faint gradient strip. */
+.contact-card::before {
+    width: 7px;
+    background:
+        radial-gradient(circle at 0 50%,
+            var(--bg-secondary) 0 3.5px, transparent 3.6px)
+        0 0 / 7px 11px repeat-y;
+    opacity: 0.85;
+}
+
+/* ============================================================
+   44. SECOND VISUAL REVIEW
+   ============================================================ */
+
+/* (a) The graduate badge was restyled to a solid accent chip, but
+   .exp-number kept an inherited gradient/clip and .exp-text kept
+   --text-muted, so both were near-invisible on the new ground.
+   Force both to the chip's foreground. */
+.experience-badge .exp-number {
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    -webkit-text-fill-color: #fff !important;
+    color: #fff !important;
+    font-size: 26px;
+    line-height: 1.05;
+    display: block;
+}
+.experience-badge .exp-text {
+    color: rgba(255,255,255,0.88) !important;
+    font-size: 10px;
+    display: block;
+    margin-top: 2px;
+}
+
+/* (b) The notebook rules behind the timeline were painted on the
+   .timeline box, which is only as tall as its items — so they
+   stopped partway down the section. Anchor them to the section
+   instead, and fade them out at top and bottom so they read as
+   a page beneath the content rather than a hard-edged band. */
+.experience .timeline::after { content: none; }
+.experience > .container::before {
+    content: "";
+    position: absolute;
+    inset: 0 -40px;
+    background-image: repeating-linear-gradient(
+        180deg, transparent 0 33px, var(--paper-line) 33px 34px);
+    -webkit-mask-image: linear-gradient(180deg,
+        transparent 0, #000 90px, #000 calc(100% - 90px), transparent 100%);
+    mask-image: linear-gradient(180deg,
+        transparent 0, #000 90px, #000 calc(100% - 90px), transparent 100%);
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* (c) The section eyebrow was overlapping the sticky navbar when a
+   section is scrolled to its anchor. Give anchors headroom. */
+section[id] { scroll-margin-top: 96px; }
+
+/* ============================================================
+   45. Third review: heading word-breaks
+   ------------------------------------------------------------
+   The pencil ring is drawn on .highlight, which made the word an
+   inline box the browser was free to split mid-word on narrow
+   screens ("me / aningful"). Keep the ringed word whole.
+   ============================================================ */
+.section-title .highlight,
+.hero-name .name-line.highlight {
+    display: inline-block;
+    white-space: nowrap;
+}
+/* A long ringed word must still be allowed to shrink rather than
+   push the layout wider than the screen. */
+@media (max-width: 480px) {
+    .section-title .highlight { white-space: normal; }
+    .section-title .highlight::after { inset: -10% -5%; }
+}
+
+/* ============================================================
+   46. PARTICLE IMAGE VISIBILITY
+   ------------------------------------------------------------
+   Two defects, both about the pixels not being visible:
+
+   (a) The gallery frame took its height from .gallery-img-source,
+       which is loading="lazy" and therefore has zero height until
+       it scrolls into view. The frame collapsed to ~41px, so the
+       particle wrap's ResizeObserver never received a usable box
+       and the canvas stayed at its 300x150 default with no
+       particles built. Reserving the artwork's aspect ratio gives
+       the frame a real height from first layout.
+
+   (b) The pixels themselves were rendering, but at 1px and 50%
+       opacity they read as haze rather than as an image. Size and
+       opacity are raised in script.js; this keeps the canvas
+       crisp so the dots stay distinct rather than smeared.
+   ============================================================ */
+.gallery-frame {
+    aspect-ratio: 4 / 5;          /* the artwork's proportions */
+    min-height: 320px;
+}
+.gallery-frame .gallery-img-source {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.gallery-particle-wrap canvas,
+.particle-image-wrap canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    image-rendering: -webkit-optimize-contrast;
+}
+
+/* ------------------------------------------------------------
+   (c) The taped-photo frame in rule 11 styles .particle-image-wrap
+   generically, which also caught the gallery's overlay variant and
+   forced it back to position:relative — collapsing it to ~29px so
+   its ResizeObserver never saw a usable box. The gallery wrap is an
+   overlay on top of the artwork, not a framed print, so it opts
+   back out of the frame treatment entirely.
+   ------------------------------------------------------------ */
+.gallery-particle-wrap {
+    position: absolute !important;
+    inset: 0 !important;
+    background: transparent !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+.gallery-particle-wrap::before { display: none !important; }
+
+/* ============================================================
+   47. HERO PORTRAIT — an instant photo print
+   ------------------------------------------------------------
+   The pixel-assembly effect was removed here: the source image is
+   itself a papercraft portrait, so rendering it as dots hid the
+   very thing that matches the theme. It is now presented as a
+   physical print laid on the desk — thick lower border, taped
+   corner, slight tilt, warm shadow. The gallery artwork keeps its
+   particle effect, where the assembly reveal still earns its place.
+   ============================================================ */
+.photo-print {
+    --print-tilt: -1.6deg;
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 460px;
+    margin: 0 auto;
+    padding: 14px 14px 0;
+    background:
+        linear-gradient(158deg, #FFFFFF 0%, #FDFBF7 55%, #F7F2E9 100%);
+    border-radius: 3px;
+    box-shadow:
+        0 1px 2px rgba(60,50,40,0.10),
+        0 10px 22px rgba(60,50,40,0.13),
+        0 26px 54px rgba(60,50,40,0.11),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+    transform: rotate(var(--print-tilt));
+    transition:
+        transform var(--transition-slow),
+        box-shadow var(--transition-slow);
+    will-change: transform;
+}
+
+/* The print lifts off the desk and straightens as you approach it. */
+.photo-print:hover {
+    --print-tilt: 0deg;
+    transform: rotate(0deg) translateY(-8px);
+    box-shadow:
+        0 2px 4px rgba(60,50,40,0.12),
+        0 18px 34px rgba(60,50,40,0.15),
+        0 40px 76px rgba(60,50,40,0.14),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+}
+
+/* The photo window. Its own inset shadow reads as the emulsion
+   sitting slightly below the paper surface. */
+.photo-print-window {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1px;
+    background: var(--bg-tertiary);
+    box-shadow: inset 0 0 0 1px rgba(60,50,40,0.10);
+}
+.photo-print-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    /* The source is a warm papercraft scene; a touch of contrast
+       keeps it crisp against the near-white print border. */
+    filter: saturate(1.03) contrast(1.02);
+    transform: scale(1.006);
+    transition: transform var(--transition-slow);
+}
+.photo-print:hover .photo-print-img { transform: scale(1.02); }
+
+/* A soft sheen crossing the print, as light would catch photo
+   stock. It sweeps once on hover rather than looping. */
+.photo-print-window::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(114deg,
+        transparent 38%,
+        rgba(255,255,255,0.30) 49%,
+        transparent 60%);
+    transform: translateX(-115%);
+    transition: transform 0.85s cubic-bezier(.2,.7,.3,1);
+    pointer-events: none;
+}
+.photo-print:hover .photo-print-window::after { transform: translateX(115%); }
+
+/* The wide lower border every instant print has, carrying a
+   handwritten caption. */
+.photo-print-caption {
+    display: block;
+    padding: 15px 6px 19px;
+    text-align: center;
+    font-family: var(--font-hand);
+    font-size: 21px;
+    line-height: 1.1;
+    color: var(--ink-pencil);
+    transform: rotate(-0.7deg);
+}
+
+/* Tape holding the print down at the top-left corner, torn at the
+   ends like the tape used elsewhere on the page. */
+.photo-print-tape {
+    position: absolute;
+    top: -13px; left: -22px;
+    width: 104px; height: 28px;
+    transform: rotate(-38deg);
+    background:
+        repeating-linear-gradient(90deg,
+            rgba(255,255,255,0.32) 0 3px, transparent 3px 7px),
+        var(--tape);
+    clip-path: polygon(3% 10%, 12% 0, 24% 9%, 38% 1%, 52% 10%,
+        66% 2%, 79% 10%, 92% 1%, 100% 18%, 97% 86%, 86% 99%,
+        73% 90%, 60% 98%, 46% 89%, 32% 98%, 19% 89%, 7% 98%, 0 78%);
+    box-shadow: 0 2px 4px rgba(60,50,40,0.18);
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* A second sheet peeking out beneath, so the print reads as the
+   top of a small stack rather than a lone floating card. */
+.photo-print::after {
+    content: "";
+    position: absolute;
+    inset: 14px -9px -7px 6px;
+    background: var(--paper-cream);
+    border-radius: 3px;
+    box-shadow: 0 6px 14px rgba(60,50,40,0.10);
+    transform: rotate(2.1deg);
+    z-index: -1;
+    pointer-events: none;
+    transition: transform var(--transition-slow);
+}
+.photo-print:hover::after { transform: rotate(3.4deg); }
+
+@media (max-width: 768px) {
+    .photo-print { max-width: 330px; padding: 10px 10px 0; }
+    .photo-print-caption { font-size: 18px; padding: 12px 4px 15px; }
+    .photo-print-tape { width: 82px; height: 22px; top: -10px; left: -14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .photo-print,
+    .photo-print:hover { transform: rotate(var(--print-tilt)); }
+    .photo-print-window::after { display: none; }
+}
+
+/* ------------------------------------------------------------
+   48. Hero margin note spacing
+   The note sat directly above .hero-cta with line-height:1 and no
+   bottom margin, so the buttons rode up over the handwriting.
+   Give it room and let the ascenders breathe.
+   ------------------------------------------------------------ */
+.hero-note {
+    line-height: 1.25;
+    margin: 14px 0 26px 14px;
+}
+@media (max-width: 768px) {
+    .hero-note { margin: 10px 0 20px 4px; }
+}
+
+/* On narrow screens the hero stacks, so the scroll indicator lands
+   on top of the print's caption. Give the print clearance. */
+@media (max-width: 768px) {
+    /* The clearance here existed only to keep the scroll indicator
+       off the print's caption. The indicator has been removed, so
+       the print needs just normal breathing room. */
+    .hero-visual { margin-bottom: 18px; }
+}
+
+/* ============================================================
+   49. SECTION EYEBROW — flat label, no tail
+   ------------------------------------------------------------
+   The notched ::after tail read as a torn flap hanging off the
+   label rather than as a bookmark: on a wide tag the 55% V is too
+   shallow to be legible as a notch, and `background: inherit`
+   pulled the parent's box-shadow context so the seam showed. The
+   bookmark gesture already exists in the navbar and on project
+   cards, so the eyebrow returns to a clean, quiet label.
+   ============================================================ */
+.section-tag::after { content: none !important; }
+.section-tag {
+    border-radius: 4px !important;
+    padding: 7px 15px !important;
+    box-shadow: 0 1px 3px rgba(147,64,44,0.22) !important;
+}
+.section-header:hover .section-tag { transform: none !important; }
+
+/* ============================================================
+   50. SECTION PAPER GROUNDS
+   ------------------------------------------------------------
+   Each section sits on a different paper stock, so scrolling the
+   page feels like turning through sheets from one drawer. All are
+   built from gradients and masks — no image requests — and all
+   stay very low contrast so body text keeps its full legibility.
+
+   The stocks are applied via .paper-* classes in the markup, and
+   every one paints BEHIND content (z-index:0 on a ::before, with
+   .container lifted above it in rule 28).
+   ============================================================ */
+.paper-stock { position: relative; isolation: isolate; }
+.paper-stock > .container { position: relative; z-index: 1; }
+.paper-stock::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* --- Kraft: warm recycled board with visible fibre fleck ----- */
+.paper-kraft-bg { background: #F2EADC !important; }
+.paper-kraft-bg::before {
+    background-color: #F2EADC;
+    background-image:
+        /* short fibres scattered through the pulp */
+        repeating-linear-gradient(64deg,
+            rgba(150,120,80,0.055) 0 1px, transparent 1px 5px),
+        repeating-linear-gradient(-52deg,
+            rgba(150,120,80,0.045) 0 1px, transparent 1px 7px),
+        radial-gradient(circle at 18% 24%, rgba(176,142,96,0.10) 0 2px, transparent 2px),
+        radial-gradient(circle at 73% 61%, rgba(176,142,96,0.09) 0 2px, transparent 2px),
+        radial-gradient(circle at 41% 82%, rgba(176,142,96,0.08) 0 1.5px, transparent 2px),
+        linear-gradient(158deg, #F5EEE1 0%, #EFE6D5 60%, #EADFCB 100%);
+    background-size: auto, auto, 190px 170px, 230px 210px, 160px 240px, auto;
+}
+
+/* --- Origami: faint fold creases across the sheet ------------ */
+/* Long soft gradients read as the ridges and valleys left after a
+   sheet has been folded and opened out again. */
+.paper-origami-bg { background: var(--bg-primary) !important; }
+.paper-origami-bg::before {
+    background-color: #FAF7F1;
+    background-image:
+        linear-gradient(112deg,
+            transparent 0 22%, rgba(255,255,255,0.85) 22.4%,
+            rgba(150,130,105,0.055) 22.8%, transparent 23.4%),
+        linear-gradient(112deg,
+            transparent 0 57%, rgba(255,255,255,0.80) 57.4%,
+            rgba(150,130,105,0.050) 57.8%, transparent 58.4%),
+        linear-gradient(-68deg,
+            transparent 0 38%, rgba(255,255,255,0.75) 38.4%,
+            rgba(150,130,105,0.045) 38.8%, transparent 39.4%),
+        linear-gradient(-68deg,
+            transparent 0 78%, rgba(255,255,255,0.70) 78.4%,
+            rgba(150,130,105,0.040) 78.8%, transparent 79.4%),
+        linear-gradient(168deg, #FCFAF6 0%, #F6F1E8 100%);
+}
+
+/* --- Graph paper: the engineer's sheet ----------------------- */
+.paper-graph-bg { background: #FBF9F4 !important; }
+.paper-graph-bg::before {
+    background-color: #FBF9F4;
+    background-image:
+        linear-gradient(rgba(96,124,150,0.085) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(96,124,150,0.085) 1px, transparent 1px),
+        linear-gradient(rgba(96,124,150,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(96,124,150,0.045) 1px, transparent 1px);
+    background-size: 96px 96px, 96px 96px, 16px 16px, 16px 16px;
+}
+
+/* --- Ledger: ruled writing pad ------------------------------- */
+.paper-ledger-bg { background: #FCFAF5 !important; }
+.paper-ledger-bg::before {
+    background-color: #FCFAF5;
+    background-image:
+        repeating-linear-gradient(180deg,
+            transparent 0 33px, rgba(90,120,150,0.10) 33px 34px);
+}
+
+/* --- Handmade: deckle-flecked artisan stock ------------------ */
+/* Soft irregular blooms, like pulp settling unevenly in a mould. */
+.paper-handmade-bg { background: #F7F3EA !important; }
+.paper-handmade-bg::before {
+    background-color: #F7F3EA;
+    background-image:
+        radial-gradient(ellipse 220px 150px at 12% 18%, rgba(176,150,110,0.070), transparent 70%),
+        radial-gradient(ellipse 260px 180px at 84% 32%, rgba(150,160,140,0.055), transparent 70%),
+        radial-gradient(ellipse 200px 240px at 62% 78%, rgba(176,150,110,0.060), transparent 70%),
+        radial-gradient(ellipse 180px 160px at 28% 88%, rgba(160,140,150,0.045), transparent 70%),
+        repeating-linear-gradient(88deg,
+            rgba(140,115,80,0.030) 0 1px, transparent 1px 6px),
+        linear-gradient(150deg, #FAF7F0 0%, #F4EFE4 100%);
+}
+
+/* --- Blueprint-tinted vellum: for the lab / experiments ------ */
+.paper-vellum-bg { background: #F4F5F3 !important; }
+.paper-vellum-bg::before {
+    background-color: #F4F5F3;
+    background-image:
+        repeating-linear-gradient(90deg,
+            rgba(70,105,120,0.045) 0 1px, transparent 1px 26px),
+        repeating-linear-gradient(180deg,
+            rgba(70,105,120,0.038) 0 1px, transparent 1px 26px),
+        linear-gradient(163deg, #F7F8F6 0%, #EFF1EE 100%);
+}
+
+/* Every stock gets the same faint top-edge shading, so each
+   section reads as a separate sheet laid over the one above it. */
+.paper-stock::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    height: 26px;
+    background: linear-gradient(180deg,
+        rgba(90,74,56,0.055) 0%, rgba(90,74,56,0) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* The previously hard-coded alternating grounds are superseded by
+   the per-section stocks above. */
+.about, .projects, .interests { background: transparent !important; }
+.experience, .skills, .contact, .gallery, .games { background: transparent !important; }
+
+/* Keep the desk-scatter doodles above the paper but below text. */
+.desk-scatter { z-index: 0; }
+
+@media (prefers-reduced-motion: no-preference) {
+    /* no motion involved in the grounds — declared for clarity */
+}
+
+/* ============================================================
+   51. PAPER STOCKS — depth pass
+   ------------------------------------------------------------
+   At the first pass the stocks were too close to the page white
+   to distinguish while scrolling: kraft in particular read as
+   plain off-white once the white cards sat on it. Each ground is
+   deepened so the stock is legible as a material, while staying
+   far enough from the text colour to keep body copy at full
+   contrast (all grounds remain above #EDE6D8).
+   ============================================================ */
+.paper-kraft-bg,
+.paper-kraft-bg::before   { background-color: #EFE4CF; }
+.paper-kraft-bg::before {
+    background-image:
+        repeating-linear-gradient(64deg,
+            rgba(140,108,68,0.075) 0 1px, transparent 1px 5px),
+        repeating-linear-gradient(-52deg,
+            rgba(140,108,68,0.060) 0 1px, transparent 1px 7px),
+        radial-gradient(circle at 18% 24%, rgba(160,124,80,0.13) 0 2px, transparent 2px),
+        radial-gradient(circle at 73% 61%, rgba(160,124,80,0.12) 0 2px, transparent 2px),
+        radial-gradient(circle at 41% 82%, rgba(160,124,80,0.10) 0 1.5px, transparent 2px),
+        linear-gradient(158deg, #F1E7D4 0%, #EBDFC8 60%, #E5D7BC 100%);
+    background-size: auto, auto, 190px 170px, 230px 210px, 160px 240px, auto;
+}
+
+.paper-handmade-bg,
+.paper-handmade-bg::before { background-color: #F2EBDD; }
+.paper-handmade-bg::before {
+    background-image:
+        radial-gradient(ellipse 220px 150px at 12% 18%, rgba(168,138,96,0.105), transparent 70%),
+        radial-gradient(ellipse 260px 180px at 84% 32%, rgba(132,146,124,0.085), transparent 70%),
+        radial-gradient(ellipse 200px 240px at 62% 78%, rgba(168,138,96,0.090), transparent 70%),
+        radial-gradient(ellipse 180px 160px at 28% 88%, rgba(150,128,140,0.070), transparent 70%),
+        repeating-linear-gradient(88deg,
+            rgba(130,104,70,0.045) 0 1px, transparent 1px 6px),
+        linear-gradient(150deg, #F6F0E4 0%, #EDE5D5 100%);
+}
+
+.paper-graph-bg,
+.paper-graph-bg::before   { background-color: #F7F4EC; }
+.paper-graph-bg::before {
+    background-image:
+        linear-gradient(rgba(86,116,144,0.13) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(86,116,144,0.13) 1px, transparent 1px),
+        linear-gradient(rgba(86,116,144,0.070) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(86,116,144,0.070) 1px, transparent 1px);
+    background-size: 96px 96px, 96px 96px, 16px 16px, 16px 16px;
+}
+
+.paper-ledger-bg,
+.paper-ledger-bg::before  { background-color: #FAF6EC; }
+.paper-ledger-bg::before {
+    background-image:
+        repeating-linear-gradient(180deg,
+            transparent 0 33px, rgba(84,114,146,0.15) 33px 34px);
+}
+
+.paper-origami-bg,
+.paper-origami-bg::before { background-color: #F6F1E7; }
+.paper-origami-bg::before {
+    background-image:
+        linear-gradient(112deg,
+            transparent 0 22%, rgba(255,255,255,0.95) 22.4%,
+            rgba(138,116,88,0.085) 22.8%, transparent 23.4%),
+        linear-gradient(112deg,
+            transparent 0 57%, rgba(255,255,255,0.90) 57.4%,
+            rgba(138,116,88,0.078) 57.8%, transparent 58.4%),
+        linear-gradient(-68deg,
+            transparent 0 38%, rgba(255,255,255,0.85) 38.4%,
+            rgba(138,116,88,0.070) 38.8%, transparent 39.4%),
+        linear-gradient(-68deg,
+            transparent 0 78%, rgba(255,255,255,0.80) 78.4%,
+            rgba(138,116,88,0.062) 78.8%, transparent 79.4%),
+        linear-gradient(168deg, #F9F5ED 0%, #F1EBDE 100%);
+}
+
+.paper-vellum-bg,
+.paper-vellum-bg::before  { background-color: #EEF1EE; }
+.paper-vellum-bg::before {
+    background-image:
+        repeating-linear-gradient(90deg,
+            rgba(62,98,116,0.070) 0 1px, transparent 1px 26px),
+        repeating-linear-gradient(180deg,
+            rgba(62,98,116,0.060) 0 1px, transparent 1px 26px),
+        linear-gradient(163deg, #F2F4F1 0%, #E9EDE9 100%);
+}
+
+/* A seam where one sheet meets the next, so the stock change reads
+   as a new sheet rather than a colour shift. */
+.paper-stock::after { height: 30px; }
+
+/* ------------------------------------------------------------
+   52. Section header clearance
+   The eyebrow chip was sliding under the sticky navbar when a
+   section sat at the top of the viewport. Sections already have
+   scroll-margin; the header itself needs breathing room too.
+   ------------------------------------------------------------ */
+.section > .container > .section-header:first-child { padding-top: 8px; }
+
+/* ============================================================
+   53. PAPER GROUNDS — collision fix
+   ------------------------------------------------------------
+   A pre-existing "ambient glow" rule claimed ::before on .about,
+   .skills, .projects and .contact to paint a blurred colour blob,
+   and its `opacity: 0.06` was inherited by my paper ground on
+   those four sections — crushing the stock to 6% strength, which
+   is why kraft still read as plain off-white.
+
+   The glow is a leftover from the pre-paper design (a blurred
+   neon orb has no place on a paper desk), so it is retired, and
+   the grounds move to ::after — which rule 50 used only for the
+   top-edge shading, now folded into the same layer.
+   ============================================================ */
+.about::before,
+.skills::before,
+.projects::before,
+.contact::before {
+    content: none !important;
+}
+
+/* Re-issue every ground on ::after so no legacy ::before rule can
+   reach it. The shading that was on ::after moves into this same
+   element as an extra gradient layer. */
+.paper-stock::before { content: none !important; }
+.paper-stock::after {
+    content: "" !important;
+    position: absolute;
+    inset: 0;
+    height: auto;
+    z-index: 0;
+    opacity: 1 !important;
+    filter: none !important;
+    border-radius: 0;
+    pointer-events: none;
+}
+
+.paper-kraft-bg::after {
+    background-color: #EFE4CF;
+    background-image:
+        linear-gradient(180deg, rgba(90,74,56,0.06) 0, rgba(90,74,56,0) 30px),
+        repeating-linear-gradient(64deg, rgba(140,108,68,0.075) 0 1px, transparent 1px 5px),
+        repeating-linear-gradient(-52deg, rgba(140,108,68,0.060) 0 1px, transparent 1px 7px),
+        radial-gradient(circle at 18% 24%, rgba(160,124,80,0.13) 0 2px, transparent 2px),
+        radial-gradient(circle at 73% 61%, rgba(160,124,80,0.12) 0 2px, transparent 2px),
+        radial-gradient(circle at 41% 82%, rgba(160,124,80,0.10) 0 1.5px, transparent 2px),
+        linear-gradient(158deg, #F1E7D4 0%, #EBDFC8 60%, #E5D7BC 100%);
+    background-size: auto, auto, auto, 190px 170px, 230px 210px, 160px 240px, auto;
+    background-repeat: no-repeat, repeat, repeat, repeat, repeat, repeat, no-repeat;
+}
+
+.paper-handmade-bg::after {
+    background-color: #F2EBDD;
+    background-image:
+        linear-gradient(180deg, rgba(90,74,56,0.06) 0, rgba(90,74,56,0) 30px),
+        radial-gradient(ellipse 220px 150px at 12% 18%, rgba(168,138,96,0.105), transparent 70%),
+        radial-gradient(ellipse 260px 180px at 84% 32%, rgba(132,146,124,0.085), transparent 70%),
+        radial-gradient(ellipse 200px 240px at 62% 78%, rgba(168,138,96,0.090), transparent 70%),
+        radial-gradient(ellipse 180px 160px at 28% 88%, rgba(150,128,140,0.070), transparent 70%),
+        repeating-linear-gradient(88deg, rgba(130,104,70,0.045) 0 1px, transparent 1px 6px),
+        linear-gradient(150deg, #F6F0E4 0%, #EDE5D5 100%);
+}
+
+.paper-graph-bg::after {
+    background-color: #F7F4EC;
+    background-image:
+        linear-gradient(180deg, rgba(90,74,56,0.06) 0, rgba(90,74,56,0) 30px),
+        linear-gradient(rgba(86,116,144,0.13) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(86,116,144,0.13) 1px, transparent 1px),
+        linear-gradient(rgba(86,116,144,0.070) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(86,116,144,0.070) 1px, transparent 1px);
+    background-size: auto, 96px 96px, 96px 96px, 16px 16px, 16px 16px;
+    background-repeat: no-repeat, repeat, repeat, repeat, repeat;
+}
+
+.paper-ledger-bg::after {
+    background-color: #FAF6EC;
+    background-image:
+        linear-gradient(180deg, rgba(90,74,56,0.06) 0, rgba(90,74,56,0) 30px),
+        repeating-linear-gradient(180deg, transparent 0 33px, rgba(84,114,146,0.15) 33px 34px);
+    background-size: auto, auto;
+    background-repeat: no-repeat, repeat;
+}
+
+.paper-origami-bg::after {
+    background-color: #F6F1E7;
+    background-image:
+        linear-gradient(180deg, rgba(90,74,56,0.06) 0, rgba(90,74,56,0) 30px),
+        linear-gradient(112deg, transparent 0 22%, rgba(255,255,255,0.95) 22.4%,
+            rgba(138,116,88,0.085) 22.8%, transparent 23.4%),
+        linear-gradient(112deg, transparent 0 57%, rgba(255,255,255,0.90) 57.4%,
+            rgba(138,116,88,0.078) 57.8%, transparent 58.4%),
+        linear-gradient(-68deg, transparent 0 38%, rgba(255,255,255,0.85) 38.4%,
+            rgba(138,116,88,0.070) 38.8%, transparent 39.4%),
+        linear-gradient(-68deg, transparent 0 78%, rgba(255,255,255,0.80) 78.4%,
+            rgba(138,116,88,0.062) 78.8%, transparent 79.4%),
+        linear-gradient(168deg, #F9F5ED 0%, #F1EBDE 100%);
+}
+
+.paper-vellum-bg::after {
+    background-color: #EEF1EE;
+    background-image:
+        linear-gradient(180deg, rgba(90,74,56,0.06) 0, rgba(90,74,56,0) 30px),
+        repeating-linear-gradient(90deg, rgba(62,98,116,0.070) 0 1px, transparent 1px 26px),
+        repeating-linear-gradient(180deg, rgba(62,98,116,0.060) 0 1px, transparent 1px 26px),
+        linear-gradient(163deg, #F2F4F1 0%, #E9EDE9 100%);
+}
+
+/* Content and decoration sit above the ground sheet. */
+.paper-stock > .container { position: relative; z-index: 2; }
+.paper-stock > .desk-scatter { z-index: 1; }
+
+/* The origami creases landed too crisp — the white highlight band
+   read as a printed stripe rather than light catching a fold.
+   Widen and soften each crease so it falls off gradually, the way
+   a real ridge shades. */
+.paper-origami-bg::after {
+    background-image:
+        linear-gradient(180deg, rgba(90,74,56,0.06) 0, rgba(90,74,56,0) 30px),
+        linear-gradient(112deg, transparent 0 19%,
+            rgba(255,255,255,0.42) 22%, rgba(138,116,88,0.045) 23.6%, transparent 27%),
+        linear-gradient(112deg, transparent 0 54%,
+            rgba(255,255,255,0.36) 57%, rgba(138,116,88,0.040) 58.6%, transparent 62%),
+        linear-gradient(-68deg, transparent 0 35%,
+            rgba(255,255,255,0.30) 38%, rgba(138,116,88,0.034) 39.6%, transparent 43%),
+        linear-gradient(-68deg, transparent 0 75%,
+            rgba(255,255,255,0.26) 78%, rgba(138,116,88,0.030) 79.6%, transparent 83%),
+        linear-gradient(168deg, #F9F5ED 0%, #F1EBDE 100%);
+}
+
+/* ------------------------------------------------------------
+   57. Horizontal overflow guard
+   ------------------------------------------------------------
+   `overflow-x: hidden` on body alone does not clip once html is
+   the scrolling element, so a few pre-existing wide children (the
+   contact columns, the nav container) could widen the page on
+   narrow screens. Applying the guard to the root as well contains
+   them without changing any layout.
+
+   Note this must NOT become `overflow: hidden` on html — that
+   would break position:sticky for the navbar and kill the lab's
+   scroll-driven expand.
+   ------------------------------------------------------------ */
+html { overflow-x: hidden; }
+
+/* ============================================================
+   58. INTERACTIVE LAB — modal
+   ------------------------------------------------------------
+   The Lab is no longer a section in the page flow; it opens from
+   the nav. The panel follows the same conventions as the existing
+   game/profile modals (fixed overlay, dimmed backdrop, Escape and
+   backdrop-click to close) so it feels native to the site, with a
+   paper sheet framing the dark WebGL stage.
+   ============================================================ */
+.lab-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+}
+.lab-modal.active { display: flex; }
+
+.lab-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(35,32,28,0.62);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* The panel is a sheet of studio paper holding the stage. */
+.lab-modal-content {
+    position: relative;
+    width: min(1180px, 100%);
+    max-height: calc(100vh - 56px);
+    overflow: auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 30px 80px rgba(20,14,26,0.34);
+    padding: 22px 22px 24px;
+    animation: labModalIn 0.32s cubic-bezier(.2,.7,.3,1);
+}
+@keyframes labModalIn {
+    from { opacity: 0; transform: translateY(14px) scale(0.985); }
+    to   { opacity: 1; transform: none; }
+}
+
+.lab-modal-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 16px;
+}
+.lab-modal-title {
+    font-family: var(--font-heading);
+    font-size: clamp(20px, 2.4vw, 26px);
+    font-weight: 600;
+    line-height: 1.15;
+    margin: 0;
+}
+.lab-modal-sub {
+    margin: 6px 0 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+    max-width: 62ch;
+}
+.lab-modal-close {
+    flex: 0 0 auto;
+    width: 38px; height: 38px;
+    display: grid;
+    place-items: center;
+    font-size: 26px;
+    line-height: 1;
+    color: var(--text-secondary);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+.lab-modal-close:hover {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: #fff;
+}
+
+/* Inside the modal the stage fills the available panel width and
+   takes a fixed, generous height. */
+.lab-modal .fabric-stage {
+    width: 100%;
+    height: min(68vh, 620px);
+    border-radius: var(--radius-md);
+}
+
+@media (max-width: 768px) {
+    .lab-modal { padding: 14px; }
+    .lab-modal-content { padding: 16px 14px 18px; max-height: calc(100vh - 28px); }
+    .lab-modal .fabric-stage { height: min(58vh, 420px); }
+    .lab-modal-sub { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .lab-modal-content { animation: none; }
+}
+
+/* ============================================================
+   59. ART DOODLE SET
+   ------------------------------------------------------------
+   Hand-drawn art objects to sit alongside the stationery doodles:
+   brush, palette, ink bottle, scissors, sketch face, paper plane,
+   compass, swatch. All are single-stroke line art in the pencil
+   grey, drawn as inline SVG data URIs so they cost no requests.
+
+   They are decoration only — every host element is aria-hidden —
+   and they sit at low opacity in the page margins so they never
+   compete with content.
+   ============================================================ */
+
+.doodle-brush {
+    width: 108px; height: 108px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 110'%3E%3Cg fill='none' stroke='%238A8078' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' opacity='0.5'%3E%3Cpath d='M74 16 L94 36 L52 78 L32 58 Z'/%3E%3Cpath d='M32 58 L20 74 a12 12 0 0 0 16 16 L52 78'/%3E%3Cpath d='M26 84 L34 76'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.doodle-palette {
+    width: 116px; height: 116px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%238A8078' stroke-width='2' stroke-linejoin='round' opacity='0.48'%3E%3Cpath d='M60 14 C 28 14, 12 38, 14 60 C 16 84, 38 98, 58 96 C 70 95, 68 86, 72 80 C 78 72, 92 78, 100 68 C 110 56, 100 16, 60 14 Z'/%3E%3Ccircle cx='40' cy='40' r='6'/%3E%3Ccircle cx='68' cy='34' r='6'/%3E%3Ccircle cx='30' cy='64' r='6'/%3E%3Ccircle cx='50' cy='76' r='5'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.doodle-ink {
+    width: 92px; height: 92px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 94 94'%3E%3Cg fill='none' stroke='%238A8078' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' opacity='0.48'%3E%3Cpath d='M34 20 L60 20 L60 32 a22 22 0 0 1 14 20 L74 68 a8 8 0 0 1-8 8 L28 76 a8 8 0 0 1-8-8 L20 52 a22 22 0 0 1 14-20 Z'/%3E%3Cpath d='M34 20 L34 32 M60 32 L34 32'/%3E%3Cpath d='M40 56 a7 7 0 0 0 14 0 c0-5-7-12-7-12 s-7 7-7 12 Z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.doodle-scissors {
+    width: 88px; height: 88px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 90'%3E%3Cg fill='none' stroke='%238A8078' stroke-width='2' stroke-linecap='round' opacity='0.46'%3E%3Ccircle cx='24' cy='68' r='9'/%3E%3Ccircle cx='60' cy='68' r='9'/%3E%3Cpath d='M30 60 L66 14 M54 60 L18 14'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* A few loose contour lines — the start of a face, the way a
+   sketchbook page begins. */
+.doodle-sketchface {
+    width: 124px; height: 124px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 126 126'%3E%3Cg fill='none' stroke='%238A8078' stroke-width='1.8' stroke-linecap='round' opacity='0.42'%3E%3Cpath d='M40 26 C 24 44, 24 74, 40 94 C 52 108, 76 108, 88 92'/%3E%3Cpath d='M40 26 C 56 12, 84 16, 90 38 C 94 52, 88 62, 88 92'/%3E%3Cpath d='M48 54 q 8 -6 16 0'/%3E%3Cpath d='M74 52 q 6 -5 12 -1'/%3E%3Cpath d='M60 64 L58 76 q 6 4 12 0'/%3E%3Cpath d='M54 88 q 12 8 24 -2'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.doodle-plane {
+    width: 96px; height: 96px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 98 98'%3E%3Cg fill='none' stroke='%238A8078' stroke-width='2' stroke-linejoin='round' opacity='0.46'%3E%3Cpath d='M12 46 L86 16 L60 84 L46 58 Z'/%3E%3Cpath d='M46 58 L86 16'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.doodle-swatch {
+    width: 104px; height: 74px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 106 76'%3E%3Cg fill='none' stroke='%238A8078' stroke-width='1.8' stroke-linejoin='round' opacity='0.44'%3E%3Crect x='6' y='12' width='26' height='34' rx='3'/%3E%3Crect x='36' y='20' width='26' height='34' rx='3'/%3E%3Crect x='66' y='28' width='26' height='34' rx='3'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.doodle-compass {
+    width: 96px; height: 96px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 98 98'%3E%3Cg fill='none' stroke='%238A8078' stroke-width='2' stroke-linecap='round' opacity='0.44'%3E%3Ccircle cx='49' cy='16' r='5'/%3E%3Cpath d='M46 21 L24 82 M52 21 L74 82'/%3E%3Cpath d='M33 58 q 16 8 32 0'/%3E%3Cpath d='M74 82 l 4 -8'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ============================================================
+   60. SKY INTRO — an open sketchbook page
+   ------------------------------------------------------------
+   The intro screen was almost bare. It now carries a scattered
+   set of art marks around the title: they sit well outside the
+   centred text, fade in gently, and drift very slightly so the
+   page feels alive without pulling focus from the name.
+   ============================================================ */
+.sky-doodles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+}
+.sky-doodles > * {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0;
+    animation: skyDoodleIn 1.2s ease forwards;
+}
+@keyframes skyDoodleIn {
+    from { opacity: 0; transform: translateY(10px) rotate(var(--rot, 0deg)); }
+    to   { opacity: var(--op, 0.55); transform: translateY(0) rotate(var(--rot, 0deg)); }
+}
+
+/* Placement: a ring around the centred title, biased to the
+   corners so the middle third stays clear for the text. */
+.sky-d1 { top: 12%; left: 7%;   --rot: -12deg; --op: 0.5;  animation-delay: 0.25s; }
+.sky-d2 { top: 18%; right: 9%;  --rot: 10deg;  --op: 0.45; animation-delay: 0.40s; }
+.sky-d3 { bottom: 16%; left: 12%; --rot: 6deg; --op: 0.5;  animation-delay: 0.55s; }
+.sky-d4 { bottom: 20%; right: 11%; --rot: -8deg; --op: 0.45; animation-delay: 0.70s; }
+.sky-d5 { top: 46%; left: 3%;   --rot: 14deg;  --op: 0.38; animation-delay: 0.85s; }
+.sky-d6 { top: 52%; right: 4%;  --rot: -14deg; --op: 0.38; animation-delay: 1.00s; }
+.sky-d7 { top: 8%;  left: 42%;  --rot: 8deg;   --op: 0.30; animation-delay: 1.10s; }
+.sky-d8 { bottom: 8%; right: 38%; --rot: -6deg; --op: 0.30; animation-delay: 1.20s; }
+
+/* A gentle drift, long and shallow, so nothing distracts. */
+@media (prefers-reduced-motion: no-preference) {
+    .sky-d1, .sky-d4, .sky-d6 { animation: skyDoodleIn 1.2s ease forwards, skyFloat 17s ease-in-out infinite 1.4s; }
+    .sky-d2, .sky-d3, .sky-d5 { animation: skyDoodleIn 1.2s ease forwards, skyFloat 21s ease-in-out infinite 1.8s reverse; }
+}
+@keyframes skyFloat {
+    0%,100% { transform: translateY(0)    rotate(var(--rot, 0deg)); }
+    50%     { transform: translateY(-13px) rotate(calc(var(--rot, 0deg) + 2deg)); }
+}
+
+/* The intro is a full-bleed hero; on small screens the margins
+   vanish, so the outermost marks are withdrawn. */
+@media (max-width: 1100px) {
+    .sky-d5, .sky-d6, .sky-d7, .sky-d8 { display: none; }
+}
+@media (max-width: 700px) {
+    .sky-d1, .sky-d2, .sky-d3, .sky-d4 { transform: scale(0.72); }
+    .sky-doodles > * { --op: 0.34; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .sky-doodles > * { animation: none; opacity: var(--op, 0.45); }
+}
+
+/* Two extra margin slots so a section can carry 3–4 marks without
+   them bunching. Both sit outside the 1200px content column. */
+.scatter-f { top: 30%; right: 2.5%; transform: rotate(-11deg); }
+.scatter-g { bottom: 26%; right: 7%; transform: rotate(9deg); }
+@media (max-width: 1280px) { .scatter-f, .scatter-g { display: none; } }
+
+/* ------------------------------------------------------------
+   61. Doodle presence
+   The marks sat at ~0.45 opacity over warm paper grounds, which
+   left them close to invisible on the kraft and handmade stocks.
+   A modest lift keeps them clearly readable as sketches while
+   staying well below the contrast of real content.
+   ------------------------------------------------------------ */
+.desk-scatter > * { opacity: 0.72; }
+.sky-doodles > * { --op: 0.62; }
+.sky-d5, .sky-d6 { --op: 0.5; }
+.sky-d7, .sky-d8 { --op: 0.44; }
+@media (max-width: 700px) { .sky-doodles > * { --op: 0.42; } }
+
+/* ============================================================
+   62. ORIGAMI ANIMALS
+   ------------------------------------------------------------
+   Folded-paper creatures to replace the plain pencil shape. Each
+   is built from straight fold lines meeting at shared vertices,
+   with the interior creases drawn lighter than the silhouette —
+   that contrast is what makes a flat outline read as folded paper
+   rather than as a cartoon animal.
+
+   Same pencil-grey stroke and data-URI approach as the rest of
+   the doodle set, so they cost no requests and sit at the same
+   visual weight.
+   ============================================================ */
+
+/* Rabbit: two long ear folds over a wedge body, tail at the back. */
+.doodle-rabbit {
+    width: 112px; height: 112px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 114 114'%3E%3Cg fill='none' stroke='%238A8078' stroke-linejoin='round' stroke-linecap='round'%3E%3Cg stroke-width='2' opacity='0.62'%3E%3Cpath d='M40 46 L30 12 L46 40'/%3E%3Cpath d='M52 40 L58 8 L62 44'/%3E%3Cpath d='M40 46 L62 44 L76 62 L70 92 L34 96 L22 74 Z'/%3E%3Cpath d='M70 92 L92 86 L84 70'/%3E%3C/g%3E%3Cg stroke-width='1.3' opacity='0.4'%3E%3Cpath d='M40 46 L52 40'/%3E%3Cpath d='M62 44 L48 70 L34 96'/%3E%3Cpath d='M22 74 L48 70 L76 62'/%3E%3Cpath d='M84 70 L70 92'/%3E%3C/g%3E%3Ccircle cx='54' cy='58' r='2.4' fill='%238A8078' opacity='0.55'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Crane: the classic fold — wings out, neck and tail opposed. */
+.doodle-crane {
+    width: 124px; height: 124px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 126 126'%3E%3Cg fill='none' stroke='%238A8078' stroke-linejoin='round' stroke-linecap='round'%3E%3Cg stroke-width='2' opacity='0.62'%3E%3Cpath d='M62 74 L14 40 L30 30 L62 52 Z'/%3E%3Cpath d='M62 74 L110 40 L96 28 L62 52 Z'/%3E%3Cpath d='M62 52 L62 74 L50 96 L74 96 Z'/%3E%3Cpath d='M62 52 L44 20 L34 26'/%3E%3Cpath d='M44 20 L52 14 L44 12 Z'/%3E%3C/g%3E%3Cg stroke-width='1.25' opacity='0.36'%3E%3Cpath d='M14 40 L62 52 M110 40 L62 52'/%3E%3Cpath d='M30 30 L62 74 M96 28 L62 74'/%3E%3Cpath d='M50 96 L62 74 L74 96'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Cat: seated, ear triangles and a folded tail. */
+.doodle-cat {
+    width: 106px; height: 106px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 108 108'%3E%3Cg fill='none' stroke='%238A8078' stroke-linejoin='round' stroke-linecap='round'%3E%3Cg stroke-width='2' opacity='0.6'%3E%3Cpath d='M28 42 L24 16 L46 34'/%3E%3Cpath d='M62 34 L84 14 L80 42'/%3E%3Cpath d='M28 42 L46 34 L62 34 L80 42 L72 64 L36 64 Z'/%3E%3Cpath d='M36 64 L30 96 L74 96 L72 64'/%3E%3Cpath d='M74 96 L94 88 L88 70'/%3E%3C/g%3E%3Cg stroke-width='1.3' opacity='0.38'%3E%3Cpath d='M46 34 L54 54 L62 34'/%3E%3Cpath d='M36 64 L54 54 L72 64'/%3E%3Cpath d='M54 54 L54 96'/%3E%3C/g%3E%3Ccircle cx='45' cy='50' r='2' fill='%238A8078' opacity='0.5'/%3E%3Ccircle cx='64' cy='50' r='2' fill='%238A8078' opacity='0.5'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Fox: sharp muzzle wedge, tall ears, plume tail. */
+.doodle-fox {
+    width: 116px; height: 116px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 118 118'%3E%3Cg fill='none' stroke='%238A8078' stroke-linejoin='round' stroke-linecap='round'%3E%3Cg stroke-width='2' opacity='0.6'%3E%3Cpath d='M30 44 L22 16 L48 36'/%3E%3Cpath d='M66 36 L92 14 L86 44'/%3E%3Cpath d='M30 44 L48 36 L66 36 L86 44 L74 70 L40 70 Z'/%3E%3Cpath d='M40 70 L34 94 L80 94 L74 70'/%3E%3Cpath d='M80 94 L104 84 L92 62'/%3E%3C/g%3E%3Cg stroke-width='1.3' opacity='0.38'%3E%3Cpath d='M48 36 L57 58 L66 36'/%3E%3Cpath d='M40 70 L57 58 L74 70'/%3E%3Cpath d='M57 58 L57 94'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Butterfly: two wing folds mirrored across a body crease. */
+.doodle-butterfly {
+    width: 112px; height: 112px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 114 114'%3E%3Cg fill='none' stroke='%238A8078' stroke-linejoin='round' stroke-linecap='round'%3E%3Cg stroke-width='2' opacity='0.6'%3E%3Cpath d='M57 30 L18 14 L12 52 L57 62 Z'/%3E%3Cpath d='M57 30 L96 14 L102 52 L57 62 Z'/%3E%3Cpath d='M57 62 L26 84 L40 100 L57 86 Z'/%3E%3Cpath d='M57 62 L88 84 L74 100 L57 86 Z'/%3E%3C/g%3E%3Cg stroke-width='1.3' opacity='0.36'%3E%3Cpath d='M57 30 L57 86'/%3E%3Cpath d='M18 14 L57 62 M96 14 L57 62'/%3E%3C/g%3E%3Cpath d='M57 30 L50 16 M57 30 L64 16' stroke-width='1.4' opacity='0.45'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Three more folds, so eight sections can each carry a different
+   creature rather than repeating one. Same construction: heavier
+   silhouette, lighter interior creases. */
+.doodle-bird {
+    width: 108px; height: 108px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 110'%3E%3Cg fill='none' stroke='%238A8078' stroke-linejoin='round' stroke-linecap='round'%3E%3Cg stroke-width='2' opacity='0.62'%3E%3Cpath d='M20 62 L54 34 L88 62 L54 78 Z'/%3E%3Cpath d='M54 34 L62 14 L74 24'/%3E%3Cpath d='M62 14 L70 10 L64 6 Z'/%3E%3Cpath d='M54 78 L46 96 L66 92 Z'/%3E%3C/g%3E%3Cg stroke-width='1.25' opacity='0.36'%3E%3Cpath d='M20 62 L54 78 M88 62 L54 78'/%3E%3Cpath d='M54 34 L54 78'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.doodle-fish {
+    width: 110px; height: 110px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 112 112'%3E%3Cg fill='none' stroke='%238A8078' stroke-linejoin='round' stroke-linecap='round'%3E%3Cg stroke-width='2' opacity='0.6'%3E%3Cpath d='M22 56 L54 30 L86 56 L54 82 Z'/%3E%3Cpath d='M86 56 L106 40 L102 72 Z'/%3E%3C/g%3E%3Cg stroke-width='1.25' opacity='0.36'%3E%3Cpath d='M22 56 L86 56'/%3E%3Cpath d='M54 30 L54 82'/%3E%3Cpath d='M40 43 L68 69 M68 43 L40 69'/%3E%3C/g%3E%3Ccircle cx='40' cy='52' r='2.2' fill='%238A8078' opacity='0.5'/%3E%3C/g%3E%3C/svg%3E");
+}
+.doodle-boat {
+    width: 108px; height: 108px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 110'%3E%3Cg fill='none' stroke='%238A8078' stroke-linejoin='round' stroke-linecap='round'%3E%3Cg stroke-width='2' opacity='0.6'%3E%3Cpath d='M14 62 L96 62 L78 88 L32 88 Z'/%3E%3Cpath d='M22 62 L55 22 L88 62'/%3E%3C/g%3E%3Cg stroke-width='1.25' opacity='0.36'%3E%3Cpath d='M55 22 L55 62'/%3E%3Cpath d='M32 88 L38 62 M78 88 L72 62'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }

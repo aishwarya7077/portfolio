@@ -123,12 +123,15 @@ function initFabric() {
 
             target.set(tx, ty, z);
 
-            // depth-driven color, remapped into the site's rose (0.92) -> violet (0.74) hue range
+            // depth-driven color, remapped onto dyed paper stock:
+            // vermilion (0.03) at the crest -> sage (0.42) in the trough.
+            // Saturation stays low and lightness high so the mesh reads as
+            // pigment on paper rather than emitted light.
             const depth = Math.abs(z) / (params.amp + 0.001);
-            let hue = (0.92 - depth * 0.18 + 0.03 * Math.sin(time)) % 1.0;
+            let hue = (0.03 + depth * 0.39 + 0.01 * Math.sin(time)) % 1.0;
             if (hue < 0) hue += 1;
-            const sat = 0.55 + 0.3 * depth;
-            const light = 0.55 + 0.25 * (1.0 - depth);
+            const sat = 0.34 + 0.16 * depth;
+            const light = 0.62 - 0.14 * depth;
             color.setHSL(hue, sat, light);
 
             const pi = i * 3;
@@ -173,6 +176,16 @@ function initFabric() {
     observer.observe(stage);
 
     window.addEventListener('resize', resize);
+
+    // The stage grows to fill the viewport as it scrolls into view and
+    // shrinks again on the way out (see .fabric-cinematic in styles).
+    // That is a CSS-driven size change, which fires no window resize
+    // event, so the renderer has to watch the element itself or the
+    // scene would stretch to the old aspect ratio.
+    if (typeof ResizeObserver !== 'undefined') {
+        const stageRO = new ResizeObserver(() => resize());
+        stageRO.observe(stage);
+    }
 
     // Wire up the range-slider controls
     function bindSlider(inputId, valId, key, parse) {

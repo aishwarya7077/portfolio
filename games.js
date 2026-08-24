@@ -56,7 +56,26 @@
         const finalTimeEl = document.getElementById('tileFinalTime');
         const playAgainBtn = document.getElementById('tilePlayAgainBtn');
 
-        if (!openBtn || !board) return;
+        // The Games section was removed from the page flow, so the
+        // in-page play button no longer exists; the nav link opens
+        // the game instead. Only the board is genuinely required.
+        const navTriggers = Array.from(document.querySelectorAll('[data-open-game]'));
+        // These are anchors kept for keyboard/semantics; stop the jump
+        // to a section id that no longer exists, and close the mobile
+        // drawer when the game is opened from there.
+        navTriggers.forEach((el) => {
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+                const drawer = document.getElementById('mobileNav');
+                if (drawer && drawer.classList.contains('active')) {
+                    drawer.classList.remove('active');
+                    drawer.setAttribute('aria-hidden', 'true');
+                    const toggle = document.getElementById('navMenuToggle');
+                    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+        if (!board) return;
 
         function shuffle(arr) {
             for (let i = arr.length - 1; i > 0; i--) {
@@ -161,7 +180,7 @@
         restartBtn.addEventListener('click', startGame);
         playAgainBtn.addEventListener('click', startGame);
 
-        bindModal('tileGameModal', 'tileGameBackdrop', 'tileGameClose', [openBtn], () => {
+        bindModal('tileGameModal', 'tileGameBackdrop', 'tileGameClose', [openBtn, ...navTriggers], () => {
             if (!tileState || !tileState.active) startGame();
         }, () => {
             if (tileState) clearInterval(tileState.intervalId);
