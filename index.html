@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dutpala Aishwarya | Software Engineer & Artist</title>
+    <link rel="icon" type="image/png" href="pictures/logo-128.png">
+    <link rel="apple-touch-icon" href="pictures/logo-256.png">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,9 +31,6 @@
 <body>
     <!-- Click Effects Overlay (sections below hero) -->
     <div class="click-effects-layer" id="clickEffectsLayer" aria-hidden="true"></div>
-    <!-- Custom Cursor -->
-    <div class="cursor-dot" id="cursorDot"></div>
-    <div class="cursor-ring" id="cursorRing"></div>
     <!-- Scroll Progress Bar -->
     <div class="scroll-progress" id="scrollProgress"></div>
     <!-- Back To Top -->
@@ -40,7 +39,7 @@
     </button>
     <!-- Floating Profile Button (top-left) -->
     <button class="profile-fab" id="profileFab" aria-label="Open profile" title="View Profile">
-        <span class="profile-fab-letter">A</span>
+        <img src="pictures/logo-128.png" alt="" class="profile-fab-logo">
     </button>
 
     <!-- Profile Card Modal -->
@@ -49,7 +48,7 @@
         <div class="profile-modal-content" role="dialog" aria-modal="true" aria-label="Profile preview" data-lenis-prevent>
             <button class="profile-modal-close" id="profileModalClose" aria-label="Close">&times;</button>
             <div class="profile-card-header">
-                <div class="profile-avatar-circle">AD</div>
+                <div class="profile-avatar-circle"><img src="pictures/logo-256.png" alt="" class="profile-avatar-img"></div>
                 <div>
                     <h2 class="profile-name">Aishwarya Dutpala</h2>
                     <p class="profile-title">Software Engineer</p>
@@ -165,16 +164,36 @@
 
     <!-- Right Side Navigation (desktop) -->
     <aside class="side-nav" aria-label="Section navigation">
-        <a href="#home" class="side-nav-link active">Home</a>
-        <a href="#about" class="side-nav-link">About</a>
-        <a href="#experience" class="side-nav-link">Experience</a>
-        <a href="#skills" class="side-nav-link">Skills</a>
-        <a href="#projects" class="side-nav-link">Projects</a>
-        <a href="#certificates" class="side-nav-link">Certificates</a>
-        <a href="#lab" class="side-nav-link" data-open-lab>Lab</a>
-        <a href="#games" class="side-nav-link" data-open-game>Games</a>
-        <a href="#gallery" class="side-nav-link">Art</a>
-        <a href="#contact" class="side-nav-link">Contact</a>
+        <a href="#home" class="side-nav-link active">
+            <span class="nav-initial" aria-hidden="true">H</span><span class="nav-label">Home</span>
+        </a>
+        <a href="#about" class="side-nav-link">
+            <span class="nav-initial" aria-hidden="true">A</span><span class="nav-label">About</span>
+        </a>
+        <a href="#experience" class="side-nav-link">
+            <span class="nav-initial" aria-hidden="true">E</span><span class="nav-label">Experience</span>
+        </a>
+        <a href="#skills" class="side-nav-link">
+            <span class="nav-initial" aria-hidden="true">S</span><span class="nav-label">Skills</span>
+        </a>
+        <a href="#projects" class="side-nav-link">
+            <span class="nav-initial" aria-hidden="true">P</span><span class="nav-label">Projects</span>
+        </a>
+        <a href="#certificates" class="side-nav-link">
+            <span class="nav-initial" aria-hidden="true">C</span><span class="nav-label">Certificates</span>
+        </a>
+        <a href="#lab" class="side-nav-link" data-open-lab>
+            <span class="nav-initial" aria-hidden="true">L</span><span class="nav-label">Lab</span>
+        </a>
+        <a href="#games" class="side-nav-link" data-open-game>
+            <span class="nav-initial" aria-hidden="true">G</span><span class="nav-label">Games</span>
+        </a>
+        <a href="#gallery" class="side-nav-link">
+            <span class="nav-initial" aria-hidden="true">A</span><span class="nav-label">Art</span>
+        </a>
+        <a href="#contact" class="side-nav-link">
+            <span class="nav-initial" aria-hidden="true">C</span><span class="nav-label">Contact</span>
+        </a>
     </aside>
 
     <!-- Mobile Navigation Menu -->

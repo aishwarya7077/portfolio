@@ -167,43 +167,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// ===== CODE RAIN CANVAS (Hero Avatar) =====
-function initCodeCanvas() {
-    const codeCanvas = document.getElementById('codeCanvas');
-    if (!codeCanvas) return;
-    const cCtx = codeCanvas.getContext('2d');
-    codeCanvas.width = 260;
-    codeCanvas.height = 260;
 
-    const chars = 'const let var function return if else for while => {} [] () import export class new this async await .map .filter React useState useEffect props render div span <> </> npm git push pull merge commit deploy build test'.split(' ');
-    const columns = Math.floor(codeCanvas.width / 14);
-    const drops = Array(columns).fill(0);
-
-    function drawCode() {
-        cCtx.fillStyle = 'rgba(250, 248, 244, 0.14)';
-        cCtx.fillRect(0, 0, codeCanvas.width, codeCanvas.height);
-
-        cCtx.font = '12px monospace';
-
-        drops.forEach((y, i) => {
-            const char = chars[Math.floor(Math.random() * chars.length)];
-            // Ink on paper: warm vermilion..sage, low saturation, dark
-            // enough to read against a cream ground.
-            const hue = 12 + Math.random() * 18;
-            const brightness = 30 + Math.random() * 18;
-            cCtx.fillStyle = `hsl(${hue}, 45%, ${brightness}%)`;
-            cCtx.fillText(char.charAt(Math.floor(Math.random() * char.length)), i * 14, y * 14);
-
-            if (y * 14 > codeCanvas.height && Math.random() > 0.96) {
-                drops[i] = 0;
-            }
-            drops[i]++;
-        });
-    }
-
-    setInterval(drawCode, 80);
-}
-initCodeCanvas();
 
 // ===== VINYL CD SCROLL SPIN =====
 function initVinylCd() {
@@ -269,22 +233,6 @@ document.querySelectorAll('.cine-word').forEach((word, i) => {
     });
 });
 
-// --- GSAP Count Up ---
-document.querySelectorAll('.count-up').forEach(el => {
-    const target = parseInt(el.getAttribute('data-target'));
-    const obj = { val: 0 };
-    gsap.to(obj, {
-        val: target,
-        duration: 2,
-        ease: 'power1.out',
-        onUpdate: () => { el.textContent = Math.floor(obj.val); },
-        scrollTrigger: {
-            trigger: el,
-            start: 'top 85%',
-            once: true,
-        }
-    });
-});
 
 // --- GSAP Project Logo Reveal ---
 document.querySelectorAll('.project-logo').forEach(logo => {
@@ -590,54 +538,7 @@ function initSkyIntro() {
 initSkyIntro();
 
 
-// ===== CUSTOM ANIMATED CURSOR =====
-function initCustomCursor() {
-    const dot = document.getElementById('cursorDot');
-    const ring = document.getElementById('cursorRing');
-    if (!dot || !ring) return;
 
-    // Hide on touch devices
-    if ('ontouchstart' in window) {
-        dot.style.display = 'none';
-        ring.style.display = 'none';
-        return;
-    }
-
-    document.body.style.cursor = 'none';
-
-    let dotX = 0, dotY = 0, ringX = 0, ringY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-        dotX = e.clientX;
-        dotY = e.clientY;
-    });
-
-    function animateCursor() {
-        ringX += (dotX - ringX) * 0.15;
-        ringY += (dotY - ringY) * 0.15;
-
-        dot.style.left = dotX + 'px';
-        dot.style.top = dotY + 'px';
-        ring.style.left = ringX + 'px';
-        ring.style.top = ringY + 'px';
-
-        requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-
-    // Hover effects on interactive elements
-    const hoverTargets = document.querySelectorAll('a, button, .project-card, .skill-category, .interest-card, .btn, input, textarea, .gallery-frame');
-    hoverTargets.forEach(el => {
-        el.style.cursor = 'none';
-        el.addEventListener('mouseenter', () => ring.classList.add('hover'));
-        el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
-    });
-
-    // Click effect
-    document.addEventListener('mousedown', () => dot.classList.add('click'));
-    document.addEventListener('mouseup', () => dot.classList.remove('click'));
-}
-initCustomCursor();
 
 // ===== 3D TEXT SPLIT ANIMATION =====
 function initTextSplitAnimations() {
@@ -758,31 +659,7 @@ function initSkillCardTilt() {
 }
 initSkillCardTilt();
 
-// ===== FLOATING 3D SKILL ORBS PARALLAX =====
-function initSkillOrbs() {
-    const container = document.getElementById('skillOrbs');
-    if (!container) return;
 
-    const orbs = container.querySelectorAll('.skill-orb');
-
-    container.addEventListener('mousemove', (e) => {
-        const rect = container.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-
-        orbs.forEach((orb, i) => {
-            const depth = 1 + (i % 3) * 0.4;
-            const moveX = x * 15 * depth;
-            const moveY = y * 10 * depth;
-            orb.style.transform = `translate(${moveX}px, ${moveY}px) rotateY(${x * 8}deg)`;
-        });
-    });
-
-    container.addEventListener('mouseleave', () => {
-        orbs.forEach(orb => { orb.style.transform = ''; });
-    });
-}
-initSkillOrbs();
 
 
 // ===== 3D INTEREST CARDS TILT =====
