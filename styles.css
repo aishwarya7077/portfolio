@@ -6502,3 +6502,957 @@ html { overflow-x: hidden; }
     width: 108px; height: 108px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 110'%3E%3Cg fill='none' stroke='%238A8078' stroke-linejoin='round' stroke-linecap='round'%3E%3Cg stroke-width='2' opacity='0.6'%3E%3Cpath d='M14 62 L96 62 L78 88 L32 88 Z'/%3E%3Cpath d='M22 62 L55 22 L88 62'/%3E%3C/g%3E%3Cg stroke-width='1.25' opacity='0.36'%3E%3Cpath d='M55 22 L55 62'/%3E%3Cpath d='M32 88 L38 62 M78 88 L72 62'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
+
+/* ============================================================
+   63. WARM PAPER + INK + TERRACOTTA — palette adoption
+   ------------------------------------------------------------
+   Adopts the specified swatches exactly:
+
+     #F6F0E6  background      #252525  text / ink
+     #A6533C  primary accent  #C99A4A  secondary accent
+     #66735B  sage accent     #FFFDF8  card / paper
+     #D8CCBA  border / lines
+
+   The site already ran a warm-paper scheme, so this is a
+   re-tuning rather than a rebuild: the ground warms up, the ink
+   goes near-black, terracotta deepens, and two colours that were
+   previously absent — amber and sage — become real tokens so
+   they can carry meaning instead of decorating at random.
+
+   Redefining the tokens propagates everywhere they are used;
+   the handful of places that hard-coded a colour are corrected
+   below so nothing keeps the old lighter values.
+   ============================================================ */
+:root {
+    /* ground + surfaces */
+    --bg-primary:   #F6F0E6;
+    --bg-secondary: #F1EADC;
+    --bg-tertiary:  #E9E0CE;
+    --bg-card:      #FFFDF8;
+    --bg-glass:     rgba(255,253,248,0.88);
+
+    /* ink */
+    --text-primary:   #252525;
+    --text-secondary: #4E4A44;
+    --text-muted:     #7C7469;
+
+    /* accents */
+    --accent-primary:   #A6533C;
+    --accent-secondary: #8A4130;
+    --accent-tertiary:  #66735B;   /* sage */
+    --accent-amber:     #C99A4A;   /* secondary accent */
+    --accent-sage:      #66735B;
+    --accent-gradient: linear-gradient(135deg, #A6533C, #8A4130);
+    --accent-glow:  rgba(166,83,60,0.18);
+    --accent-light: rgba(166,83,60,0.08);
+
+    /* borders + rules */
+    --border-color: #D8CCBA;
+    --border-hover: #C4B49C;
+
+    /* stationery stock */
+    --paper-cream: #F5EEDF;
+    --paper-kraft: #E0D2B8;
+    --paper-shade: #CDBB9B;
+    --tape:        rgba(214,199,168,0.70);
+    --sticky:      #F4DFA0;
+    --sticky-edge: #E0C87F;
+    --pencil:      #8A8078;
+    --ink-pencil:  #8A8078;
+}
+
+/* --- Places that predate the tokens and hard-coded a colour --- */
+
+/* Paper grounds were mixed by hand for the old, lighter base. */
+.paper-ledger-bg,  .paper-ledger-bg::after  { background-color: #F8F2E6; }
+.paper-origami-bg, .paper-origami-bg::after { background-color: #F4EDDF; }
+.paper-graph-bg,   .paper-graph-bg::after   { background-color: #F5EFE3; }
+.paper-kraft-bg,   .paper-kraft-bg::after   { background-color: #ECE0C8; }
+.paper-handmade-bg,.paper-handmade-bg::after{ background-color: #F0E7D5; }
+.paper-vellum-bg,  .paper-vellum-bg::after  { background-color: #ECEFE9; }
+
+/* Cards and sheets that were literal #FFFDF8 / #FFFFFF. */
+.about-text-col,
+.certificate-card,
+.contact-form,
+.photo-print-window { background-color: var(--bg-card); }
+.photo-print {
+    background: linear-gradient(158deg, #FFFEFA 0%, #FDFAF3 55%, #F6EFE1 100%);
+}
+
+/* Rules on ruled/graph stock pick up the new border tone. */
+:root {
+    --paper-line:   rgba(90,110,135,0.16);
+    --paper-margin: rgba(166,83,60,0.32);
+}
+
+/* The sage and amber accents now do real work rather than sitting
+   unused: sage marks the timeline's paper tab, amber the sticky
+   notes' curled edge. Both are quiet, single-purpose roles. */
+.timeline-marker { background: #C9D3C0; }
+.certificate-seal {
+    border-color: rgba(201,154,74,0.42);
+    background: rgba(201,154,74,0.10);
+    color: #9C7433;
+}
+
+/* Body ground + fibre pass, retuned to the warmer base. */
+body {
+    background-color: var(--bg-primary);
+    background-image:
+        repeating-linear-gradient(96deg,
+            rgba(120,100,75,0.018) 0 1px, transparent 1px 4px),
+        repeating-linear-gradient(2deg,
+            rgba(120,100,75,0.013) 0 1px, transparent 1px 5px);
+}
+
+/* Scrollbar + selection follow the deeper terracotta. */
+::selection { background: var(--accent-primary); color: #fff; }
+::-webkit-scrollbar-thumb { background: var(--paper-shade); }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
+
+/* ============================================================
+   64. PAPER TAG BUTTONS + NAV
+   ------------------------------------------------------------
+   Buttons and nav links become small torn paper tags: warm stock,
+   irregular left/right torn edges, a faint fibre grain, and a
+   soft drop shadow so each tag sits ON the page rather than in it.
+
+   Construction notes:
+   - The torn edge is a clip-path on the element itself. Vertical
+     edges only: a full outline would clip the label's descenders
+     at small sizes.
+   - clip-path removes the box shadow along with the shape, so the
+     shadow is cast by a ::before that carries the same clip. That
+     is why the tag needs its own stacking context.
+   - The grain is a repeating gradient, not an image, so the tags
+     stay request-free and scale cleanly.
+   ============================================================ */
+
+/* The torn silhouette. Slight asymmetry left vs right so a row of
+   tags does not read as a repeated stamp. */
+:root {
+    /* A hand-torn edge is irregular in BOTH depth and spacing —
+       evenly spaced notches of equal depth read as a machine cut
+       (a chevron pattern), which is what the first attempt looked
+       like. These points vary from 0% to ~3.4% inward at uneven
+       intervals, and the two sides never mirror each other. */
+    --tag-tear: polygon(
+        1.8% 0%, 99.1% 0%,
+        97.4% 7%,  100% 15%, 98.1% 23%, 99.6% 31%, 96.9% 39%,
+        100% 47%,  97.8% 55%, 99.4% 64%, 96.6% 72%, 99.9% 81%,
+        97.9% 90%, 99.3% 100%,
+        0.9% 100%,
+        2.6% 92%,  0.2% 84%, 3.1% 76%, 0.6% 67%, 2.4% 59%,
+        0% 50%,    2.9% 42%, 0.4% 34%, 2.2% 25%, 0.1% 17%,
+        3.4% 9%);
+    --tag-face: linear-gradient(168deg, #F7F1E3 0%, #F2EBD9 55%, #EDE4CE 100%);
+    --tag-grain:
+        repeating-linear-gradient(92deg,
+            rgba(140,112,74,0.040) 0 1px, transparent 1px 5px),
+        repeating-linear-gradient(-4deg,
+            rgba(140,112,74,0.028) 0 1px, transparent 1px 7px);
+}
+
+/* ---- shared tag surface ---- */
+.btn,
+.side-nav-link,
+.mobile-nav-link,
+.filter-btn,
+.project-filter button,
+.project-action-btn,
+.game-play-btn,
+.copy-btn {
+    position: relative;
+    isolation: isolate;
+    clip-path: var(--tag-tear);
+    border-radius: 0 !important;
+    border: none !important;
+    background: var(--tag-grain), var(--tag-face) !important;
+    color: var(--text-primary) !important;
+    box-shadow: none !important;
+    text-shadow: none;
+    transition: transform var(--transition-normal),
+                filter var(--transition-normal),
+                color var(--transition-fast);
+}
+
+/* The shadow lives on a clipped underlay, since clip-path would
+   otherwise cut the element's own box-shadow away. */
+.btn::before,
+.side-nav-link::before,
+.mobile-nav-link::before,
+.filter-btn::before,
+.project-filter button::before,
+.project-action-btn::before,
+.game-play-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    clip-path: var(--tag-tear);
+    background: inherit;
+    filter: drop-shadow(0 1px 1px rgba(74,58,40,0.16))
+            drop-shadow(0 3px 5px rgba(74,58,40,0.13));
+    pointer-events: none;
+}
+
+/* Lift on hover — the tag is picked up off the page. */
+.btn:hover,
+.side-nav-link:hover,
+.mobile-nav-link:hover,
+.filter-btn:hover,
+.project-filter button:hover,
+.project-action-btn:hover,
+.game-play-btn:hover {
+    transform: translateY(-2px) rotate(-0.35deg);
+    filter: drop-shadow(0 4px 7px rgba(74,58,40,0.16));
+}
+.btn:active,
+.side-nav-link:active,
+.filter-btn:active,
+.project-action-btn:active { transform: translateY(0) rotate(0deg); }
+
+/* ---- primary: the terracotta tag ---- */
+.btn-primary,
+.btn-submit,
+.game-play-btn {
+    background:
+        var(--tag-grain),
+        linear-gradient(168deg, #B15C42 0%, #A6533C 55%, #96482F 100%) !important;
+    color: #FFF7EF !important;
+}
+.btn-primary:hover,
+.btn-submit:hover,
+.game-play-btn:hover {
+    background:
+        var(--tag-grain),
+        linear-gradient(168deg, #A6533C 0%, #99492F 55%, #8A4130 100%) !important;
+    color: #fff !important;
+}
+
+/* ---- outline / secondary: pale stock, ink label ---- */
+.btn-outline {
+    color: var(--accent-secondary) !important;
+}
+.btn-outline:hover { color: var(--accent-primary) !important; }
+
+/* The paper-cut offset outline from rule 37 fought the torn edge —
+   a rectangular border around a torn shape. Retired here. */
+.btn::after { content: none !important; }
+
+/* ---- nav tags ---- */
+/* The side nav is a stack of tags clipped to the rail. They are
+   smaller and quieter than buttons so the nav stays calm. */
+.side-nav-link,
+.mobile-nav-link {
+    padding: 7px 15px !important;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.055em;
+    color: var(--text-secondary) !important;
+}
+.side-nav-link:hover,
+.mobile-nav-link:hover {
+    color: var(--accent-primary) !important;
+    transform: translateX(-3px) rotate(-0.4deg);
+}
+.side-nav-link.active,
+.mobile-nav-link.active {
+    background:
+        var(--tag-grain),
+        linear-gradient(168deg, #B15C42 0%, #A6533C 55%, #96482F 100%) !important;
+    color: #FFF7EF !important;
+}
+/* The active marker from rule 29 was a square nub against a torn
+   edge; the terracotta stock now signals "active" on its own. */
+.side-nav-link.active::before {
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    transform: none;
+    background: inherit;
+    border-radius: 0;
+}
+
+/* The nav shell holding the tags reads as the board they are
+   pinned to, not another card. */
+.side-nav {
+    background: rgba(255,253,248,0.90) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 0 6px 20px rgba(74,58,40,0.10) !important;
+    gap: 4px;
+}
+
+/* ---- small tags ---- */
+.filter-btn, .project-filter button {
+    padding: 8px 17px !important;
+    font-weight: 600;
+}
+.filter-btn.active, .project-filter button.active {
+    background:
+        var(--tag-grain),
+        linear-gradient(168deg, #B15C42 0%, #A6533C 55%, #96482F 100%) !important;
+    color: #FFF7EF !important;
+}
+.project-action-btn { padding: 9px 16px !important; font-weight: 600; }
+
+/* The copy button is a square icon; a torn edge on a 34px box
+   reads as damage rather than as paper. It keeps a clean tag. */
+.copy-btn { clip-path: none; border-radius: var(--radius-sm) !important; }
+
+/* ---- accessibility ---- */
+/* clip-path also clips the focus ring, so focus is shown as a
+   colour + offset shadow the clip cannot remove. */
+:where(.btn, .side-nav-link, .mobile-nav-link, .filter-btn,
+       .project-action-btn):focus-visible {
+    outline: none;
+    color: var(--accent-primary) !important;
+    transform: translateY(-2px);
+}
+:where(.btn, .side-nav-link, .mobile-nav-link, .filter-btn,
+       .project-action-btn):focus-visible::before {
+    filter: drop-shadow(0 0 0 3px var(--accent-primary))
+            drop-shadow(0 3px 5px rgba(74,58,40,0.18));
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn:hover, .side-nav-link:hover, .mobile-nav-link:hover,
+    .filter-btn:hover, .project-action-btn:hover { transform: none; }
+}
+
+/* ============================================================
+   65. CONTACT PANEL + FOOTER AS TORN SHEETS
+   ------------------------------------------------------------
+   The contact details become one torn sheet of writing paper
+   rather than three separate cards, and the footer becomes a
+   sheet of dark charcoal stock torn along its top and bottom.
+
+   Both use a deckle mask rather than a clip-path: a mask can be
+   applied per-edge and, unlike clip-path, does not clip the
+   element's box-shadow or its focus rings. The sheets carry real
+   text and interactive links, so keeping focus rings intact
+   matters more here than it did on the small tag buttons.
+   ============================================================ */
+
+/* An irregular deckle edge, reused by both sheets. Two variants so
+   a sheet's top and bottom edges never repeat the same profile. */
+:root {
+    --deckle-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='14' preserveAspectRatio='none'%3E%3Cpath d='M0 14 L0 6.2 C 22 4.1, 45 8.4, 68 5.6 C 92 2.7, 114 7.9, 138 6.1 C 163 4.2, 185 8.8, 210 6.4 C 236 3.9, 258 8.1, 283 5.9 C 309 3.6, 331 8.6, 357 6.2 C 383 3.7, 405 8.3, 431 6.0 C 457 3.8, 479 8.7, 505 6.3 C 531 3.9, 553 8.2, 579 5.8 C 605 3.5, 627 8.5, 653 6.1 C 679 3.7, 701 8.4, 727 6.0 C 753 3.6, 775 8.6, 801 6.2 C 827 3.8, 849 8.1, 875 5.9 C 901 3.6, 923 8.7, 949 6.3 C 975 3.9, 997 8.3, 1023 6.0 C 1049 3.7, 1071 8.5, 1097 6.1 C 1123 3.8, 1145 8.2, 1171 6.4 C 1181 5.7, 1191 6.8, 1200 6.0 L 1200 14 Z' fill='%23000'/%3E%3C/svg%3E");
+    --deckle-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='14' preserveAspectRatio='none'%3E%3Cpath d='M0 0 L0 7.8 C 26 9.9, 50 5.4, 76 7.6 C 103 9.9, 126 5.1, 152 7.4 C 179 9.8, 202 4.9, 228 7.2 C 255 9.6, 278 5.2, 304 7.5 C 331 9.9, 354 5.0, 380 7.3 C 407 9.7, 430 5.3, 456 7.6 C 483 10.0, 506 5.1, 532 7.4 C 559 9.8, 582 4.8, 608 7.1 C 635 9.5, 658 5.4, 684 7.7 C 711 10.1, 734 5.2, 760 7.5 C 787 9.9, 810 5.0, 836 7.3 C 863 9.7, 886 5.3, 912 7.6 C 939 10.0, 962 5.1, 988 7.4 C 1015 9.8, 1038 4.9, 1064 7.2 C 1091 9.6, 1114 5.5, 1140 7.8 C 1160 9.4, 1180 6.6, 1200 7.9 L 1200 0 Z' fill='%23000'/%3E%3C/svg%3E");
+}
+
+/* ---- Contact: one torn sheet holding the details ---- */
+.contact-info-col {
+    position: relative;
+    background:
+        repeating-linear-gradient(93deg,
+            rgba(140,112,74,0.030) 0 1px, transparent 1px 6px),
+        linear-gradient(166deg, #FBF6EA 0%, #F7F1E2 60%, #F2EBD9 100%);
+    padding: 30px 28px 34px;
+    box-shadow:
+        0 1px 2px rgba(74,58,40,0.10),
+        0 10px 26px rgba(74,58,40,0.11);
+    /* deckle both horizontal edges, straight sides */
+    -webkit-mask-image: var(--deckle-a), var(--deckle-b), linear-gradient(#000,#000);
+    mask-image: var(--deckle-a), var(--deckle-b), linear-gradient(#000,#000);
+    -webkit-mask-size: 100% 14px, 100% 14px, 100% calc(100% - 26px);
+    mask-size: 100% 14px, 100% 14px, 100% calc(100% - 26px);
+    -webkit-mask-position: top, bottom, center;
+    mask-position: top, bottom, center;
+    -webkit-mask-repeat: no-repeat, no-repeat, no-repeat;
+    mask-repeat: no-repeat, no-repeat, no-repeat;
+}
+
+/* The individual cards dissolve into the sheet — they are now
+   rows on one page, separated by a pencil rule rather than by
+   three competing card surfaces. */
+.contact-info-col .contact-card {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 15px 4px !important;
+    overflow: visible !important;
+}
+.contact-info-col .contact-card::before { content: none !important; }
+.contact-info-col .contact-card + .contact-card {
+    border-top: 1px dashed rgba(120,100,72,0.30) !important;
+}
+.contact-info-col .contact-card:hover {
+    transform: translateX(3px);
+    background: transparent !important;
+}
+
+/* Icons become small inked marks rather than filled chips. */
+.contact-info-col .contact-card-icon {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: var(--accent-primary) !important;
+    width: 30px; height: 30px;
+    font-size: 15px;
+}
+
+/* ---- Footer: a sheet of dark stock, torn top and bottom ---- */
+.footer {
+    position: relative;
+    background:
+        repeating-linear-gradient(94deg,
+            rgba(255,255,255,0.020) 0 1px, transparent 1px 6px),
+        repeating-linear-gradient(-3deg,
+            rgba(255,255,255,0.014) 0 1px, transparent 1px 8px),
+        linear-gradient(168deg, #35322D 0%, #2C2A26 55%, #262421 100%) !important;
+    border-top: none !important;
+    color: #E8E0D2 !important;
+    margin-top: 10px;
+    padding-top: 54px !important;
+    padding-bottom: 46px !important;
+    -webkit-mask-image: var(--deckle-a), linear-gradient(#000,#000);
+    mask-image: var(--deckle-a), linear-gradient(#000,#000);
+    -webkit-mask-size: 100% 14px, 100% calc(100% - 14px);
+    mask-size: 100% 14px, 100% calc(100% - 14px);
+    -webkit-mask-position: top, bottom;
+    mask-position: top, bottom;
+    -webkit-mask-repeat: no-repeat, no-repeat;
+    mask-repeat: no-repeat, no-repeat;
+}
+/* The old torn overlay from rule 40 is replaced by the mask. */
+.footer::before { content: none !important; }
+
+.footer .footer-logo,
+.footer .footer-logo * { color: #F3EADA !important; }
+.footer .footer-text { color: #C8BFAE !important; }
+.footer .footer-copyright { color: #9A9184 !important; font-size: 12.5px; }
+.footer .logo-text { color: var(--accent-primary) !important; }
+
+/* Social marks on dark stock: pale outline that warms on hover. */
+.footer .footer-socials a {
+    color: #D8CFC0 !important;
+    border: 1px solid rgba(232,224,210,0.22) !important;
+    background: rgba(255,255,255,0.035) !important;
+    border-radius: var(--radius-sm);
+    transition: color var(--transition-fast),
+                border-color var(--transition-fast),
+                background var(--transition-fast),
+                transform var(--transition-fast);
+}
+.footer .footer-socials a:hover {
+    color: #FFF3E4 !important;
+    border-color: var(--accent-primary) !important;
+    background: rgba(166,83,60,0.30) !important;
+    transform: translateY(-2px);
+}
+.footer a:not(.footer-socials a) { color: #DCC7B4 !important; }
+.footer a:not(.footer-socials a):hover { color: #F0D9C4 !important; }
+
+/* A paper clip holding the footer sheet to the page, echoing the
+   reference. Hidden on narrow screens where it would crowd. */
+.footer::after {
+    content: "";
+    position: absolute;
+    top: -16px; left: 48px;
+    width: 26px; height: 58px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 58'%3E%3Cg fill='none' stroke='%23B9AE9C' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M8 44 L8 15 a5.6 5.6 0 0 1 11.2 0 L19.2 47 a8.4 8.4 0 0 1-16.8 0 L2.4 13'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain;
+    filter: drop-shadow(0 2px 3px rgba(30,24,18,0.4));
+    transform: rotate(-5deg);
+    pointer-events: none;
+    z-index: 2;
+}
+
+@media (max-width: 768px) {
+    .contact-info-col { padding: 22px 18px 26px; }
+    .footer::after { display: none; }
+    .footer { padding-top: 44px !important; }
+}
+
+/* ------------------------------------------------------------
+   66. Contact sheet sizing correction
+   ------------------------------------------------------------
+   .contact-info-col is a flex column inside a grid track, so it
+   was being stretched to the row height while its own box stayed
+   shorter than the stacked cards. The deckle mask is positioned
+   against that box, so the torn edges landed partway down the
+   column instead of at the sheet's real top and bottom.
+
+   Letting the sheet size to its own content (align-self:start)
+   and dropping the inter-card gap — the rows are now separated
+   by a dashed rule, not by space — makes the box and the visible
+   sheet the same thing again.
+   ------------------------------------------------------------ */
+.contact-info-col {
+    align-self: start;
+    gap: 0 !important;
+    /* The mask's middle band must cover everything between the two
+       14px deckle strips, whatever the sheet's height. */
+    -webkit-mask-size: 100% 15px, 100% 15px, 100% calc(100% - 28px);
+    mask-size: 100% 15px, 100% 15px, 100% calc(100% - 28px);
+}
+
+/* ============================================================
+   67. FOOTER — three-column sheet
+   ------------------------------------------------------------
+   Brand block on the left, then Quick Links and Services, matching
+   the reference layout. The dark torn stock, clip and grain from
+   rule 65 carry over; this adds the columns, the vertical rules
+   between them, and the link styling.
+   ============================================================ */
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1.2fr;
+    gap: 0;
+    align-items: start;
+    padding: 6px 0 30px;
+}
+
+/* Hairline rules between columns, as in the reference. */
+.footer-grid > * + * {
+    border-left: 1px solid rgba(232,224,210,0.16);
+    padding-left: 44px;
+}
+.footer-grid > * + * + * { padding-left: 40px; }
+.footer-brand { padding-right: 44px; }
+
+.footer-logo {
+    font-family: var(--font-heading);
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: #F3EADA !important;
+    margin-bottom: 6px;
+}
+/* The short terracotta rule beneath the name. */
+.footer-logo::after {
+    content: "";
+    display: block;
+    width: 52px; height: 2.5px;
+    margin-top: 12px;
+    background: var(--accent-primary);
+    border-radius: 2px;
+}
+.footer-text {
+    color: #C8BFAE !important;
+    font-size: 14px;
+    line-height: 1.65;
+    margin: 16px 0 20px;
+}
+
+.footer-heading {
+    font-family: var(--font-heading);
+    font-size: 17px;
+    font-weight: 600;
+    color: #F3EADA !important;
+    margin: 0 0 16px;
+}
+
+.footer-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+.footer-list li { font-size: 14px; line-height: 1.5; }
+.footer-list a {
+    color: #C0B7A6 !important;
+    text-decoration: none;
+    position: relative;
+    transition: color var(--transition-fast), padding-left var(--transition-fast);
+}
+.footer-list a:hover,
+.footer-list a:focus-visible {
+    color: #F0DFCB !important;
+    padding-left: 9px;
+}
+/* A small terracotta tick slides in on hover. */
+.footer-list a::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 50%;
+    width: 5px; height: 5px;
+    margin-top: -2.5px;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+.footer-list a:hover::before,
+.footer-list a:focus-visible::before { opacity: 1; transform: translateX(0); }
+
+/* Services are statements, not links — no hover affordance. */
+.footer-list-plain li { color: #C0B7A6; }
+
+.footer-socials { display: flex; gap: 12px; }
+.footer-socials a {
+    width: 38px; height: 38px;
+    display: grid;
+    place-items: center;
+    font-size: 16px;
+}
+
+.footer-copyright {
+    margin: 0;
+    padding-top: 22px;
+    border-top: 1px solid rgba(232,224,210,0.14);
+    text-align: center;
+    color: #9A9184 !important;
+    font-size: 12.5px;
+}
+
+@media (max-width: 900px) {
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 34px 0;
+    }
+    /* With the brand on its own row the vertical rules would fall
+       in the wrong places, so they are reassigned per row. */
+    .footer-brand {
+        grid-column: 1 / -1;
+        padding-right: 0;
+        border-left: none;
+    }
+    .footer-grid > * + * { padding-left: 0; border-left: none; }
+    .footer-grid > * + * + * { padding-left: 34px; border-left: 1px solid rgba(232,224,210,0.16); }
+}
+@media (max-width: 560px) {
+    .footer-grid { grid-template-columns: 1fr; gap: 30px 0; }
+    .footer-grid > * + * + * { padding-left: 0; border-left: none; }
+    .footer-brand { text-align: left; }
+}
+
+/* ============================================================
+   68. FOOTER DECORATIONS — crane + sprig
+   ------------------------------------------------------------
+   A folded paper crane resting in the footer's bottom-right
+   corner and a leafy sprig arcing above it, matching the
+   reference. The crane is built from flat planes in graded tints
+   of one terracotta so it reads as a single sheet folded, and
+   the sprig is line art in the same warm tone as the footer text.
+
+   Both are decorative: the wrapper is aria-hidden and ignores
+   pointer events, so they never interfere with the footer links
+   they sit beside.
+   ============================================================ */
+.footer-decor {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+}
+/* The columns must stay above the artwork. */
+.footer .container { position: relative; z-index: 2; }
+
+.footer-sprig {
+    position: absolute;
+    right: 34px;
+    top: 18px;
+    width: 108px;
+    height: auto;
+    transform: rotate(6deg);
+}
+
+.footer-crane {
+    position: absolute;
+    /* Tucked into the corner and sized so its bounding box clears
+       the Services column — at 186px it sat over "AI Integration",
+       "Consulting" and the copyright line. */
+    right: -10px;
+    bottom: -18px;
+    width: 132px;
+    height: auto;
+    filter: drop-shadow(-5px 5px 9px rgba(12,8,6,0.42));
+    transform: rotate(-4deg);
+}
+
+/* The crane overlaps the Services column below this width, so the
+   artwork steps down before it can collide with the text. */
+@media (max-width: 1200px) {
+    .footer-crane { width: 112px; right: -8px; bottom: -14px; }
+    .footer-sprig { width: 88px; right: 22px; }
+}
+@media (max-width: 1024px) {
+    .footer-sprig { display: none; }
+    .footer-crane { width: 124px; opacity: 0.9; }
+}
+@media (max-width: 900px) {
+    /* Below the three-column break the footer stacks and there is
+       no free corner left, so the artwork is withdrawn rather than
+       laid over the links. */
+    .footer-decor { display: none; }
+}
+
+/* ============================================================
+   69. PAPERCRAFT CARD FORMATS
+   ------------------------------------------------------------
+   The eight card styles from the guide, as opt-in classes. Each
+   is applied where the guide assigns it:
+
+     .card-torn      1. Torn Paper     About / Experience
+     .card-bookmark  2. Bookmark       Projects        (exists)
+     .card-notebook  3. Notebook       Skills
+     .card-pinned    4. Pinned         Featured info   (exists)
+     .card-cutout    5. Cutout         Project cards
+     .card-sticky    6. Sticky Note    Quick notes     (exists)
+     .card-stack     7. Paper Stack    Case studies
+     .card-cert      8. Certificate    Certifications
+
+   Formats already present keep their existing implementation;
+   this adds the four that were missing and the shared texture
+   layer the guide calls for.
+   ============================================================ */
+
+/* --- shared: subtle paper texture on any card format --------- */
+.card-torn, .card-notebook, .card-cutout, .card-stack, .card-cert {
+    position: relative;
+    background-image:
+        repeating-linear-gradient(94deg,
+            rgba(140,112,74,0.028) 0 1px, transparent 1px 6px),
+        repeating-linear-gradient(-3deg,
+            rgba(140,112,74,0.020) 0 1px, transparent 1px 8px);
+    background-color: #FBF6EA;
+}
+
+/* --- 1. TORN PAPER CARD ------------------------------------- */
+/* Deckled top and bottom edges via a mask, so the card's own
+   shadow and any focus rings inside it survive (a clip-path
+   would remove both). */
+.card-torn {
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 30px 30px 34px;
+    box-shadow:
+        0 1px 2px rgba(74,58,40,0.10),
+        0 10px 24px rgba(74,58,40,0.11);
+    -webkit-mask-image: var(--deckle-a), var(--deckle-b), linear-gradient(#000,#000);
+    mask-image: var(--deckle-a), var(--deckle-b), linear-gradient(#000,#000);
+    -webkit-mask-size: 100% 15px, 100% 15px, 100% calc(100% - 28px);
+    mask-size: 100% 15px, 100% 15px, 100% calc(100% - 28px);
+    -webkit-mask-position: top, bottom, center;
+    mask-position: top, bottom, center;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}
+
+/* --- 3. NOTEBOOK PAPER CARD --------------------------------- */
+/* Ruled lines, a red margin rule, and punched holes down the
+   left edge. The holes are a repeating radial gradient rather
+   than elements, so the count adapts to the card's height. */
+.card-notebook {
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius-sm) !important;
+    padding: 26px 26px 26px 54px !important;
+    background-image:
+        /* punched holes */
+        radial-gradient(circle at 22px 0,
+            transparent 0 6px, rgba(0,0,0,0) 6px),
+        /* ruled lines */
+        repeating-linear-gradient(180deg,
+            transparent 0 30px, rgba(90,120,150,0.16) 30px 31px),
+        repeating-linear-gradient(94deg,
+            rgba(140,112,74,0.024) 0 1px, transparent 1px 6px);
+    background-color: #FDFAF2;
+}
+/* the red margin rule */
+.card-notebook::before {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0; left: 40px;
+    width: 1.5px;
+    background: rgba(190,110,95,0.34);
+    pointer-events: none;
+    z-index: 1;
+}
+/* the punched holes, evenly spaced down the binding edge */
+.card-notebook::after {
+    content: "";
+    position: absolute;
+    top: 14px; bottom: 14px; left: 15px;
+    width: 13px;
+    background-image: radial-gradient(circle,
+        var(--bg-secondary) 0 6px, transparent 6px);
+    background-size: 13px 38px;
+    background-repeat: repeat-y;
+    box-shadow: none;
+    pointer-events: none;
+    z-index: 2;
+    filter: drop-shadow(0 1px 1px rgba(60,50,40,0.22));
+}
+.card-notebook > * { position: relative; z-index: 3; }
+
+/* --- 5. CUTOUT CARD ----------------------------------------- */
+/* Irregular scissor-cut silhouette on all four sides. Applied to
+   cards whose content sits well inside the padding, since a
+   clip-path here does trim the box. */
+.card-cutout {
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 26px 26px 30px;
+    clip-path: polygon(
+        1.4% 2%, 12% 0.4%, 27% 1.8%, 43% 0.2%, 61% 1.6%,
+        78% 0.3%, 92% 1.7%, 99% 3%,
+        98.4% 18%, 99.6% 34%, 98.2% 51%, 99.7% 67%, 98.6% 84%, 99.2% 97%,
+        88% 99.4%, 72% 98%, 56% 99.6%, 39% 98.2%, 23% 99.5%, 8% 98.3%, 0.8% 96%,
+        1.6% 80%, 0.3% 63%, 1.8% 47%, 0.4% 30%, 1.2% 15%);
+    filter: drop-shadow(0 2px 3px rgba(74,58,40,0.14))
+            drop-shadow(0 8px 16px rgba(74,58,40,0.12));
+    box-shadow: none !important;
+}
+
+/* --- 7. PAPER STACK CARD ------------------------------------ */
+/* The card sits on two offset sheets, so it reads as the top of
+   a small pile. The sheets are pseudo-elements behind the card. */
+.card-stack { position: relative; }
+.card-stack::before,
+.card-stack::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--paper-cream);
+    border: 1px solid rgba(60,50,40,0.10);
+    z-index: -1;
+    pointer-events: none;
+    transition: transform var(--transition-normal);
+}
+.card-stack::before { transform: rotate(-1.6deg) translate(-6px, 5px); }
+.card-stack::after  { transform: rotate(1.3deg)  translate(6px, 9px); background: #EFE6D4; }
+.card-stack:hover::before { transform: rotate(-2.6deg) translate(-10px, 7px); }
+.card-stack:hover::after  { transform: rotate(2.2deg)  translate(10px, 12px); }
+
+/* --- 8. CERTIFICATE / BADGE CARD ---------------------------- */
+/* A double rule inset from the edge, in the sage tone, the way a
+   printed certificate is bordered. */
+.card-cert {
+    border: 1px solid var(--border-color) !important;
+    border-radius: 2px !important;
+    padding: 30px 26px 34px !important;
+}
+/* The certificate card's own ::before (header rule) and ::after
+   (deckled bottom edge) are already spoken for, so the printed
+   double border is drawn on a dedicated .cert-frame child. */
+.card-cert .cert-frame {
+    position: absolute;
+    inset: 9px;
+    border: 2px solid rgba(102,115,91,0.42);
+    pointer-events: none;
+    z-index: 0;
+}
+.card-cert .cert-frame::after {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border: 1px solid rgba(102,115,91,0.26);
+}
+.card-cert > * { position: relative; z-index: 1; }
+
+/* --- Extra elements from the guide -------------------------- */
+/* A stitched dashed border, usable on any card. */
+.card-stitch {
+    outline: 2px dashed rgba(140,112,74,0.34);
+    outline-offset: -9px;
+}
+
+@media (max-width: 768px) {
+    .card-torn { padding: 22px 18px 26px; }
+    .card-notebook { padding: 20px 18px 20px 42px !important; }
+    .card-notebook::before { left: 30px; }
+    .card-notebook::after { left: 10px; }
+    /* The cutout's clip trims a few px each side; on narrow
+       screens that eats into already-tight padding. */
+    .card-cutout { clip-path: none; border-radius: var(--radius-sm) !important; }
+    .card-stack::before, .card-stack::after { display: none; }
+}
+
+/* ------------------------------------------------------------
+   70. Notebook card — reclaim the pseudo-elements
+   ------------------------------------------------------------
+   Two earlier rules had already claimed .skill-category's
+   pseudo-elements: rule 42(c) hides ::before (it was a top accent
+   bar) and rule 25(a) blanks ::after (a mouse-follow glow). Both
+   carry !important, so the notebook margin rule and punch holes
+   never painted.
+
+   Re-declared here at higher specificity, scoped to the notebook
+   format so the plain skill cards keep the earlier behaviour.
+   ------------------------------------------------------------ */
+.skill-category.card-notebook::before {
+    content: "" !important;
+    display: block !important;
+    position: absolute;
+    top: 0; bottom: 0; left: 40px;
+    width: 1.5px;
+    height: auto;
+    background: rgba(190,110,95,0.34) !important;
+    transform: none !important;
+    opacity: 1 !important;
+    pointer-events: none;
+    z-index: 1;
+}
+.skill-category.card-notebook::after {
+    content: "" !important;
+    display: block !important;
+    position: absolute;
+    top: 16px; bottom: 16px; left: 15px;
+    right: auto;
+    width: 13px;
+    height: auto;
+    background-image: radial-gradient(circle,
+        var(--bg-secondary) 0 5.5px, transparent 6px) !important;
+    background-size: 13px 40px !important;
+    background-repeat: repeat-y !important;
+    background-color: transparent !important;
+    clip-path: none !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+    filter: drop-shadow(0 1px 1px rgba(60,50,40,0.26));
+    pointer-events: none;
+    z-index: 2;
+}
+/* The index tab sat where the punch holes now run. */
+.skill-category.card-notebook .skill-tab { left: 62px; }
+
+/* ------------------------------------------------------------
+   71. Paper stack — reclaim ::before on project cards
+   ------------------------------------------------------------
+   Rule 42(a) sets `.project-card::before { display:none !important }`
+   to retire the old glow gradient. The paper stack draws its two
+   under-sheets on ::before and ::after, so on a .project-card the
+   first sheet was suppressed and the second inherited no offset —
+   the stack rendered as a plain card.
+
+   Re-declared at higher specificity, scoped to the stack format so
+   the glow stays retired on every other project card.
+   ------------------------------------------------------------ */
+.project-card.card-stack::before,
+.project-card.card-stack::after {
+    content: "" !important;
+    display: block !important;
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(60,50,40,0.12);
+    z-index: -1;
+    opacity: 1 !important;
+    pointer-events: none;
+    transition: transform var(--transition-normal);
+}
+.project-card.card-stack::before {
+    background: var(--paper-cream) !important;
+    transform: rotate(-1.6deg) translate(-7px, 6px) !important;
+}
+.project-card.card-stack::after {
+    background: #EBE1CD !important;
+    transform: rotate(1.4deg) translate(7px, 10px) !important;
+    box-shadow: 0 6px 14px rgba(74,58,40,0.12);
+}
+.project-card.card-stack:hover::before {
+    transform: rotate(-2.7deg) translate(-11px, 8px) !important;
+}
+.project-card.card-stack:hover::after {
+    transform: rotate(2.4deg) translate(11px, 14px) !important;
+}
+/* The stack must sit behind the card but above the page, so the
+   card needs its own stacking context. */
+.project-card.card-stack { isolation: isolate; }

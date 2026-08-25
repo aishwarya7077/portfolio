@@ -2248,3 +2248,39 @@ function initLabModal() {
     if (window.location.hash === '#lab') open();
 }
 initLabModal();
+
+// ===== AOS OFFSET REFRESH =====
+// AOS caches each element's page position at init. Anything that
+// changes layout afterwards — fonts swapping in, images arriving,
+// the masked contact sheet resolving its height — leaves those
+// offsets stale, and elements whose real position moved past the
+// cached trigger point never receive .aos-animate. With once:true
+// they then stay at opacity:0 permanently.
+//
+// This was leaving two of the three contact rows (LinkedIn and
+// Location) invisible. Refreshing after load, after fonts settle,
+// and on resize recomputes the offsets against real layout.
+(function refreshAOSOffsets() {
+    if (typeof AOS === 'undefined') return;
+    const refresh = () => AOS.refreshHard();
+
+    window.addEventListener('load', refresh);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(refresh);
+    window.addEventListener('resize', refresh);
+    // A late pass catches anything that settles after first paint.
+    setTimeout(refresh, 1200);
+
+    // Safety net: if an element is well inside the viewport but has
+    // still not been animated, reveal it. Without this an element
+    // that slips through stays invisible forever under once:true.
+    const sweep = () => {
+        document.querySelectorAll('[data-aos]:not(.aos-animate)').forEach((el) => {
+            const r = el.getBoundingClientRect();
+            if (r.height && r.top < window.innerHeight * 0.9 && r.bottom > 0) {
+                el.classList.add('aos-animate');
+            }
+        });
+    };
+    window.addEventListener('scroll', sweep, { passive: true });
+    window.addEventListener('load', () => setTimeout(sweep, 900));
+})();
