@@ -447,30 +447,65 @@ function initLightbox() {
 initLightbox();
 
 // --- Contact Form ---
-const contactForm = document.getElementById('contactForm');
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+// Submissions POST to Web3Forms, which stores every entry in an online inbox
+// at web3forms.com and emails a copy to the address the key is registered to.
+const WEB3FORMS_ACCESS_KEY = 'd0431d09-3cd2-4571-b56a-4fd34e959915';
 
-    // This is a static site with no backend, so the form hands the message
-    // to the visitor's email client pre-filled. That genuinely delivers it,
-    // rather than showing a "sent" animation for a message that goes nowhere.
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const subject = document.getElementById('subject').value.trim();
-    const message = document.getElementById('message').value.trim();
+const contactForm = document.getElementById('contactForm');
+const formStatus = document.getElementById('formStatus');
+
+contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
     const btn = contactForm.querySelector('.btn-submit');
     const orig = btn.innerHTML;
 
-    const body = message + '\n\n---\nFrom: ' + name + (email ? ' <' + email + '>' : '');
-    const mailto = 'mailto:aishwaryadutpala@gmail.com'
-        + '?subject=' + encodeURIComponent(subject || 'Portfolio enquiry')
-        + '&body=' + encodeURIComponent(body);
+    const setStatus = (text, state) => {
+        if (!formStatus) return;
+        formStatus.textContent = text;
+        formStatus.className = 'form-status' + (state ? ' is-' + state : '');
+    };
 
-    btn.innerHTML = '<span>Opening your email app...</span><i class="fas fa-envelope"></i>';
-    window.location.href = mailto;
+    if (WEB3FORMS_ACCESS_KEY === 'YOUR_ACCESS_KEY_HERE') {
+        setStatus('Form not configured yet — add your Web3Forms access key.', 'error');
+        return;
+    }
 
-    setTimeout(() => { btn.innerHTML = orig; }, 3500);
+    // Sent as FormData rather than a JSON body on purpose: a JSON
+    // Content-Type triggers a CORS preflight that the API does not answer.
+    const payload = new FormData();
+    payload.append('access_key', WEB3FORMS_ACCESS_KEY);
+    payload.append('name', document.getElementById('name').value.trim());
+    payload.append('email', document.getElementById('email').value.trim());
+    payload.append('subject', document.getElementById('subject').value.trim());
+    payload.append('message', document.getElementById('message').value.trim());
+
+    btn.disabled = true;
+    btn.innerHTML = '<span>Sending...</span><i class="fas fa-spinner fa-spin"></i>';
+    setStatus('');
+
+    try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: payload,
+        });
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+            contactForm.reset();
+            btn.innerHTML = '<span>Message sent</span><i class="fas fa-check"></i>';
+            setStatus('Thanks! Your message is on its way.', 'success');
+        } else {
+            throw new Error(data.message || 'Submission failed');
+        }
+    } catch (err) {
+        btn.innerHTML = orig;
+        setStatus('Something went wrong. Please email aishwaryadutpala@gmail.com directly.', 'error');
+        console.error('Contact form error:', err);
+    } finally {
+        btn.disabled = false;
+        setTimeout(() => { btn.innerHTML = orig; }, 3500);
+    }
 });
 
 // ===== EYE ANIMATION =====

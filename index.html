@@ -1153,24 +1153,25 @@
                     <form class="contact-form has-tape" id="contactForm">
                         <p class="contact-salutation" aria-hidden="true">Hello there,</p>
                         <div class="form-group">
-                            <input type="text" id="name" placeholder=" " required>
+                            <input type="text" id="name" name="name" placeholder=" " required>
                             <label for="name">Your Name</label><span class="form-line"></span>
                         </div>
                         <div class="form-group">
-                            <input type="email" id="email" placeholder=" " required>
+                            <input type="email" id="email" name="email" placeholder=" " required>
                             <label for="email">Your Email</label><span class="form-line"></span>
                         </div>
                         <div class="form-group">
-                            <input type="text" id="subject" placeholder=" " required>
+                            <input type="text" id="subject" name="subject" placeholder=" " required>
                             <label for="subject">Subject</label><span class="form-line"></span>
                         </div>
                         <div class="form-group">
-                            <textarea id="message" rows="5" placeholder=" " required></textarea>
+                            <textarea id="message" name="message" rows="5" placeholder=" " required></textarea>
                             <label for="message">Your Message</label><span class="form-line"></span>
                         </div>
                         <button type="submit" class="btn btn-primary btn-submit">
                             <span>Send Message</span><i class="fas fa-paper-plane"></i>
                         </button>
+                        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
                         <span class="contact-signoff" aria-hidden="true">Talk soon &mdash; Aishwarya</span>
                     </form>
                 </div>

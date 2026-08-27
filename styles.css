@@ -4989,6 +4989,21 @@ h1, h2, h3 {
     transform: rotate(-1.2deg);
 }
 
+/* Submission feedback, written in the same hand as the sign-off. */
+.form-status {
+    font-family: var(--font-hand);
+    font-size: 18px;
+    margin-top: 14px;
+    min-height: 22px;
+    transform: rotate(-0.6deg);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+.form-status.is-success,
+.form-status.is-error { opacity: 1; }
+.form-status.is-success { color: var(--accent-tertiary); }
+.form-status.is-error { color: var(--accent-secondary); }
+
 /* Contact cards read as correspondence slips, with a perforated
    left edge. */
 .contact-card { position: relative; overflow: hidden; }
