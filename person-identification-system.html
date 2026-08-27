@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Person Identification System &mdash; Case Study | Dutpala Aishwarya</title>
+    <meta name="description" content="Case study: a CNN-based face recognition system built with OpenCV and cloud-backed enrollment, identifying people from a live camera feed.">
+    <link rel="icon" type="image/png" href="pictures/logo-128.png">
+    <link rel="stylesheet" href="casestudy.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="casestudy-page">
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-text">&lt;</span><span class="logo-main">DA</span><span class="logo-text">/&gt;</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#home" class="nav-link"><span>Home</span></a></li>
+                <li><a href="index.html#about" class="nav-link"><span>About</span></a></li>
+                <li><a href="index.html#projects" class="nav-link active"><span>Projects</span></a></li>
+                <li><a href="index.html#gallery" class="nav-link"><span>Art</span></a></li>
+                <li><a href="index.html#contact" class="nav-link"><span>Contact</span></a></li>
+                <li><a href="resume.html" class="nav-link"><span>Resume</span></a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="cs-container">
+
+        <div class="cs-actions">
+            <a href="index.html#projects" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Projects</a>
+        </div>
+
+        <!-- Masthead -->
+        <header class="cs-header" style="--washi: var(--washi-sky);">
+            <div class="cs-eyebrow">Case Study &middot; Semester Project</div>
+            <h1 class="cs-title">Person Identification System</h1>
+            <p class="cs-standfirst">
+                A face recognition system built on a convolutional neural network, where
+                the interesting problem turned out to be enrollment rather than matching.
+            </p>
+            <span class="cs-note">&mdash; recognition is easy; knowing who you know is not</span>
+
+            <div class="cs-meta">
+                <div class="cs-meta-item">
+                    <span class="cs-meta-label">Role</span>
+                    <span class="cs-meta-value">Model training &amp; implementation</span>
+                </div>
+                <div class="cs-meta-item">
+                    <span class="cs-meta-label">Context</span>
+                    <span class="cs-meta-value">Semester Project</span>
+                </div>
+                <div class="cs-meta-item">
+                    <span class="cs-meta-label">Timeline</span>
+                    <span class="cs-meta-value">Feb 2024 &ndash; Apr 2024</span>
+                </div>
+                <div class="cs-meta-item">
+                    <span class="cs-meta-label">Focus</span>
+                    <span class="cs-meta-value">CNNs, computer vision &amp; ML</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Cover -->
+        <div class="cs-cover" style="--cover-a: rgba(140,160,190,0.18); --cover-b: rgba(147,64,44,0.12);">
+            <svg viewBox="0 0 800 350" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <ellipse cx="400" cy="175" rx="96" ry="122"
+                         fill="var(--accent-primary)" fill-opacity="0.14"
+                         stroke="var(--accent-primary)" stroke-opacity="0.4" stroke-width="1.6"/>
+                <g stroke="var(--accent-tertiary)" stroke-opacity="0.5" stroke-width="1.2">
+                    <line x1="322" y1="120" x2="478" y2="120"/>
+                    <line x1="314" y1="158" x2="486" y2="158"/>
+                    <line x1="314" y1="196" x2="486" y2="196"/>
+                    <line x1="322" y1="234" x2="478" y2="234"/>
+                    <line x1="400" y1="66"  x2="400" y2="284"/>
+                    <line x1="354" y1="74"  x2="354" y2="276"/>
+                    <line x1="446" y1="74"  x2="446" y2="276"/>
+                </g>
+                <g fill="var(--accent-primary)" fill-opacity="0.85">
+                    <circle cx="366" cy="154" r="5"/>
+                    <circle cx="434" cy="154" r="5"/>
+                    <circle cx="400" cy="190" r="4"/>
+                    <circle cx="377" cy="226" r="4"/>
+                    <circle cx="423" cy="226" r="4"/>
+                </g>
+                <path d="M377 226 Q400 242 423 226" fill="none"
+                      stroke="var(--accent-primary)" stroke-width="2.2" stroke-opacity="0.7"/>
+                <rect x="300" y="70" width="200" height="210" fill="none"
+                      stroke="var(--accent-tertiary)" stroke-opacity="0.35"
+                      stroke-dasharray="6 6" rx="10"/>
+                <g stroke="var(--accent-primary)" stroke-opacity="0.45" stroke-width="2" fill="none">
+                    <path d="M262 96 L262 70 L288 70"/>
+                    <path d="M538 96 L538 70 L512 70"/>
+                    <path d="M262 254 L262 280 L288 280"/>
+                    <path d="M538 254 L538 280 L512 280"/>
+                </g>
+            </svg>
+        </div>
+
+        <!-- Problem -->
+        <section class="cs-section">
+            <h2 class="cs-section-title"><i class="fas fa-circle-question"></i> The problem</h2>
+            <div class="cs-section-rule"></div>
+            <p>
+                Identity verification done by hand does not scale. A person checking faces
+                against a list is slow, gets slower as the list grows, and becomes less
+                reliable the longer they do it. The task is repetitive in exactly the way
+                humans are worst at and machines are best at.
+            </p>
+            <p>
+                But naive automation trades one problem for another. Matching raw pixels
+                fails the moment lighting, angle, or expression changes &mdash; and those
+                change constantly in any real setting. <strong>The system needs to
+                recognise a person, not a photograph of them</strong>, which means learning
+                features that survive the conditions rather than memorising images.
+            </p>
+            <div class="cs-callout">
+                <span class="cs-callout-label">The real brief</span>
+                <p>
+                    Not "compare two images" &mdash; learn what makes a face that
+                    particular person's, and hold onto it between sessions.
+                </p>
+            </div>
+        </section>
+
+        <!-- Approach -->
+        <section class="cs-section">
+            <h2 class="cs-section-title"><i class="fas fa-compass-drafting"></i> Approach</h2>
+            <div class="cs-section-rule"></div>
+            <p>
+                I split the work into the two things it actually is: a vision problem
+                (finding and normalising a face in a frame) and a learning problem
+                (deciding whose face it is). Keeping them separate meant each could be
+                debugged without the other confusing the picture.
+            </p>
+            <ul>
+                <li><strong>Detection and preprocessing with OpenCV</strong> &mdash; locating the face in a frame and normalising it before anything is learned from it, so the model sees consistent input.</li>
+                <li><strong>A CNN for recognition</strong> &mdash; chosen because convolutional layers learn spatial features directly from image data, rather than relying on hand-picked measurements.</li>
+                <li><strong>Cloud-backed enrollment</strong> &mdash; enrolled identities persist in cloud storage, so the system knows who it knows across restarts instead of relearning each session.</li>
+                <li><strong>Live camera inference</strong> &mdash; running identification against a live feed rather than still images, which is where the practical failure modes actually appear.</li>
+            </ul>
+        </section>
+
+        <!-- Decisions -->
+        <section class="cs-section">
+            <h2 class="cs-section-title"><i class="fas fa-code-branch"></i> Decisions worth explaining</h2>
+            <div class="cs-section-rule"></div>
+            <div class="cs-decisions">
+
+                <article class="cs-decision">
+                    <h3>A CNN over classical feature matching</h3>
+                    <p>
+                        Recognition is handled by a trained convolutional network rather
+                        than hand-engineered facial measurements.
+                    </p>
+                    <span class="cs-tradeoff">
+                        <strong>Trade-off:</strong> needs training data and compute, and the
+                        result is far harder to inspect when it gets something wrong.
+                        Classical features were simply too brittle across lighting and
+                        angle to be worth it.
+                    </span>
+                </article>
+
+                <article class="cs-decision">
+                    <h3>Separating detection from recognition</h3>
+                    <p>
+                        OpenCV finds and normalises the face; the CNN only ever decides
+                        whose it is.
+                    </p>
+                    <span class="cs-tradeoff">
+                        <strong>Trade-off:</strong> two stages to maintain, and detection
+                        failures silently become recognition failures. Worth it &mdash; a
+                        single end-to-end model would have been much harder to debug at
+                        this scale.
+                    </span>
+                </article>
+
+                <article class="cs-decision">
+                    <h3>Cloud storage for enrolled identities</h3>
+                    <p>
+                        Enrollment data lives in cloud storage rather than in a local file
+                        beside the script.
+                    </p>
+                    <span class="cs-tradeoff">
+                        <strong>Trade-off:</strong> introduces a network dependency into
+                        what could have been an offline tool. It made enrolled identities
+                        durable and the system genuinely usable across sessions and
+                        machines.
+                    </span>
+                </article>
+
+                <article class="cs-decision">
+                    <h3>Testing against a live feed, not a dataset</h3>
+                    <p>
+                        Evaluation ran on a live camera rather than only held-out test
+                        images.
+                    </p>
+                    <span class="cs-tradeoff">
+                        <strong>Trade-off:</strong> harder to quantify than a clean accuracy
+                        number on a fixed dataset. It surfaced the problems that only
+                        appear in motion &mdash; angle, backlighting, partial occlusion.
+                    </span>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- What I built -->
+        <section class="cs-section">
+            <h2 class="cs-section-title"><i class="fas fa-screwdriver-wrench"></i> What I built</h2>
+            <div class="cs-section-rule"></div>
+            <ul>
+                <li>A <strong>trained CNN model</strong> for face recognition, built with standard ML frameworks.</li>
+                <li>An <strong>OpenCV detection and preprocessing stage</strong> that locates and normalises faces before recognition.</li>
+                <li><strong>Cloud-backed enrollment storage</strong>, so registered identities persist between sessions.</li>
+                <li>A <strong>live identification loop</strong> that recognises enrolled people from a camera feed in real time.</li>
+            </ul>
+            <div class="cs-stack">
+                <span>Python</span><span>CNN</span><span>OpenCV</span><span>Machine Learning</span><span>Cloud Storage</span>
+            </div>
+        </section>
+
+        <!-- Outcome -->
+        <section class="cs-section">
+            <h2 class="cs-section-title"><i class="fas fa-flag-checkered"></i> Outcome</h2>
+            <div class="cs-section-rule"></div>
+            <p>
+                The finished system identifies enrolled people from a live camera feed,
+                with their identities persisted in cloud storage between runs. Built over a
+                single semester as an AI and machine learning project, it was my first
+                proper encounter with the gap between a model that scores well on test data
+                and one that holds up pointed at a real room &mdash; a distinction that has
+                informed everything I have built since.
+            </p>
+            <div class="cs-stats">
+                <div class="cs-stat">
+                    <span class="cs-stat-value">Live feed</span>
+                    <span class="cs-stat-label">identification runs on a real camera stream</span>
+                </div>
+                <div class="cs-stat">
+                    <span class="cs-stat-value">Persistent</span>
+                    <span class="cs-stat-label">enrolled identities survive between sessions</span>
+                </div>
+                <div class="cs-stat">
+                    <span class="cs-stat-value">3 months</span>
+                    <span class="cs-stat-label">from first training run to working system</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next -->
+        <nav class="cs-next">
+            <div>
+                <span class="cs-next-label">Next case study</span>
+                <a href="quantum-data-leap.html">Quantum Data Leap <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <a href="index.html#projects" class="btn-back"><i class="fas fa-grip"></i> All projects</a>
+        </nav>
+
+    </main>
+
+    <script>
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', () => {
+                const open = navLinks.classList.toggle('open');
+                navToggle.setAttribute('aria-expanded', String(open));
+            });
+        }
+    </script>
+</body>
+</html>

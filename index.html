@@ -820,17 +820,27 @@
                                 </div>
                             </div>
                             <div class="project-info">
-                                <div class="project-tag">Academic &middot; Sept 2024 - Apr 2025</div>
+                                <div class="project-tag">Final Year Project &middot; Sept 2024 - Apr 2025</div>
                                 <h3 class="project-title">Smart Home Security</h3>
-                                <p class="project-description">
-                                    An IoT-based system for detecting unauthorized access using cloud image
-                                    storage, AI forensic analysis, real-time alerts, and role-based access control.
-                                </p>
+                                <dl class="project-breakdown">
+                                    <div>
+                                        <dt>Problem</dt>
+                                        <dd>Home intrusion alerts are easy to miss and rarely capture usable evidence of who was actually there.</dd>
+                                    </div>
+                                    <div>
+                                        <dt>My Contribution</dt>
+                                        <dd>Built the detection pipeline end to end &mdash; IoT sensor triggers, cloud image capture, AI forensic analysis, and role-based access for household members.</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Outcome</dt>
+                                        <dd>A working prototype that pushes real-time alerts with a stored image trail, submitted as a year-long final year project.</dd>
+                                    </div>
+                                </dl>
                                 <div class="project-tech">
                                     <span>IoT</span><span>AI</span><span>Cloud</span><span>Python</span><span>RBAC</span>
                                 </div>
                                 <div class="project-actions">
-                                    <a href="#" class="project-action-btn"><i class="fab fa-github"></i>GitHub</a>
+                                    <a href="smart-home-security.html" class="project-action-btn"><i class="fas fa-file-lines"></i>View Case Study</a>
                                 </div>
                             </div>
                         </div>
@@ -868,17 +878,27 @@
                                 </div>
                             </div>
                             <div class="project-info">
-                                <div class="project-tag">Academic &middot; Feb 2024 - Apr 2024</div>
+                                <div class="project-tag">Semester Project &middot; Feb 2024 - Apr 2024</div>
                                 <h3 class="project-title">Person Identification System</h3>
-                                <p class="project-description">
-                                    An AI-based identification system using CNN and face recognition libraries,
-                                    with ML frameworks for accurate recognition and cloud-based storage.
-                                </p>
+                                <dl class="project-breakdown">
+                                    <div>
+                                        <dt>Problem</dt>
+                                        <dd>Manual identity checks are slow and inconsistent, and struggle as the number of people to recognise grows.</dd>
+                                    </div>
+                                    <div>
+                                        <dt>My Contribution</dt>
+                                        <dd>Trained a CNN model for face recognition with OpenCV, and wired it to cloud storage so enrolled identities persist between sessions.</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Outcome</dt>
+                                        <dd>A system that identifies enrolled faces from a live camera feed, built as a semester project in AI and machine learning.</dd>
+                                    </div>
+                                </dl>
                                 <div class="project-tech">
                                     <span>Python</span><span>CNN</span><span>ML</span><span>OpenCV</span><span>Cloud</span>
                                 </div>
                                 <div class="project-actions">
-                                    <a href="#" class="project-action-btn"><i class="fab fa-github"></i>GitHub</a>
+                                    <a href="person-identification-system.html" class="project-action-btn"><i class="fas fa-file-lines"></i>View Case Study</a>
                                 </div>
                             </div>
                         </div>
@@ -1250,6 +1270,93 @@
                         <h4>Board Cleared!</h4>
                         <p>Solved in <span id="tileFinalMoves">0</span> moves and <span id="tileFinalTime">0:00</span>.</p>
                         <button class="btn btn-primary" id="tilePlayAgainBtn">
+                            <span>Play Again</span><i class="fas fa-rotate-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Arcade Picker Modal -->
+    <div class="game-modal" id="arcadeModal" aria-hidden="true">
+        <div class="game-modal-backdrop" id="arcadeBackdrop"></div>
+        <div class="game-modal-content arcade-modal-content" role="dialog" aria-modal="true" aria-label="Arcade">
+            <button class="game-modal-close" id="arcadeClose" aria-label="Close arcade">&times;</button>
+            <div class="game-app arcade-picker">
+                <div class="game-app-header">
+                    <h3><i class="fas fa-gamepad"></i> Arcade</h3>
+                </div>
+                <p class="arcade-lede">Two small things to play with. Pick one.</p>
+                <div class="arcade-grid">
+                    <button type="button" class="arcade-card" data-launch="tile">
+                        <span class="arcade-card-icon"><i class="fas fa-clone"></i></span>
+                        <span class="arcade-card-title">Tile Match</span>
+                        <span class="arcade-card-sub">Flip pairs, clear the board</span>
+                    </button>
+                    <button type="button" class="arcade-card" data-launch="sudoku">
+                        <span class="arcade-card-icon"><i class="fas fa-table-cells"></i></span>
+                        <span class="arcade-card-title">Sudoku</span>
+                        <span class="arcade-card-sub">Classic 9&times;9, three difficulties</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sudoku Game Modal -->
+    <div class="game-modal" id="sudokuGameModal" aria-hidden="true">
+        <div class="game-modal-backdrop" id="sudokuGameBackdrop"></div>
+        <div class="game-modal-content sudoku-modal-content" role="dialog" aria-modal="true" aria-label="Sudoku game">
+            <button class="game-modal-close" id="sudokuGameClose" aria-label="Close game">&times;</button>
+            <div class="game-app sudoku-game">
+                <div class="game-app-header">
+                    <h3><i class="fas fa-table-cells"></i> Sudoku</h3>
+                    <div class="game-stats">
+                        <div class="game-stat"><span class="game-stat-label">Filled</span><span class="game-stat-value" id="sudokuFilled">0/81</span></div>
+                        <div class="game-stat"><span class="game-stat-label">Time</span><span class="game-stat-value" id="sudokuTimer">0:00</span></div>
+                    </div>
+                </div>
+
+                <div class="sudoku-difficulty" role="group" aria-label="Difficulty">
+                    <button type="button" class="sudoku-diff-btn active" data-difficulty="easy">Easy</button>
+                    <button type="button" class="sudoku-diff-btn" data-difficulty="medium">Medium</button>
+                    <button type="button" class="sudoku-diff-btn" data-difficulty="hard">Hard</button>
+                </div>
+
+                <div class="sudoku-board" id="sudokuBoard" role="grid" aria-label="Sudoku board"></div>
+
+                <div class="sudoku-pad" id="sudokuPad" role="group" aria-label="Number pad">
+                    <button type="button" class="sudoku-key" data-num="1">1<span class="sudoku-key-left" data-count-for="1"></span></button>
+                    <button type="button" class="sudoku-key" data-num="2">2<span class="sudoku-key-left" data-count-for="2"></span></button>
+                    <button type="button" class="sudoku-key" data-num="3">3<span class="sudoku-key-left" data-count-for="3"></span></button>
+                    <button type="button" class="sudoku-key" data-num="4">4<span class="sudoku-key-left" data-count-for="4"></span></button>
+                    <button type="button" class="sudoku-key" data-num="5">5<span class="sudoku-key-left" data-count-for="5"></span></button>
+                    <button type="button" class="sudoku-key" data-num="6">6<span class="sudoku-key-left" data-count-for="6"></span></button>
+                    <button type="button" class="sudoku-key" data-num="7">7<span class="sudoku-key-left" data-count-for="7"></span></button>
+                    <button type="button" class="sudoku-key" data-num="8">8<span class="sudoku-key-left" data-count-for="8"></span></button>
+                    <button type="button" class="sudoku-key" data-num="9">9<span class="sudoku-key-left" data-count-for="9"></span></button>
+                    <button type="button" class="sudoku-key sudoku-key-erase" data-num="0" aria-label="Erase"><i class="fas fa-eraser"></i></button>
+                </div>
+
+                <div class="game-app-footer sudoku-footer">
+                    <button class="btn btn-outline" id="sudokuNotesBtn" aria-pressed="false">
+                        <span>Notes</span><i class="fas fa-pencil"></i>
+                    </button>
+                    <button class="btn btn-outline" id="sudokuHintBtn">
+                        <span>Hint</span><i class="fas fa-lightbulb"></i>
+                    </button>
+                    <button class="btn btn-outline" id="sudokuNewBtn">
+                        <span>New Game</span><i class="fas fa-rotate-right"></i>
+                    </button>
+                </div>
+
+                <div class="game-overlay" id="sudokuGameOverlay">
+                    <div class="game-overlay-card">
+                        <h4 id="sudokuOverlayTitle">Puzzle Solved!</h4>
+                        <p id="sudokuOverlayText">Finished in <span>0:00</span>.</p>
+                        <button class="btn btn-primary" id="sudokuPlayAgainBtn">
                             <span>Play Again</span><i class="fas fa-rotate-right"></i>
                         </button>
                     </div>
