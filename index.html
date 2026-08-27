@@ -145,22 +145,22 @@
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container nav-custom-header">
-            <a href="#home" class="nav-logo">
-                <span class="logo-text">&lt;</span><span class="logo-main">DA</span><span class="logo-text">/&gt;</span>
-            </a>
-
             <div class="nav-center-name">
                 Dutpala Aishwarya
             </div>
 
             <div class="nav-right-elements"></div>
 
-            <button class="nav-menu-toggle" id="navMenuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
-                <span></span><span></span><span></span>
-            </button>
         </div>
         <span class="nav-bookmark" aria-hidden="true"></span>
     </nav>
+
+    <!-- Mobile menu button: a sibling of the navbar, not a child, so the
+         navbar's reveal animation and its hide-on-mobile rule never take
+         the button with them. -->
+    <button class="nav-menu-toggle" id="navMenuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+        <span></span><span></span><span></span>
+    </button>
 
     <!-- Right Side Navigation (desktop) -->
     <aside class="side-nav" aria-label="Section navigation">
@@ -182,17 +182,17 @@
         <a href="#certificates" class="side-nav-link">
             <span class="nav-initial" aria-hidden="true">C</span><span class="nav-label">Certificates</span>
         </a>
-        <a href="#lab" class="side-nav-link" data-open-lab>
-            <span class="nav-initial" aria-hidden="true">L</span><span class="nav-label">Lab</span>
-        </a>
-        <a href="#games" class="side-nav-link" data-open-game>
-            <span class="nav-initial" aria-hidden="true">G</span><span class="nav-label">Games</span>
-        </a>
         <a href="#gallery" class="side-nav-link">
             <span class="nav-initial" aria-hidden="true">A</span><span class="nav-label">Art</span>
         </a>
         <a href="#contact" class="side-nav-link">
             <span class="nav-initial" aria-hidden="true">C</span><span class="nav-label">Contact</span>
+        </a>
+        <a href="#lab" class="side-nav-link" data-open-lab>
+            <span class="nav-initial" aria-hidden="true">L</span><span class="nav-label">Lab</span>
+        </a>
+        <a href="#games" class="side-nav-link" data-open-game>
+            <span class="nav-initial" aria-hidden="true">G</span><span class="nav-label">Games</span>
         </a>
     </aside>
 
@@ -206,10 +206,10 @@
             <a href="#skills" class="mobile-nav-link">Skills</a>
             <a href="#projects" class="mobile-nav-link">Projects</a>
             <a href="#certificates" class="mobile-nav-link">Certificates</a>
-            <a href="#lab" class="mobile-nav-link" data-open-lab>Lab</a>
-            <a href="#games" class="mobile-nav-link" data-open-game>Games</a>
             <a href="#gallery" class="mobile-nav-link">Art</a>
             <a href="#contact" class="mobile-nav-link">Contact</a>
+            <a href="#lab" class="mobile-nav-link" data-open-lab>Lab</a>
+            <a href="#games" class="mobile-nav-link" data-open-game>Games</a>
         </nav>
     </div>
 
@@ -340,27 +340,45 @@
             </div>
             <div class="about-content">
                 <div class="about-image-col" data-aos="fade-right" data-aos-duration="800">
-                    <div class="about-image-card" data-aos="fade-up" data-aos-duration="1000">
-                        <img src="pictures/photographs.jpeg" alt="Dutpala Aishwarya" class="about-image-img">
-                        <div class="about-image-border"></div>
+                    <div class="about-print-stack" id="aboutPrintStack">
+                        <!-- Two prints crossing. The sky shot is on top to
+                             start; clicking whichever is behind brings it
+                             forward via the stack's .swapped class, so CSS
+                             owns all the movement. -->
+                        <figure class="about-print about-print-back">
+                            <button type="button" class="about-print-flip" aria-label="Bring the portrait to the front"></button>
+                            <img src="pictures/photographs.jpeg" alt="Dutpala Aishwarya" class="about-image-img">
+                            <figcaption class="about-caption">Massive Cloud</figcaption>
+                        </figure>
+                        <figure class="about-print about-print-front" data-aos="fade-up" data-aos-duration="1000">
+                            <span class="about-print-tape" aria-hidden="true"></span>
+                            <button type="button" class="about-print-flip" aria-label="Bring the sky photo to the front"></button>
+                            <img src="pictures/nature.jpeg" alt="A bird gliding between cumulus clouds above a treetop" class="about-image-img">
+                            <figcaption class="about-caption">Looking up</figcaption>
+                        </figure>
                     </div>
-                    <span class="about-caption" aria-hidden="true">Hyderabad, 2025</span>
                     <div class="experience-badge">
-                        <span class="exp-number">2025</span>
-                        <span class="exp-text">B.E. Graduate</span>
+                        <span class="exp-number">48 MP</span>
+                        <span class="exp-text">CamShots</span>
                     </div>
                 </div>
                 <div class="about-text-col" data-aos="fade-left" data-aos-duration="800">
                     <div class="about-holes" aria-hidden="true">
                         <i></i><i></i><i></i><i></i><i></i><i></i>
                     </div>
-                    <h3 class="about-subtitle">Software Engineer & Artist turning complex data into beautiful experiences</h3>
+                    <h3 class="about-subtitle">Software engineer building accessible, data-dense interfaces</h3>
                     <span class="about-annotation" aria-hidden="true">&mdash; a little of both, always</span>
                     <p class="about-description">
-                        I build accessible, data-driven interfaces at <strong>Fisec Global</strong>, working
-                        across UI/UX design, component systems, and frontend engineering. Beyond code, I
-                        express the same eye for detail through hand-drawn art.
+                        I'm a frontend engineer at <strong>Fisec Global</strong>, working on products that put a
+                        lot of information on one screen and still have to stay readable. I design the interface,
+                        then build it.
                     </p>
+                    <p class="about-description">
+                        That means <strong>reusable component libraries</strong>, <strong>data visualizations</strong>
+                        that answer a question, and <strong>accessibility</strong> handled as the component is
+                        written rather than patched in later.
+                    </p>
+                    
                     <div class="about-info-grid">
                         <div class="about-info-item" data-aos="fade-up" data-aos-delay="0">
                             <i class="fas fa-graduation-cap"></i>
@@ -548,7 +566,7 @@
     </section>
 
     <!-- Projects Section -->
-    <section class="section projects paper-stock paper-origami-bg" id="projects">
+    <section class="section projects paper-stock paper-drafting-bg" id="projects">
         <div class="desk-scatter" aria-hidden="true">
             <span class="doodle-fox scatter-d"></span>
             <span class="doodle-butterfly scatter-c"></span>
@@ -574,232 +592,303 @@
                 <span class="filter-tab-indicator"></span>
             </div>
 
-            <!-- Professional Projects -->
-            <div class="projects-grid" id="professionalProjects">
-                <div class="project-card is-featured card-stack" data-category="professional" data-aos="fade-up" data-aos-duration="700">
-                    <span class="project-tape" aria-hidden="true"></span>
-                    <span class="project-bookmark" aria-hidden="true"></span>
-                    <div class="project-card-inner">
-                        <div class="project-image">
-                            <div class="project-image-placeholder qdl">
-                                <svg class="project-cover" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                                    <defs>
-                                        <linearGradient id="qdlBar1" x1="0" y1="1" x2="0" y2="0">
-                                            <stop offset="0%" stop-color="var(--accent-secondary)" stop-opacity="0.5"/>
-                                            <stop offset="100%" stop-color="var(--accent-primary)" stop-opacity="0.15"/>
-                                        </linearGradient>
-                                    </defs>
-                                    <line x1="0" y1="210" x2="400" y2="210" stroke="var(--accent-primary)" stroke-opacity="0.15"/>
-                                    <line x1="0" y1="150" x2="400" y2="150" stroke="var(--accent-primary)" stroke-opacity="0.1"/>
-                                    <line x1="0" y1="90" x2="400" y2="90" stroke="var(--accent-primary)" stroke-opacity="0.1"/>
-                                    <g fill="url(#qdlBar1)">
-                                        <rect x="40" y="140" width="26" height="70" rx="4"/>
-                                        <rect x="86" y="100" width="26" height="110" rx="4"/>
-                                        <rect x="132" y="160" width="26" height="50" rx="4"/>
-                                        <rect x="178" y="70" width="26" height="140" rx="4"/>
-                                        <rect x="224" y="120" width="26" height="90" rx="4"/>
-                                        <rect x="270" y="50" width="26" height="160" rx="4"/>
-                                        <rect x="316" y="95" width="26" height="115" rx="4"/>
-                                    </g>
-                                    <polyline points="40,155 86,95 132,130 178,55 224,105 270,35 316,75 362,60" fill="none" stroke="var(--accent-tertiary)" stroke-opacity="0.55" stroke-width="2"/>
-                                    <g fill="var(--accent-tertiary)" fill-opacity="0.7">
-                                        <circle cx="86" cy="95" r="3"/>
-                                        <circle cx="178" cy="55" r="3"/>
-                                        <circle cx="270" cy="35" r="3"/>
-                                    </g>
-                                </svg>
-                                <div class="project-icon-large"><i class="fas fa-chart-line"></i></div>
-                                <div class="project-pattern"></div>
-                                <img src="pictures/QDL-logo.png" alt="Quantum Data Leap" class="project-logo">
-                            </div>
-                            <div class="project-overlay">
-                                <div class="project-links">
-                                    <a href="#" class="project-link" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+            <!-- Horizontal carousel: the whole section pins while the
+                 track slides right-to-left, then releases into the next
+                 section. Falls back to a normal grid without JS, on small
+                 screens, and under reduced-motion. -->
+            <div class="projects-hscroll" id="projectsHScroll">
+                <div class="projects-track" id="projectsTrack">
+                    <div class="project-card is-featured card-stack" data-category="professional" data-aos="fade-up" data-aos-duration="700">
+                        <span class="project-tape" aria-hidden="true"></span>
+                        <span class="project-bookmark" aria-hidden="true"></span>
+                        <div class="project-card-inner">
+                            <div class="project-image">
+                                <div class="project-image-placeholder qdl">
+                                    <svg class="project-cover" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                                        <defs>
+                                            <linearGradient id="qdlBar1" x1="0" y1="1" x2="0" y2="0">
+                                                <stop offset="0%" stop-color="var(--accent-secondary)" stop-opacity="0.5"/>
+                                                <stop offset="100%" stop-color="var(--accent-primary)" stop-opacity="0.15"/>
+                                            </linearGradient>
+                                        </defs>
+                                        <line x1="0" y1="210" x2="400" y2="210" stroke="var(--accent-primary)" stroke-opacity="0.15"/>
+                                        <line x1="0" y1="150" x2="400" y2="150" stroke="var(--accent-primary)" stroke-opacity="0.1"/>
+                                        <line x1="0" y1="90" x2="400" y2="90" stroke="var(--accent-primary)" stroke-opacity="0.1"/>
+                                        <g fill="url(#qdlBar1)">
+                                            <rect x="40" y="140" width="26" height="70" rx="4"/>
+                                            <rect x="86" y="100" width="26" height="110" rx="4"/>
+                                            <rect x="132" y="160" width="26" height="50" rx="4"/>
+                                            <rect x="178" y="70" width="26" height="140" rx="4"/>
+                                            <rect x="224" y="120" width="26" height="90" rx="4"/>
+                                            <rect x="270" y="50" width="26" height="160" rx="4"/>
+                                            <rect x="316" y="95" width="26" height="115" rx="4"/>
+                                        </g>
+                                        <polyline points="40,155 86,95 132,130 178,55 224,105 270,35 316,75 362,60" fill="none" stroke="var(--accent-tertiary)" stroke-opacity="0.55" stroke-width="2"/>
+                                        <g fill="var(--accent-tertiary)" fill-opacity="0.7">
+                                            <circle cx="86" cy="95" r="3"/>
+                                            <circle cx="178" cy="55" r="3"/>
+                                            <circle cx="270" cy="35" r="3"/>
+                                        </g>
+                                    </svg>
+                                    <div class="project-icon-large"><i class="fas fa-chart-line"></i></div>
+                                    <div class="project-pattern"></div>
+                                    <img src="pictures/QDL-logo.png" alt="Quantum Data Leap" class="project-logo">
+                                </div>
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="project-info">
-                            <div class="project-tag">Fisec Global &middot; Professional</div>
-                            <h3 class="project-title">Quantum Data Leap</h3>
-                            <dl class="project-breakdown">
-                                <div>
-                                    <dt>Problem</dt>
-                                    <dd>Complex, data-intensive operations were hard for clients to navigate and act on.</dd>
+                            <div class="project-info">
+                                <div class="project-tag">Fisec Global &middot; Professional</div>
+                                <h3 class="project-title">Quantum Data Leap</h3>
+                                <dl class="project-breakdown">
+                                    <div>
+                                        <dt>Problem</dt>
+                                        <dd>Complex, data-intensive operations were hard for clients to navigate and act on.</dd>
+                                    </div>
+                                    <div>
+                                        <dt>My Contribution</dt>
+                                        <dd>UI/UX design, a reusable component library, and accessible dashboards with data visualizations.</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Outcome</dt>
+                                        <dd>A consistent, accessible design system now used across the product's desktop and mobile views.</dd>
+                                    </div>
+                                </dl>
+                                <div class="project-tech">
+                                    <span>React</span><span>TypeScript</span><span>Next.js</span><span>Chart.js</span><span>Tailwind CSS</span>
                                 </div>
-                                <div>
-                                    <dt>My Contribution</dt>
-                                    <dd>UI/UX design, a reusable component library, and accessible dashboards with data visualizations.</dd>
+                                <div class="project-actions">
+                                    <a href="quantum-data-leap.html" class="project-action-btn"><i class="fas fa-file-lines"></i>View Case Study</a>
                                 </div>
-                                <div>
-                                    <dt>Outcome</dt>
-                                    <dd>A consistent, accessible design system now used across the product's desktop and mobile views.</dd>
-                                </div>
-                            </dl>
-                            <div class="project-tech">
-                                <span>React</span><span>TypeScript</span><span>Next.js</span><span>Chart.js</span><span>Tailwind CSS</span>
-                            </div>
-                            <div class="project-actions">
-                                <a href="#" class="project-action-btn"><i class="fas fa-file-lines"></i>View Case Study</a>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="project-card is-featured card-stack" data-category="professional" data-aos="fade-up" data-aos-duration="700">
-                    <span class="project-tape" aria-hidden="true"></span>
-                    <span class="project-bookmark" aria-hidden="true"></span>
-                    <div class="project-card-inner">
-                        <div class="project-image">
-                            <div class="project-image-placeholder intellihire">
-                                <svg class="project-cover" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                                    <g stroke="var(--accent-tertiary)" stroke-opacity="0.4" stroke-width="1.3">
-                                        <line x1="200" y1="120" x2="90" y2="60"/>
-                                        <line x1="200" y1="120" x2="80" y2="150"/>
-                                        <line x1="200" y1="120" x2="130" y2="205"/>
-                                        <line x1="200" y1="120" x2="270" y2="55"/>
-                                        <line x1="200" y1="120" x2="320" y2="110"/>
-                                        <line x1="200" y1="120" x2="290" y2="190"/>
-                                        <line x1="90" y1="60" x2="320" y2="110" stroke-opacity="0.18"/>
-                                        <line x1="80" y1="150" x2="290" y2="190" stroke-opacity="0.18"/>
-                                    </g>
-                                    <g fill="var(--accent-primary)">
-                                        <circle cx="200" cy="120" r="9" fill-opacity="0.9"/>
-                                        <circle cx="90" cy="60" r="5" fill-opacity="0.55"/>
-                                        <circle cx="80" cy="150" r="5" fill-opacity="0.55"/>
-                                        <circle cx="130" cy="205" r="5" fill-opacity="0.45"/>
-                                        <circle cx="270" cy="55" r="5" fill-opacity="0.55"/>
-                                        <circle cx="320" cy="110" r="5" fill-opacity="0.45"/>
-                                        <circle cx="290" cy="190" r="5" fill-opacity="0.45"/>
-                                    </g>
-                                </svg>
-                                <div class="project-icon-large"><i class="fas fa-users-gear"></i></div>
-                                <div class="project-pattern"></div>
-                                <img src="pictures/Intelli-hire.png" alt="Intelli Hire" class="project-logo">
+                    <div class="project-card is-featured card-stack" data-category="professional" data-aos="fade-up" data-aos-duration="700">
+                        <span class="project-tape" aria-hidden="true"></span>
+                        <span class="project-bookmark" aria-hidden="true"></span>
+                        <div class="project-card-inner">
+                            <div class="project-image">
+                                <div class="project-image-placeholder intellihire">
+                                    <svg class="project-cover" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                                        <g stroke="var(--accent-tertiary)" stroke-opacity="0.4" stroke-width="1.3">
+                                            <line x1="200" y1="120" x2="90" y2="60"/>
+                                            <line x1="200" y1="120" x2="80" y2="150"/>
+                                            <line x1="200" y1="120" x2="130" y2="205"/>
+                                            <line x1="200" y1="120" x2="270" y2="55"/>
+                                            <line x1="200" y1="120" x2="320" y2="110"/>
+                                            <line x1="200" y1="120" x2="290" y2="190"/>
+                                            <line x1="90" y1="60" x2="320" y2="110" stroke-opacity="0.18"/>
+                                            <line x1="80" y1="150" x2="290" y2="190" stroke-opacity="0.18"/>
+                                        </g>
+                                        <g fill="var(--accent-primary)">
+                                            <circle cx="200" cy="120" r="9" fill-opacity="0.9"/>
+                                            <circle cx="90" cy="60" r="5" fill-opacity="0.55"/>
+                                            <circle cx="80" cy="150" r="5" fill-opacity="0.55"/>
+                                            <circle cx="130" cy="205" r="5" fill-opacity="0.45"/>
+                                            <circle cx="270" cy="55" r="5" fill-opacity="0.55"/>
+                                            <circle cx="320" cy="110" r="5" fill-opacity="0.45"/>
+                                            <circle cx="290" cy="190" r="5" fill-opacity="0.45"/>
+                                        </g>
+                                    </svg>
+                                    <div class="project-icon-large"><i class="fas fa-users-gear"></i></div>
+                                    <div class="project-pattern"></div>
+                                    <img src="pictures/Intelli-hire.png" alt="Intelli Hire" class="project-logo">
+                                </div>
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="project-overlay">
-                                <div class="project-links">
-                                    <a href="#" class="project-link" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                            <div class="project-info">
+                                <div class="project-tag">Fisec Global &middot; Professional</div>
+                                <h3 class="project-title">Intelli-Hire</h3>
+                                <dl class="project-breakdown">
+                                    <div>
+                                        <dt>Problem</dt>
+                                        <dd>Manual resume screening slowed hiring and made candidate matching inconsistent.</dd>
+                                    </div>
+                                    <div>
+                                        <dt>My Contribution</dt>
+                                        <dd>Frontend architecture with micro-frontends, role-based auth UI, and an AI-matching dashboard.</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Outcome</dt>
+                                        <dd>A searchable, filterable candidate database that cut manual screening time significantly.</dd>
+                                    </div>
+                                </dl>
+                                <div class="project-tech">
+                                    <span>React</span><span>Next.js</span><span>AI/ML</span><span>Node.js</span><span>Tailwind CSS</span>
+                                </div>
+                                <div class="project-actions">
+                                    <a href="intelli-hire.html" class="project-action-btn"><i class="fas fa-file-lines"></i>View Case Study</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="project-info">
-                            <div class="project-tag">Fisec Global &middot; Professional</div>
-                            <h3 class="project-title">Intelli-Hire</h3>
-                            <dl class="project-breakdown">
-                                <div>
-                                    <dt>Problem</dt>
-                                    <dd>Manual resume screening slowed hiring and made candidate matching inconsistent.</dd>
+                    </div>
+                    <div class="project-card is-featured card-stack" data-category="professional" data-aos="fade-up" data-aos-duration="700">
+                        <span class="project-tape" aria-hidden="true"></span>
+                        <span class="project-bookmark" aria-hidden="true"></span>
+                        <div class="project-card-inner">
+                            <div class="project-image">
+                                <div class="project-image-placeholder willingly">
+                                    <svg class="project-cover" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                                        <g fill="none" stroke="var(--accent-primary)">
+                                            <circle cx="200" cy="125" r="46" stroke-opacity="0.45"/>
+                                            <circle cx="200" cy="125" r="76" stroke-opacity="0.24"/>
+                                            <circle cx="200" cy="125" r="106" stroke-opacity="0.12"/>
+                                        </g>
+                                        <path d="M200 152 C176 134 162 122 162 107 C162 96 171 88 181 88 C189 88 195 92 200 99 C205 92 211 88 219 88 C229 88 238 96 238 107 C238 122 224 134 200 152 Z"
+                                              fill="var(--accent-primary)" fill-opacity="0.24" stroke="var(--accent-primary)" stroke-opacity="0.6" stroke-linejoin="round"/>
+                                        <g stroke="var(--accent-tertiary)" stroke-opacity="0.55" stroke-width="1.6" fill="none" stroke-linecap="round">
+                                            <path d="M126 176 q14 -16 30 -4"/>
+                                            <path d="M244 172 q16 -14 30 -2"/>
+                                        </g>
+                                        <g fill="var(--accent-tertiary)" fill-opacity="0.7">
+                                            <circle cx="120" cy="86" r="3.5"/>
+                                            <circle cx="286" cy="96" r="3"/>
+                                            <circle cx="104" cy="140" r="2.5"/>
+                                            <circle cx="300" cy="152" r="2.5"/>
+                                        </g>
+                                        <g stroke="var(--accent-secondary)" stroke-opacity="0.4" stroke-dasharray="3 5" fill="none">
+                                            <path d="M120 86 q70 -18 166 10"/>
+                                        </g>
+                                    </svg>
+                                    <div class="project-icon-large"><i class="fas fa-hand-holding-heart"></i></div>
+                                    <div class="project-pattern"></div>
+                                    <div class="project-logo project-logo-icon"><i class="fas fa-hand-holding-heart"></i></div>
                                 </div>
-                                <div>
-                                    <dt>My Contribution</dt>
-                                    <dd>Frontend architecture with micro-frontends, role-based auth UI, and an AI-matching dashboard.</dd>
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                                    </div>
                                 </div>
-                                <div>
-                                    <dt>Outcome</dt>
-                                    <dd>A searchable, filterable candidate database that cut manual screening time significantly.</dd>
-                                </div>
-                            </dl>
-                            <div class="project-tech">
-                                <span>React</span><span>Next.js</span><span>AI/ML</span><span>Node.js</span><span>Tailwind CSS</span>
                             </div>
-                            <div class="project-actions">
-                                <a href="#" class="project-action-btn"><i class="fas fa-file-lines"></i>View Case Study</a>
+                            <div class="project-info">
+                                <div class="project-tag">Fisec Global &middot; Professional</div>
+                                <h3 class="project-title">Willingly</h3>
+                                <dl class="project-breakdown">
+                                    <div>
+                                        <dt>Problem</dt>
+                                        <dd>Donors had no reliable way to tell which nonprofits were trustworthy.</dd>
+                                    </div>
+                                    <div>
+                                        <dt>My Contribution</dt>
+                                        <dd>Nonprofit verification, search, campaign pages, and the Stripe donation flow.</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Outcome</dt>
+                                        <dd>An MVP where every listed nonprofit is admin-reviewed before going live.</dd>
+                                    </div>
+                                </dl>
+                                <div class="project-tech">
+                                    <span>Next.js</span><span>TypeScript</span><span>FastAPI</span><span>PostgreSQL</span><span>Stripe</span>
+                                </div>
+                                <div class="project-actions">
+                                    <a href="willingly.html" class="project-action-btn"><i class="fas fa-file-lines"></i>View Case Study</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card" data-category="academic" data-aos="fade-up" data-aos-duration="700">
+                        <span class="project-tape" aria-hidden="true"></span>
+                        <span class="project-bookmark" aria-hidden="true"></span>
+                        <div class="project-card-inner">
+                            <div class="project-image">
+                                <div class="project-image-placeholder academic-1">
+                                    <svg class="project-cover" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                                        <g fill="none" stroke="var(--accent-primary)">
+                                            <circle cx="200" cy="125" r="40" stroke-opacity="0.5"/>
+                                            <circle cx="200" cy="125" r="70" stroke-opacity="0.3"/>
+                                            <circle cx="200" cy="125" r="100" stroke-opacity="0.16"/>
+                                        </g>
+                                        <path d="M200 90 L226 102 L226 128 C226 148 216 160 200 168 C184 160 174 148 174 128 L174 102 Z" fill="var(--accent-primary)" fill-opacity="0.22" stroke="var(--accent-primary)" stroke-opacity="0.55"/>
+                                        <path d="M188 126 L197 136 L214 114" fill="none" stroke="var(--accent-tertiary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.85"/>
+                                        <g stroke="var(--accent-tertiary)" stroke-opacity="0.4">
+                                            <line x1="200" y1="25" x2="200" y2="45"/>
+                                            <line x1="200" y1="205" x2="200" y2="225"/>
+                                            <line x1="80" y1="125" x2="100" y2="125"/>
+                                            <line x1="300" y1="125" x2="320" y2="125"/>
+                                        </g>
+                                    </svg>
+                                    <div class="project-icon-large"><i class="fas fa-shield-halved"></i></div>
+                                    <div class="project-pattern"></div>
+                                    <div class="project-logo project-logo-icon"><i class="fas fa-shield-halved"></i></div>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <div class="project-tag">Academic &middot; Sept 2024 - Apr 2025</div>
+                                <h3 class="project-title">Smart Home Security</h3>
+                                <p class="project-description">
+                                    An IoT-based system for detecting unauthorized access using cloud image
+                                    storage, AI forensic analysis, real-time alerts, and role-based access control.
+                                </p>
+                                <div class="project-tech">
+                                    <span>IoT</span><span>AI</span><span>Cloud</span><span>Python</span><span>RBAC</span>
+                                </div>
+                                <div class="project-actions">
+                                    <a href="#" class="project-action-btn"><i class="fab fa-github"></i>GitHub</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card" data-category="academic" data-aos="fade-up" data-aos-duration="700">
+                        <span class="project-tape" aria-hidden="true"></span>
+                        <span class="project-bookmark" aria-hidden="true"></span>
+                        <div class="project-card-inner">
+                            <div class="project-image">
+                                <div class="project-image-placeholder academic-2">
+                                    <svg class="project-cover" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                                        <ellipse cx="200" cy="125" rx="62" ry="78" fill="var(--accent-primary)" fill-opacity="0.14" stroke="var(--accent-primary)" stroke-opacity="0.4"/>
+                                        <g stroke="var(--accent-tertiary)" stroke-opacity="0.5" stroke-width="1">
+                                            <line x1="150" y1="90" x2="250" y2="90"/>
+                                            <line x1="145" y1="115" x2="255" y2="115"/>
+                                            <line x1="145" y1="140" x2="255" y2="140"/>
+                                            <line x1="150" y1="165" x2="250" y2="165"/>
+                                            <line x1="200" y1="55" x2="200" y2="195"/>
+                                            <line x1="170" y1="60" x2="170" y2="190"/>
+                                            <line x1="230" y1="60" x2="230" y2="190"/>
+                                        </g>
+                                        <g fill="var(--accent-primary)" fill-opacity="0.85">
+                                            <circle cx="178" cy="112" r="3"/>
+                                            <circle cx="222" cy="112" r="3"/>
+                                            <circle cx="200" cy="135" r="2.5"/>
+                                            <circle cx="185" cy="158" r="2.5"/>
+                                            <circle cx="215" cy="158" r="2.5"/>
+                                        </g>
+                                        <path d="M185 158 Q200 168 215 158" fill="none" stroke="var(--accent-primary)" stroke-width="1.5" stroke-opacity="0.7"/>
+                                        <rect x="140" y="60" width="120" height="130" fill="none" stroke="var(--accent-tertiary)" stroke-opacity="0.3" stroke-dasharray="4 4" rx="6"/>
+                                    </svg>
+                                    <div class="project-icon-large"><i class="fas fa-user-check"></i></div>
+                                    <div class="project-pattern"></div>
+                                    <div class="project-logo project-logo-icon"><i class="fas fa-user-check"></i></div>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <div class="project-tag">Academic &middot; Feb 2024 - Apr 2024</div>
+                                <h3 class="project-title">Person Identification System</h3>
+                                <p class="project-description">
+                                    An AI-based identification system using CNN and face recognition libraries,
+                                    with ML frameworks for accurate recognition and cloud-based storage.
+                                </p>
+                                <div class="project-tech">
+                                    <span>Python</span><span>CNN</span><span>ML</span><span>OpenCV</span><span>Cloud</span>
+                                </div>
+                                <div class="project-actions">
+                                    <a href="#" class="project-action-btn"><i class="fab fa-github"></i>GitHub</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Academic Projects -->
-            <h3 class="subsection-title" data-aos="fade-up" id="academicHeading">Academic <span class="highlight">Projects</span></h3>
-            <div class="projects-grid" style="margin-top:30px;" id="academicProjects">
-                <div class="project-card" data-category="academic" data-aos="fade-up" data-aos-duration="700">
-                    <span class="project-bookmark" aria-hidden="true"></span>
-                    <div class="project-card-inner">
-                        <div class="project-image">
-                            <div class="project-image-placeholder academic-1">
-                                <svg class="project-cover" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                                    <g fill="none" stroke="var(--accent-primary)">
-                                        <circle cx="200" cy="125" r="40" stroke-opacity="0.5"/>
-                                        <circle cx="200" cy="125" r="70" stroke-opacity="0.3"/>
-                                        <circle cx="200" cy="125" r="100" stroke-opacity="0.16"/>
-                                    </g>
-                                    <path d="M200 90 L226 102 L226 128 C226 148 216 160 200 168 C184 160 174 148 174 128 L174 102 Z" fill="var(--accent-primary)" fill-opacity="0.22" stroke="var(--accent-primary)" stroke-opacity="0.55"/>
-                                    <path d="M188 126 L197 136 L214 114" fill="none" stroke="var(--accent-tertiary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.85"/>
-                                    <g stroke="var(--accent-tertiary)" stroke-opacity="0.4">
-                                        <line x1="200" y1="25" x2="200" y2="45"/>
-                                        <line x1="200" y1="205" x2="200" y2="225"/>
-                                        <line x1="80" y1="125" x2="100" y2="125"/>
-                                        <line x1="300" y1="125" x2="320" y2="125"/>
-                                    </g>
-                                </svg>
-                                <div class="project-icon-large"><i class="fas fa-shield-halved"></i></div>
-                                <div class="project-pattern"></div>
-                                <div class="project-logo project-logo-icon"><i class="fas fa-shield-halved"></i></div>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <div class="project-tag">Academic &middot; Sept 2024 - Apr 2025</div>
-                            <h3 class="project-title">Smart Home Security</h3>
-                            <p class="project-description">
-                                An IoT-based system for detecting unauthorized access using cloud image
-                                storage, AI forensic analysis, real-time alerts, and role-based access control.
-                            </p>
-                            <div class="project-tech">
-                                <span>IoT</span><span>AI</span><span>Cloud</span><span>Python</span><span>RBAC</span>
-                            </div>
-                            <div class="project-actions">
-                                <a href="#" class="project-action-btn"><i class="fab fa-github"></i>GitHub</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" data-category="academic" data-aos="fade-up" data-aos-duration="700">
-                    <span class="project-bookmark" aria-hidden="true"></span>
-                    <div class="project-card-inner">
-                        <div class="project-image">
-                            <div class="project-image-placeholder academic-2">
-                                <svg class="project-cover" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                                    <ellipse cx="200" cy="125" rx="62" ry="78" fill="var(--accent-primary)" fill-opacity="0.14" stroke="var(--accent-primary)" stroke-opacity="0.4"/>
-                                    <g stroke="var(--accent-tertiary)" stroke-opacity="0.5" stroke-width="1">
-                                        <line x1="150" y1="90" x2="250" y2="90"/>
-                                        <line x1="145" y1="115" x2="255" y2="115"/>
-                                        <line x1="145" y1="140" x2="255" y2="140"/>
-                                        <line x1="150" y1="165" x2="250" y2="165"/>
-                                        <line x1="200" y1="55" x2="200" y2="195"/>
-                                        <line x1="170" y1="60" x2="170" y2="190"/>
-                                        <line x1="230" y1="60" x2="230" y2="190"/>
-                                    </g>
-                                    <g fill="var(--accent-primary)" fill-opacity="0.85">
-                                        <circle cx="178" cy="112" r="3"/>
-                                        <circle cx="222" cy="112" r="3"/>
-                                        <circle cx="200" cy="135" r="2.5"/>
-                                        <circle cx="185" cy="158" r="2.5"/>
-                                        <circle cx="215" cy="158" r="2.5"/>
-                                    </g>
-                                    <path d="M185 158 Q200 168 215 158" fill="none" stroke="var(--accent-primary)" stroke-width="1.5" stroke-opacity="0.7"/>
-                                    <rect x="140" y="60" width="120" height="130" fill="none" stroke="var(--accent-tertiary)" stroke-opacity="0.3" stroke-dasharray="4 4" rx="6"/>
-                                </svg>
-                                <div class="project-icon-large"><i class="fas fa-user-check"></i></div>
-                                <div class="project-pattern"></div>
-                                <div class="project-logo project-logo-icon"><i class="fas fa-user-check"></i></div>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <div class="project-tag">Academic &middot; Feb 2024 - Apr 2024</div>
-                            <h3 class="project-title">Person Identification System</h3>
-                            <p class="project-description">
-                                An AI-based identification system using CNN and face recognition libraries,
-                                with ML frameworks for accurate recognition and cloud-based storage.
-                            </p>
-                            <div class="project-tech">
-                                <span>Python</span><span>CNN</span><span>ML</span><span>OpenCV</span><span>Cloud</span>
-                            </div>
-                            <div class="project-actions">
-                                <a href="#" class="project-action-btn"><i class="fab fa-github"></i>GitHub</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <!-- Progress rail: how far through the deck you are. -->
+            <div class="hscroll-progress" id="hscrollProgress" aria-hidden="true">
+                <span class="hscroll-progress-bar"></span>
             </div>
         </div>
     </section>
@@ -872,20 +961,20 @@
                 </div>
                 <div class="fabric-controls" id="fabricControls">
                     <label class="fabric-control">
-                        <span>Wave Frequency <em id="fabricFreqVal">2.2</em></span>
-                        <input type="range" id="fabricFreq" min="0.5" max="6" step="0.1" value="2.2">
+                        <span>Wave Frequency <em id="fabricFreqVal">4.2</em></span>
+                        <input type="range" id="fabricFreq" min="0.5" max="6" step="0.1" value="4.2">
                     </label>
                     <label class="fabric-control">
-                        <span>Wave Amplitude <em id="fabricAmpVal">8</em></span>
-                        <input type="range" id="fabricAmp" min="0" max="20" step="0.5" value="8">
+                        <span>Wave Amplitude <em id="fabricAmpVal">7</em></span>
+                        <input type="range" id="fabricAmp" min="0" max="20" step="0.5" value="7">
                     </label>
                     <label class="fabric-control">
-                        <span>Well Strength <em id="fabricPullVal">8</em></span>
-                        <input type="range" id="fabricPull" min="0" max="20" step="0.5" value="8">
+                        <span>Well Strength <em id="fabricPullVal">12.5</em></span>
+                        <input type="range" id="fabricPull" min="0" max="20" step="0.5" value="12.5">
                     </label>
                     <label class="fabric-control">
-                        <span>Shear Twist <em id="fabricTwistVal">2</em></span>
-                        <input type="range" id="fabricTwist" min="0" max="6" step="0.1" value="2">
+                        <span>Shear Twist <em id="fabricTwistVal">3.7</em></span>
+                        <input type="range" id="fabricTwist" min="0" max="6" step="0.1" value="3.7">
                     </label>
                 </div>
             </div>
@@ -905,42 +994,42 @@
             </div>
             <div class="interests-grid">
                 <div class="interest-card" data-aos="fade-up" data-aos-delay="0">
-                    <span class="interest-pin" aria-hidden="true"></span>
+                    <span class="interest-tape" aria-hidden="true"></span>
                     <div class="interest-icon"><i class="fas fa-headphones-simple"></i></div>
                     <h3>Music</h3>
                     <p>Bollywood music enthusiast who loves soulful Indian melodies while coding.</p>
                     <div class="interest-bg-icon"><i class="fas fa-headphones-simple"></i></div>
                 </div>
                 <div class="interest-card" data-aos="fade-up" data-aos-delay="100">
-                    <span class="interest-pin" aria-hidden="true"></span>
+                    <span class="interest-tape" aria-hidden="true"></span>
                     <div class="interest-icon"><i class="fas fa-clapperboard"></i></div>
                     <h3>Movies</h3>
                     <p>Enjoy genres from sci-fi thrillers to heartwarming dramas and anime.</p>
                     <div class="interest-bg-icon"><i class="fas fa-clapperboard"></i></div>
                 </div>
                 <div class="interest-card" data-aos="fade-up" data-aos-delay="200">
-                    <span class="interest-pin" aria-hidden="true"></span>
+                    <span class="interest-tape" aria-hidden="true"></span>
                     <div class="interest-icon"><i class="fas fa-vr-cardboard"></i></div>
                     <h3>Gaming</h3>
                     <p>Exploring virtual worlds, strategy games, and competitive multiplayer.</p>
                     <div class="interest-bg-icon"><i class="fas fa-vr-cardboard"></i></div>
                 </div>
                 <div class="interest-card" data-aos="fade-up" data-aos-delay="50">
-                    <span class="interest-pin" aria-hidden="true"></span>
+                    <span class="interest-tape" aria-hidden="true"></span>
                     <div class="interest-icon"><i class="fas fa-bolt"></i></div>
                     <h3>Tech</h3>
                     <p>Always exploring the latest in AI, web tech, and software trends.</p>
                     <div class="interest-bg-icon"><i class="fas fa-bolt"></i></div>
                 </div>
                 <div class="interest-card has-fold" data-aos="fade-up" data-aos-delay="150">
-                    <span class="interest-pin" aria-hidden="true"></span>
+                    <span class="interest-tape" aria-hidden="true"></span>
                     <div class="interest-icon"><i class="fas fa-earth-americas"></i></div>
                     <h3>Travel</h3>
                     <p>Discovering new places and finding inspiration in diverse cultures.</p>
                     <div class="interest-bg-icon"><i class="fas fa-earth-americas"></i></div>
                 </div>
                 <div class="interest-card" data-aos="fade-up" data-aos-delay="250">
-                    <span class="interest-pin" aria-hidden="true"></span>
+                    <span class="interest-tape" aria-hidden="true"></span>
                     <div class="interest-icon"><i class="fas fa-pen-nib"></i></div>
                     <h3>Art</h3>
                     <p>Creating vibrant hand-drawn art bringing mythological themes to life.</p>
@@ -962,9 +1051,24 @@
                 <div class="section-line"></div>
                 <p class="section-subtitle">Exploring visual storytelling beyond software.</p>
             </div>
-            <div class="gallery-showcase" data-aos="zoom-in" data-aos-duration="800">
+            <!-- The two interactive extras live here, flanking the
+                 artwork: they open as modals, so they have no section
+                 of their own to be reached from. -->
+            <div class="gallery-extras">
+                <button type="button" class="extra-card extra-card-lab" data-open-lab>
+                    <span class="extra-card-tape" aria-hidden="true"></span>
+                    <span class="extra-card-icon"><i class="fas fa-atom"></i></span>
+                    <span class="extra-card-body">
+                        <span class="extra-card-title">Interactive Lab</span>
+                        <span class="extra-card-sub">A particle field you can bend</span>
+                    </span>
+                    <i class="fas fa-arrow-right extra-card-go" aria-hidden="true"></i>
+                </button>
+
+                <div class="gallery-showcase" data-aos="zoom-in" data-aos-duration="800">
                 <div class="gallery-main">
                     <div class="gallery-frame">
+                        <span class="gallery-tape" aria-hidden="true"></span>
                         <img src="pictures/Art.jpg" alt="Lord Krishna - Colorful Art" class="gallery-img gallery-img-source" loading="lazy">
                         <div class="particle-image-wrap gallery-particle-wrap" data-particle-image="pictures/Art.jpg" role="img" aria-label="Lord Krishna - Colorful Art"></div>
                         <div class="gallery-shine"></div>
@@ -978,6 +1082,17 @@
                         </a>
                     </div>
                 </div>
+                </div>
+
+                <button type="button" class="extra-card extra-card-games" data-open-game>
+                    <span class="extra-card-tape" aria-hidden="true"></span>
+                    <span class="extra-card-icon"><i class="fas fa-gamepad"></i></span>
+                    <span class="extra-card-body">
+                        <span class="extra-card-title">Arcade</span>
+                        <span class="extra-card-sub">A few small games to play</span>
+                    </span>
+                    <i class="fas fa-arrow-right extra-card-go" aria-hidden="true"></i>
+                </button>
             </div>
         </div>
     </section>

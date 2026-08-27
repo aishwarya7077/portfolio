@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelli-Hire &mdash; Case Study | Dutpala Aishwarya</title>
+    <meta name="description" content="Case study: replacing manual resume screening with AI-assisted candidate ranking, a searchable resume database, and role-based access controls.">
+    <link rel="icon" type="image/png" href="pictures/logo-128.png">
+    <link rel="stylesheet" href="casestudy.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="casestudy-page">
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-text">&lt;</span><span class="logo-main">DA</span><span class="logo-text">/&gt;</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#home" class="nav-link"><span>Home</span></a></li>
+                <li><a href="index.html#about" class="nav-link"><span>About</span></a></li>
+                <li><a href="index.html#projects" class="nav-link active"><span>Projects</span></a></li>
+                <li><a href="index.html#gallery" class="nav-link"><span>Art</span></a></li>
+                <li><a href="index.html#contact" class="nav-link"><span>Contact</span></a></li>
+                <li><a href="resume.html" class="nav-link"><span>Resume</span></a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="cs-container">
+
+        <div class="cs-actions">
+            <a href="index.html#projects" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Projects</a>
+        </div>
+
+        <!-- Masthead -->
+        <header class="cs-header" style="--washi: var(--washi-sage);">
+            <div class="cs-eyebrow">Case Study &middot; Fisec Global</div>
+            <h1 class="cs-title">Intelli-Hire</h1>
+            <p class="cs-standfirst">
+                Recruiters were reading every resume by hand and reaching inconsistent
+                conclusions. Intelli-Hire ranks candidates against a job description and
+                makes the whole pipeline searchable &mdash; without handing the decision
+                to a model.
+            </p>
+            <span class="cs-note">&mdash; the shortlist, not the verdict</span>
+
+            <div class="cs-meta">
+                <div class="cs-meta-item">
+                    <span class="cs-meta-label">Role</span>
+                    <span class="cs-meta-value">Frontend Architecture &amp; UI</span>
+                </div>
+                <div class="cs-meta-item">
+                    <span class="cs-meta-label">Company</span>
+                    <span class="cs-meta-value">Fisec Global</span>
+                </div>
+                <div class="cs-meta-item">
+                    <span class="cs-meta-label">Timeline</span>
+                    <span class="cs-meta-value">Aug 2025 &ndash; Present</span>
+                </div>
+                <div class="cs-meta-item">
+                    <span class="cs-meta-label">Focus</span>
+                    <span class="cs-meta-value">Micro-frontends &amp; access control</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Cover -->
+        <div class="cs-cover" style="--cover-a: rgba(63,90,80,0.18); --cover-b: rgba(180,85,61,0.14);">
+            <svg viewBox="0 0 800 350" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <g stroke="var(--accent-tertiary)" stroke-opacity="0.38" stroke-width="1.5">
+                    <line x1="400" y1="175" x2="212" y2="82"/>
+                    <line x1="400" y1="175" x2="186" y2="196"/>
+                    <line x1="400" y1="175" x2="268" y2="290"/>
+                    <line x1="400" y1="175" x2="556" y2="72"/>
+                    <line x1="400" y1="175" x2="628" y2="158"/>
+                    <line x1="400" y1="175" x2="574" y2="272"/>
+                    <line x1="212" y1="82"  x2="628" y2="158" stroke-opacity="0.14"/>
+                    <line x1="186" y1="196" x2="574" y2="272" stroke-opacity="0.14"/>
+                </g>
+                <g fill="var(--accent-primary)">
+                    <circle cx="400" cy="175" r="13" fill-opacity="0.9"/>
+                    <circle cx="212" cy="82"  r="7" fill-opacity="0.55"/>
+                    <circle cx="186" cy="196" r="7" fill-opacity="0.55"/>
+                    <circle cx="268" cy="290" r="6" fill-opacity="0.42"/>
+                    <circle cx="556" cy="72"  r="7" fill-opacity="0.55"/>
+                    <circle cx="628" cy="158" r="6" fill-opacity="0.42"/>
+                    <circle cx="574" cy="272" r="6" fill-opacity="0.42"/>
+                </g>
+                <!-- ranked list forming out of the graph -->
+                <g fill="var(--accent-tertiary)" fill-opacity="0.2">
+                    <rect x="640" y="196" width="112" height="9" rx="4.5"/>
+                    <rect x="640" y="216" width="92"  height="9" rx="4.5"/>
+                    <rect x="640" y="236" width="72"  height="9" rx="4.5"/>
+                </g>
+            </svg>
+        </div>
+
+        <!-- Problem -->
+        <section class="cs-section">
+            <h2 class="cs-section-title"><i class="fas fa-circle-question"></i> The problem</h2>
+            <div class="cs-section-rule"></div>
+            <p>
+                Screening was entirely manual. Every application was read by a person,
+                which made the early pipeline the slowest part of hiring and meant
+                <strong>the same candidate could be assessed differently</strong> depending
+                on who opened the file and how many they had already read that day.
+            </p>
+            <p>
+                Resumes also had nowhere to live. Once a role closed, its applicants were
+                effectively lost &mdash; a strong candidate for a future opening sat
+                unreachable in a folder, so sourcing started from zero each time.
+            </p>
+            <div class="cs-callout">
+                <span class="cs-callout-label">The line I held</span>
+                <p>
+                    The system produces a ranked shortlist, not a decision. Recruiters
+                    still choose &mdash; the product's job is to make the first pass fast
+                    and consistent, and to show why a candidate surfaced.
+                </p>
+            </div>
+        </section>
+
+        <!-- Approach -->
+        <section class="cs-section">
+            <h2 class="cs-section-title"><i class="fas fa-compass-drafting"></i> Approach</h2>
+            <div class="cs-section-rule"></div>
+            <ul>
+                <li><strong>Rank, don't filter</strong> &mdash; matching orders candidates by fit against the job description rather than silently discarding anyone, so a recruiter can always look further down the list.</li>
+                <li><strong>Make the pipeline searchable</strong> &mdash; structured candidate profiles in a database with advanced filters, so past applicants stay findable for future roles.</li>
+                <li><strong>Control who sees what</strong> &mdash; resumes are sensitive personal data, so role-based permissions and access controls were part of the design, not a later addition.</li>
+                <li><strong>Modular frontend</strong> &mdash; a micro-frontend architecture so the admin, recruiter, and dashboard surfaces can evolve independently.</li>
+            </ul>
+        </section>
+
+        <!-- Decisions -->
+        <section class="cs-section">
+            <h2 class="cs-section-title"><i class="fas fa-code-branch"></i> Decisions worth explaining</h2>
+            <div class="cs-section-rule"></div>
+            <div class="cs-decisions">
+
+                <article class="cs-decision">
+                    <h3>Micro-frontends for the application shell</h3>
+                    <p>
+                        The recruiter workspace, admin controls, and analytics dashboards
+                        are separate frontend modules composed into one application.
+                    </p>
+                    <span class="cs-tradeoff">
+                        <strong>Trade-off:</strong> more build and integration complexity
+                        than a single bundle. Lets each surface ship on its own schedule
+                        without a change to admin risking the recruiter's daily workflow.
+                    </span>
+                </article>
+
+                <article class="cs-decision">
+                    <h3>Role-based auth with admin controls from the start</h3>
+                    <p>
+                        Permissions were modelled before features were built on top of
+                        them, with admin tooling for managing who holds which role.
+                    </p>
+                    <span class="cs-tradeoff">
+                        <strong>Trade-off:</strong> upfront design work before any visible
+                        feature. Retrofitting authorization onto a live system holding
+                        personal data is how access-control bugs happen.
+                    </span>
+                </article>
+
+                <article class="cs-decision">
+                    <h3>Matching surfaces its reasoning</h3>
+                    <p>
+                        A ranked candidate is shown with the signals behind the score
+                        rather than a bare number, so a recruiter can judge whether the
+                        match is meaningful.
+                    </p>
+                    <span class="cs-tradeoff">
+                        <strong>Trade-off:</strong> a busier results view than a single
+                        percentage. An unexplained score is either trusted blindly or
+                        ignored entirely &mdash; both are worse than a slightly denser row.
+                    </span>
+                </article>
+
+                <article class="cs-decision">
+                    <h3>Access tracking on resume views</h3>
+                    <p>
+                        Resume access is controlled and recruiter activity is recorded, so
+                        engagement with candidate data is auditable.
+                    </p>
+                    <span class="cs-tradeoff">
+                        <strong>Trade-off:</strong> extra write traffic and a feature no
+                        user asks for. Necessary for anything handling other people's
+                        personal information.
+                    </span>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- What I built -->
+        <section class="cs-section">
+            <h2 class="cs-section-title"><i class="fas fa-screwdriver-wrench"></i> What I built</h2>
+            <div class="cs-section-rule"></div>
+            <ul>
+                <li>A <strong>role-based authentication system with admin controls</strong>, improving user management and platform security.</li>
+                <li>An <strong>AI-powered resume matching system</strong> that ranks candidates against a job description.</li>
+                <li>A <strong>searchable resume database</strong> with advanced filters and structured candidate profiles.</li>
+                <li><strong>Resume access controls and analytics</strong> tracking recruiter activity and engagement.</li>
+                <li>A <strong>modular frontend architecture</strong> using micro-frontends, with interactive dashboards and data visualizations.</li>
+            </ul>
+            <div class="cs-stack">
+                <span>React</span><span>Next.js</span><span>TypeScript</span><span>Node.js</span>
+                <span>AI/ML</span><span>Tailwind CSS</span><span>Micro-frontends</span>
+            </div>
+        </section>
+
+        <!-- Outcome -->
+        <section class="cs-section">
+            <h2 class="cs-section-title"><i class="fas fa-flag-checkered"></i> Outcome</h2>
+            <div class="cs-section-rule"></div>
+            <p>
+                Manual screening time dropped substantially: recruiters open a ranked
+                shortlist instead of an unordered pile, and the resume database means a
+                candidate who was strong but wrong-timed can be found again when a fitting
+                role opens.
+            </p>
+            <div class="cs-stats">
+                <div class="cs-stat">
+                    <span class="cs-stat-value">Ranked</span>
+                    <span class="cs-stat-label">shortlists replacing unordered manual review</span>
+                </div>
+                <div class="cs-stat">
+                    <span class="cs-stat-value">Searchable</span>
+                    <span class="cs-stat-label">candidate database with advanced filters</span>
+                </div>
+                <div class="cs-stat">
+                    <span class="cs-stat-value">Audited</span>
+                    <span class="cs-stat-label">resume access tracked per recruiter</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next -->
+        <nav class="cs-next">
+            <div>
+                <span class="cs-next-label">Next case study</span>
+                <a href="willingly.html">Willingly <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <a href="index.html#projects" class="btn-back"><i class="fas fa-grip"></i> All projects</a>
+        </nav>
+
+    </main>
+
+    <script>
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', () => {
+                const open = navLinks.classList.toggle('open');
+                navToggle.setAttribute('aria-expanded', String(open));
+            });
+        }
+    </script>
+</body>
+</html>

@@ -41,14 +41,73 @@ document.addEventListener('DOMContentLoaded', () => {
                 clearInterval(interval);
                 setTimeout(() => {
                     loader.classList.add('hidden');
-                    if (window.location.hash !== '#skyIntro') {
-                        history.replaceState(null, '', '#skyIntro');
-                    }
-                    window.scrollTo(0, 0);
-                    if (typeof lenis !== 'undefined') {
-                        lenis.scrollTo(0, { immediate: true });
-                    }
+
+                    // Arriving with a real deep link (e.g. index.html#projects
+                    // from a case study's "Back to Projects") must win over the
+                    // default hero landing — otherwise the loader would scroll
+                    // the visitor back to the top and lose where they asked to go.
+                    //
+                    // But only honour it when the visitor actually navigated here
+                    // from somewhere. A reload or a casual revisit of a URL that
+                    // still carries #projects should open at the top like any
+                    // first visit, so the hash is consumed once and then cleared.
+                    const incoming = window.location.hash;
+                    const navEntry = performance.getEntriesByType('navigation')[0];
+                    const navType = navEntry ? navEntry.type : null;
+                    const cameFromElsewhere = navType === 'navigate'
+                        && !!document.referrer
+                        && (() => {
+                            try {
+                                const from = new URL(document.referrer);
+                                // Same site, different page — i.e. a case study.
+                                return from.origin === location.origin
+                                    && from.pathname !== location.pathname;
+                            } catch (e) { return false; }
+                        })();
+
+                    const deepLink = incoming && incoming !== '#skyIntro' && cameFromElsewhere
+                        ? document.querySelector(incoming)
+                        : null;
+
                     document.body.style.overflow = '';
+
+                    if (deepLink) {
+                        // Late-loading images and the pinned carousel both shift
+                        // the target's offset, so re-assert the position a few
+                        // times over the first second instead of trusting one
+                        // measurement taken the instant the loader clears.
+                        const land = () => {
+                            if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+                            // A pinned section already sits flush with the top of
+                            // the viewport; everything else has to clear the fixed
+                            // navbar, or the heading hides behind it.
+                            const pinned = deepLink.closest('.pin-spacer') !== null
+                                || deepLink.parentElement?.classList.contains('pin-spacer');
+                            const nav = document.getElementById('navbar');
+                            const offset = pinned ? 0 : (nav ? nav.getBoundingClientRect().height : 0);
+                            const y = deepLink.getBoundingClientRect().top + window.scrollY - offset;
+                            if (typeof lenis !== 'undefined') lenis.scrollTo(y, { immediate: true });
+                            else window.scrollTo(0, y);
+                        };
+                        requestAnimationFrame(() => requestAnimationFrame(land));
+                        [120, 350, 700, 1100].forEach(d => setTimeout(land, d));
+                        window.addEventListener('load', () => setTimeout(land, 60), { once: true });
+
+                        // Drop the hash once we've arrived. The visitor stays put,
+                        // but a reload from here no longer re-triggers the jump.
+                        setTimeout(() => {
+                            history.replaceState(null, '', location.pathname + location.search);
+                        }, 1400);
+                    } else {
+                        if (incoming !== '#skyIntro') {
+                            history.replaceState(null, '', '#skyIntro');
+                        }
+                        window.scrollTo(0, 0);
+                        if (typeof lenis !== 'undefined') {
+                            lenis.scrollTo(0, { immediate: true });
+                        }
+                    }
+
                     // We can restart lenis later if needed, but it's set up outside DOMContentLoaded anyway
                     document.dispatchEvent(new CustomEvent('portfolio:loaderDone'));
                 }, 800);
@@ -391,15 +450,27 @@ initLightbox();
 const contactForm = document.getElementById('contactForm');
 contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
+
+    // This is a static site with no backend, so the form hands the message
+    // to the visitor's email client pre-filled. That genuinely delivers it,
+    // rather than showing a "sent" animation for a message that goes nowhere.
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const subject = document.getElementById('subject').value.trim();
+    const message = document.getElementById('message').value.trim();
+
     const btn = contactForm.querySelector('.btn-submit');
     const orig = btn.innerHTML;
-    btn.innerHTML = '<span>Message Sent!</span><i class="fas fa-check"></i>';
-    btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-    setTimeout(() => {
-        btn.innerHTML = orig;
-        btn.style.background = '';
-        contactForm.reset();
-    }, 3000);
+
+    const body = message + '\n\n---\nFrom: ' + name + (email ? ' <' + email + '>' : '');
+    const mailto = 'mailto:aishwaryadutpala@gmail.com'
+        + '?subject=' + encodeURIComponent(subject || 'Portfolio enquiry')
+        + '&body=' + encodeURIComponent(body);
+
+    btn.innerHTML = '<span>Opening your email app...</span><i class="fas fa-envelope"></i>';
+    window.location.href = mailto;
+
+    setTimeout(() => { btn.innerHTML = orig; }, 3500);
 });
 
 // ===== EYE ANIMATION =====
@@ -1674,9 +1745,17 @@ function createParticleImage(container, cfgOverrides) {
         return [clamp(rr), clamp(gg), clamp(bb), Math.max(cfg.minAlpha, a)];
     }
 
+    // The wrap is measured more than once while the page settles (lazy
+    // images, fonts, the pinned layout). Each run loads the source image
+    // asynchronously, so without a token the *earlier, smaller* box can
+    // finish last and overwrite the particles built for the final size —
+    // which left the artwork rendered small in a corner of the frame.
+    let initToken = 0;
+
     function initParticles() {
         const { W, H } = dims;
         if (!W || !H) return;
+        const myToken = ++initToken;
         const gap = Math.max(2, Math.round(150 / Math.max(1, cfg.particleCount)));
         const dpr = window.devicePixelRatio || 1;
         canvas.width = Math.round(W * dpr);
@@ -1686,6 +1765,7 @@ function createParticleImage(container, cfgOverrides) {
 
         const img = new Image();
         img.onload = () => {
+            if (myToken !== initToken) return;   // a newer measurement won
             const base = containRect(img.naturalWidth || img.width, img.naturalHeight || img.height, W, H);
             const f = Math.max(1, Math.min(20, cfg.scale)) / 10;
             const w = base.w * f, h = base.h * f;
@@ -1933,7 +2013,14 @@ function initParticleImage() {
         if (el.id === 'particleImageWrap') {
             createParticleImage(el, Object.assign({ particleCount: 30, particleSize: 17 }, overrides));
         } else if (el.classList.contains('gallery-particle-wrap')) {
-            createParticleImage(el, Object.assign({ viewportTrigger: true }, overrides));
+            // scale 11 => the art slightly overfills its contain-box, so the
+            // piece reads large in the frame rather than floating inside it.
+            createParticleImage(el, Object.assign({
+                viewportTrigger: true,
+                scale: 11,
+                particleCount: 44,
+                particleSize: 13,
+            }, overrides));
         } else {
             createParticleImage(el, overrides);
         }
@@ -2062,6 +2149,40 @@ gsap.utils.toArray('.stat-item').forEach((item, i) => {
 
 
 
+// ===== ABOUT: CROSSED PRINTS =====
+// Two photos overlap on the desk. Clicking either one brings the other
+// to the front, so tapping the stack cycles the pair. All the movement
+// is CSS -- this only flips a class so the two figures trade roles.
+function initAboutPrints() {
+    const stack = document.getElementById('aboutPrintStack');
+    if (!stack) return;
+
+    const labels = {
+        front: 'Bring the sky photo to the front',
+        back: 'Bring the portrait to the front',
+    };
+
+    function syncLabels() {
+        // Each button always describes the print that is currently
+        // behind, because that is the one a click brings forward.
+        const swapped = stack.classList.contains('swapped');
+        const behind = swapped ? labels.front : labels.back;
+        stack.querySelectorAll('.about-print-flip').forEach((btn) => {
+            btn.setAttribute('aria-label', behind);
+        });
+    }
+
+    stack.querySelectorAll('.about-print-flip').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            stack.classList.toggle('swapped');
+            syncLabels();
+        });
+    });
+
+    syncLabels();
+}
+initAboutPrints();
+
 // ===== INTERACTIVE LAB MODAL =====
 // The Lab is not part of the page flow; it opens from the nav.
 // The WebGL scene keeps its own IntersectionObserver (see fabric.js):
@@ -2161,3 +2282,196 @@ initLabModal();
     window.addEventListener('scroll', sweep, { passive: true });
     window.addEventListener('load', () => setTimeout(sweep, 900));
 })();
+
+// ===== FEATURED PROJECTS — HORIZONTAL CAROUSEL =====
+// The section pins and the card track slides right-to-left as the user
+// scrolls. Once the last card has passed, the pin releases and the next
+// section continues normally — so a single downward scroll gesture carries
+// you through the deck and then onward.
+//
+// Guarded: wide viewports with a pointer only. Narrow screens and
+// reduced-motion users keep the plain vertical grid, which is why all the
+// horizontal CSS hangs off the .hscroll-active class this function adds.
+function initProjectsCarousel() {
+    const section = document.getElementById('projects');
+    const viewport = document.getElementById('projectsHScroll');
+    const track = document.getElementById('projectsTrack');
+    const progressBar = document.querySelector('#hscrollProgress .hscroll-progress-bar');
+    if (!section || !viewport || !track) return;
+
+    const MIN_WIDTH = 901;
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    let tween = null;
+    let trigger = null;
+
+    function eligible() {
+        return window.innerWidth >= MIN_WIDTH && !motionQuery.matches;
+    }
+
+    // How far the track must travel: its full width minus what's already
+    // visible. Measured live so filtering and resizing stay correct.
+    function distance() {
+        return Math.max(0, track.scrollWidth - viewport.clientWidth);
+    }
+
+    // The pinned section has to fit one screen. Measure the chrome (heading,
+    // tabs, progress rail) and the tallest card's *text* block, then give the
+    // artwork whatever is left. Text is never shrunk or clipped: if even the
+    // text cannot fit, the chrome compresses first, and only then does the
+    // section give up on fitting and simply pin as a tall block.
+    function fitTrack() {
+        if (!document.body.classList.contains('hscroll-active')) return;
+
+        const header = section.querySelector('.section-header');
+        const filters = section.querySelector('.project-filters');
+        const rail = document.getElementById('hscrollProgress');
+
+        // Tallest text block across the visible cards - this is the floor the
+        // layout must respect, because clipping it hides the tech tags and
+        // the case-study link.
+        const infos = [].slice.call(track.querySelectorAll('.project-card'))
+            .filter(function (c) { return getComputedStyle(c).display !== 'none'; })
+            .map(function (c) { return c.querySelector('.project-info'); })
+            .filter(Boolean);
+        const infoH = infos.length
+            ? Math.max.apply(null, infos.map(function (el) { return el.scrollHeight; }))
+            : 380;
+        section.style.setProperty('--info-h', Math.round(infoH) + 'px');
+
+        function chromeHeight() {
+            const styles = getComputedStyle(section);
+            let total = parseFloat(styles.paddingTop) + parseFloat(styles.paddingBottom);
+            [header, filters, rail].forEach(function (el) {
+                if (!el) return;
+                const r = el.getBoundingClientRect();
+                const m = getComputedStyle(el);
+                total += r.height + parseFloat(m.marginTop) + parseFloat(m.marginBottom);
+            });
+            return total + 40;   // track padding + card shadows
+        }
+
+        const MIN_ART = 96;      // artwork floor, matches the CSS clamp
+
+        // Start roomy, then tighten the chrome only as far as needed.
+        section.classList.remove('is-compact', 'is-tight');
+        let budget = window.innerHeight - chromeHeight();
+
+        if (budget < infoH + MIN_ART) {
+            section.classList.add('is-compact');
+            budget = window.innerHeight - chromeHeight();
+        }
+        if (budget < infoH + MIN_ART) {
+            section.classList.add('is-tight');
+            budget = window.innerHeight - chromeHeight();
+        }
+
+        section.style.setProperty('--track-h', Math.round(Math.max(infoH + MIN_ART, budget)) + 'px');
+    }
+
+    function build() {
+        if (!eligible() || tween) return;
+
+        document.body.classList.add('hscroll-active');
+        fitTrack();
+
+        // Let the flex layout settle before measuring.
+        const shift = distance();
+        if (shift <= 0) {
+            document.body.classList.remove('hscroll-active');
+            return;
+        }
+
+        tween = gsap.to(track, {
+            x: () => -distance(),
+            ease: 'none',
+            scrollTrigger: {
+                trigger: section,
+                start: 'top top',
+                // Pin for exactly the horizontal distance, so the scroll
+                // gesture maps 1:1 and the section releases the moment the
+                // last card lands.
+                end: () => '+=' + distance(),
+                pin: true,
+                scrub: 1,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+                onRefresh: fitTrack,
+                onUpdate: (self) => {
+                    if (progressBar) {
+                        progressBar.style.width = (self.progress * 100).toFixed(2) + '%';
+                    }
+                },
+            },
+        });
+
+        trigger = tween.scrollTrigger;
+    }
+
+    function teardown() {
+        if (!tween) return;
+        section.style.removeProperty('--track-h');
+        section.style.removeProperty('--info-h');
+        section.classList.remove('is-compact', 'is-tight');
+        tween.scrollTrigger && tween.scrollTrigger.kill();
+        tween.kill();
+        tween = null;
+        trigger = null;
+        gsap.set(track, { clearProps: 'transform' });
+        document.body.classList.remove('hscroll-active');
+        if (progressBar) progressBar.style.width = '0%';
+    }
+
+    function sync() {
+        if (eligible()) {
+            if (!tween) build();
+            else { fitTrack(); ScrollTrigger.refresh(); }
+        } else {
+            teardown();
+        }
+    }
+
+    build();
+
+    // Filtering changes the track's width, so the pin distance has to be
+    // recomputed or the section would pin for the wrong length.
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Wait for the filter's own class changes to apply.
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    // Return to the start so the shortened track isn't left
+                    // scrolled past its new end.
+                    gsap.set(track, { x: 0 });
+                    // A filtered set can be narrow enough to need no
+                    // horizontal travel at all. Pinning with zero distance
+                    // would freeze the section, so drop the pin and let the
+                    // remaining cards sit as a normal row.
+                    if (tween && distance() <= 0) {
+                        teardown();
+                    } else if (tween) {
+                        ScrollTrigger.refresh();
+                    } else {
+                        build();
+                    }
+                });
+            });
+        });
+    });
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(sync, 200);
+    });
+
+    if (motionQuery.addEventListener) {
+        motionQuery.addEventListener('change', sync);
+    }
+
+    // Images and fonts landing late change the measured width.
+    window.addEventListener('load', () => ScrollTrigger.refresh());
+}
+initProjectsCarousel();
+
+

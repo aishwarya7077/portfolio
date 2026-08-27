@@ -21,14 +21,42 @@ function initFabric() {
     const COUNT = isSmallScreen ? 5000 : (isLowPower ? 9000 : 16000);
 
     // Live-tunable params, wired to the range inputs below
-    const params = { scale: 140, freq: 2.2, amp: 8, speed: 1.4, wells: 2, pull: 8, twist: 2 };
+    const params = { scale: 140, freq: 4.2, amp: 7, speed: 1.4, wells: 2, pull: 12.5, twist: 3.7 };
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x0b0710, 0.008);
+    // FogExp2 falls off as exp(-(density*d)^2), so the density has to track
+    // the camera distance below (~410 units) or the whole field fogs to black.
+    scene.fog = new THREE.FogExp2(0x0b0710, 0.001);
 
-    const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 1000);
-    camera.position.set(0, 90, 190);
-    camera.lookAt(0, 0, 0);
+    // The field spans roughly `scale * 2` units across (twist can push it a
+    // little wider), so the opening shot is framed from that half-extent
+    // rather than a hard-coded distance: back off far enough that the whole
+    // sheet fits the vertical FOV, then add headroom for the horizontal fit
+    // once we know the real aspect ratio (see frameField below).
+    const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 2000);
+
+    const FIELD_RADIUS = params.scale * 1.25;
+
+    function fitDistance(aspect) {
+        const vFov = THREE.MathUtils.degToRad(camera.fov);
+        const hFov = 2 * Math.atan(Math.tan(vFov / 2) * Math.max(aspect, 0.0001));
+        // Whichever axis is tighter decides how far back we have to sit.
+        return FIELD_RADIUS / Math.sin(Math.min(vFov, hFov) / 2);
+    }
+
+    // Opening camera: pulled back to hold the whole field, tilted down so the
+    // wave reads as a sheet rather than edge-on. The user is free to zoom
+    // anywhere inside [minDistance, maxDistance] afterwards.
+    let framed = false;
+    function frameField(aspect) {
+        const dist = fitDistance(aspect);
+        // Keep the established viewing angle (~25 degrees above the plane).
+        const dir = new THREE.Vector3(0, 0.44, 0.9).normalize();
+        camera.position.copy(dir.multiplyScalar(dist));
+        camera.lookAt(0, 0, 0);
+        controls.maxDistance = Math.max(dist * 1.6, 320);
+        controls.update();
+    }
 
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -39,8 +67,8 @@ function initFabric() {
     controls.dampingFactor = 0.06;
     controls.autoRotate = !prefersReducedMotion;
     controls.autoRotateSpeed = 0.5;
-    controls.minDistance = 60;
-    controls.maxDistance = 320;
+    controls.minDistance = 40;
+    controls.maxDistance = 320; // widened by frameField once the aspect is known
     controls.update();
 
     const geometry = new THREE.TetrahedronGeometry(0.5);
@@ -68,13 +96,27 @@ function initFabric() {
     composer.addPass(bloomPass);
 
     function resize() {
-        const w = stage.clientWidth;
-        const h = stage.clientHeight;
+        // On phones the hint and controls are lifted out of the overlay and
+        // stacked above the canvas (see styles), so the stage box is taller
+        // than the canvas. Measure the canvas itself and let CSS keep owning
+        // its layout size -- setSize's third arg stops the renderer writing
+        // inline width/height that would override the flex sizing.
+        const stacked = window.matchMedia('(max-width: 768px)').matches;
+        const box = stacked ? canvas.getBoundingClientRect() : null;
+        const w = Math.round(box ? box.width : stage.clientWidth);
+        const h = Math.round(box ? box.height : stage.clientHeight);
         if (w === 0 || h === 0) return;
         camera.aspect = w / h;
         camera.updateProjectionMatrix();
-        renderer.setSize(w, h);
+        renderer.setSize(w, h, !stacked);
         composer.setSize(w, h);
+        // Frame the opening shot once, on the first resize that reports a
+        // real size. Later resizes must not yank the camera back: by then
+        // the user may have zoomed or orbited where they like.
+        if (!framed) {
+            framed = true;
+            frameField(camera.aspect);
+        }
     }
 
     const clock = new THREE.Clock();
@@ -185,6 +227,9 @@ function initFabric() {
     if (typeof ResizeObserver !== 'undefined') {
         const stageRO = new ResizeObserver(() => resize());
         stageRO.observe(stage);
+        // In the stacked mobile layout the canvas resizes independently of
+        // the stage (the control panel above it can reflow), so watch both.
+        stageRO.observe(canvas);
     }
 
     // Wire up the range-slider controls

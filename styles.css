@@ -326,8 +326,34 @@ img { max-width: 100%; display: block; }
 .nav-menu-toggle.active span:nth-child(2) { opacity: 0; }
 .nav-menu-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+/* The toggle is a fixed side button, independent of the navbar: it sits
+   outside it in the DOM so the navbar's GSAP reveal (y/opacity) and its
+   mobile hide rule can never drag the button along with them. */
 @media (max-width: 1024px) {
-    .nav-menu-toggle { display: flex; }
+    .nav-menu-toggle {
+        display: flex;
+        position: fixed;
+        top: 14px; right: 14px;
+        z-index: 1500;
+        width: 44px; height: 44px;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-md);
+        /* Never inherit the navbar reveal's transform/opacity. */
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+/* On phones the top bar is dropped entirely -- the side button is the only
+   navigation affordance, so the hero starts at the very top of the page.
+   The anchor headroom that reserved space for the bar goes with it, or
+   every in-page link would land ~96px short of its section. */
+@media (max-width: 768px) {
+    .navbar { display: none !important; }
+    /* The matching scroll-offset reset lives at the end of this file, where
+       it can win on source order against `section[id]` set later. */
 }
 
 .mobile-nav {
@@ -917,27 +943,12 @@ img { max-width: 100%; display: block; }
 
 .about-image-col { position: relative; }
 
-.about-image-card {
-    position: relative; border-radius: var(--radius-lg);
-    overflow: hidden; aspect-ratio: 4/5;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-md);
-}
 
 .about-image-img {
     width: 100%; height: 100%; object-fit: cover;
     border-radius: var(--radius-lg);
 }
 
-.about-image-border {
-    position: absolute; inset: -1px;
-    border-radius: var(--radius-lg); padding: 1px;
-    background: linear-gradient(135deg, var(--accent-primary), transparent 60%);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor; mask-composite: exclude;
-    pointer-events: none;
-}
 
 .experience-badge {
     position: absolute; bottom: -20px; right: -20px;
@@ -984,6 +995,10 @@ img { max-width: 100%; display: block; }
 }
 
 .about-info-item i { color: var(--accent-primary); font-size: 18px; width: 20px; text-align: center; }
+
+
+
+
 
 .info-label { display: block; font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
 .info-value { display: block; font-size: 13px; font-weight: 500; color: var(--text-primary); }
@@ -1134,6 +1149,17 @@ img { max-width: 100%; display: block; }
 
 .projects-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 30px; }
 
+/* An odd-numbered last card would otherwise sit alone in the left column;
+   centre it across both tracks so the row doesn't read as a gap. */
+.projects-grid > .project-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    max-width: calc(50% - 15px);
+    margin-inline: auto;
+}
+@media (max-width: 768px) {
+    .projects-grid > .project-card:last-child:nth-child(odd) { max-width: none; margin-inline: 0; }
+}
+
 .project-card {
     border-radius: var(--radius-lg);
     overflow: hidden;
@@ -1176,6 +1202,7 @@ img { max-width: 100%; display: block; }
 .project-image-placeholder.intellihire { --mesh-a: rgba(63,90,80,0.3); --mesh-b: rgba(180,85,61,0.2); }
 .project-image-placeholder.academic-1 { --mesh-a: rgba(63,90,80,0.32); --mesh-b: rgba(180,85,61,0.16); }
 .project-image-placeholder.academic-2 { --mesh-a: rgba(180,85,61,0.24); --mesh-b: rgba(63,90,80,0.28); }
+.project-image-placeholder.willingly { --mesh-a: rgba(112,96,132,0.3); --mesh-b: rgba(63,90,80,0.2); }
 
 .project-card:hover .project-image-placeholder { transform: scale(1.02); }
 
@@ -2052,6 +2079,7 @@ img { max-width: 100%; display: block; }
     .hero-cta, .hero-socials, .hero-greeting, .hero-role-wrapper { justify-content: center; }
     .about-content { grid-template-columns: 1fr; gap: 40px; }
     .about-image-col { max-width: 400px; margin: 0 auto; }
+    .about-info-grid { grid-template-columns: 1fr; }
     .skills-grid { grid-template-columns: repeat(2,1fr); }
     .contact-content { grid-template-columns: 1fr; }
     .timeline-header { flex-direction: column; }
@@ -2077,7 +2105,6 @@ img { max-width: 100%; display: block; }
     .skills-grid { grid-template-columns: 1fr; }
     .projects-grid { grid-template-columns: 1fr; }
     .interests-grid { grid-template-columns: 1fr 1fr; }
-    .about-info-grid { grid-template-columns: 1fr; }
     .section { padding: 80px 0; }
     .cinematic-bg .cine-word { font-size: 40px !important; -webkit-text-stroke: 1px rgba(109,40,217,0.04); }
     .timeline { padding-left: 30px; }
@@ -3268,18 +3295,65 @@ img { max-width: 100%; display: block; }
     .fabric-control input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; }
 }
 
+/* On phones the stage is short, so overlaying the hint and the controls
+   on the canvas hides most of the scene. Turn the stage into a flex column
+   and un-absorb both from the overlay: they stack ABOVE the canvas, which
+   then takes whatever height is left. The stage keeps position:relative so
+   the loading overlay still centres on it. */
 @media (max-width: 768px) {
-    .fabric-stage { height: 420px; }
+    .fabric-stage {
+        height: 420px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 8px;
+        /* The dark radial field belongs to the canvas now, not the frame, so
+           the stage becomes a light panel. Needs !important to beat the
+           global theme override on .fabric-stage further down. */
+        background: var(--bg-secondary) !important;
+        cursor: default;
+    }
+
+    .fabric-hint,
     .fabric-controls {
-        left: 8px; right: 8px; bottom: 8px;
+        position: static;
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    .fabric-hint {
+        order: 1;
+        justify-content: center;
+    }
+
+    .fabric-controls {
+        order: 2;
         grid-template-columns: 1fr 1fr;
         padding: 10px 12px;
     }
+
+    /* The canvas is last and soaks up the remaining height. */
+    .fabric-stage canvas {
+        order: 3;
+        flex: 1 1 auto;
+        min-height: 0;
+        height: auto;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border-color);
+        background: radial-gradient(ellipse at center, #150c1e 0%, #0b0710 100%);
+    }
 }
 
+/* Keep two columns even on the narrowest screens: one column per slider
+   would make the panel four rows tall and crowd out the canvas. */
 @media (max-width: 480px) {
     .fabric-stage { height: 360px; }
-    .fabric-controls { grid-template-columns: 1fr; }
+    .fabric-controls {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 12px;
+        padding: 9px 10px;
+    }
+    .fabric-control { font-size: 10px; }
 }
 
 
@@ -3513,7 +3587,40 @@ h1, h2, h3 {
 /* --- 10. Navbar: clean bar, torn lower edge --------------- */
 /* The bar itself is a crisp modern surface. Its bottom edge is
    deckled, as though the header were torn from a larger sheet. */
+/* Over the sky intro the navbar name would just repeat the huge name already
+   on screen, so it stays hidden until the visitor scrolls past the intro —
+   .scrolled is added on the first scroll, which is exactly that moment. */
+.nav-center-name {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-normal), visibility var(--transition-normal);
+}
+
+.navbar.scrolled .nav-center-name {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* With the <DA/> logo removed, the bar's only content is the centred name,
+   which is itself hidden below 1025px. Rather than leave an empty strip (and
+   its bookmark ribbon) hanging there, hide the whole bar until the name is
+   actually shown — the avatar and menu button are siblings, so they stay. */
+@media (max-width: 1024px) {
+    .navbar { display: none !important; }
+}
+
+/* The paper "card" treatment belongs to the scrolled state only. At the top
+   of the page the navbar stays transparent so it sits over the hero instead
+   of covering it with an empty white bar. */
 .navbar {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+.navbar.scrolled {
     background: rgba(255,255,255,0.90) !important;
     backdrop-filter: saturate(180%) blur(14px) !important;
     -webkit-backdrop-filter: saturate(180%) blur(14px) !important;
@@ -3521,7 +3628,8 @@ h1, h2, h3 {
     border-radius: var(--radius-md) !important;
     box-shadow: var(--shadow-md) !important;
 }
-.navbar::after {
+/* Torn paper edge — only meaningful once the bar has a background to tear. */
+.navbar.scrolled::after {
     content: "";
     position: absolute;
     left: 0; right: 0; bottom: -7px;
@@ -3737,6 +3845,7 @@ h1, h2, h3 {
 .project-image-placeholder.intellihire{ --mesh-a: rgba(63,90,80,0.26);  --mesh-b: rgba(180,85,61,0.17); }
 .project-image-placeholder.academic-1 { --mesh-a: rgba(168,132,68,0.26);--mesh-b: rgba(63,90,80,0.18); }
 .project-image-placeholder.academic-2 { --mesh-a: rgba(112,96,132,0.24);--mesh-b: rgba(180,85,61,0.17); }
+.project-image-placeholder.willingly  { --mesh-a: rgba(112,96,132,0.26);--mesh-b: rgba(63,90,80,0.17); }
 .project-pattern {
     background-image: radial-gradient(rgba(60,50,40,0.16) 1px, transparent 1px) !important;
     background-size: 16px 16px !important;
@@ -3820,13 +3929,6 @@ h1, h2, h3 {
 /* --- 18. Gallery: prints pinned to a board --------------- */
 
 /* --- 19. About + interests -------------------------------- */
-.about-image-card {
-    background: #fff !important;
-    padding: 12px;
-    border: 1px solid var(--border-color) !important;
-    border-radius: 3px !important;
-    box-shadow: var(--shadow-xl) !important;
-}
 .experience-badge {
     background: var(--accent-primary) !important;
     color: #fff !important;
@@ -4345,7 +4447,6 @@ h1, h2, h3 {
 }
 
 /* The photo becomes a print with a handwritten caption. */
-.about-image-card { position: relative; }
 .about-caption {
     display: block;
     text-align: center;
@@ -4667,19 +4768,6 @@ h1, h2, h3 {
    ============================================================ */
 /* Interests: a push-pin at the top of each card. */
 .interest-card { padding-top: 34px !important; }
-.interest-pin {
-    position: absolute;
-    top: 10px; left: 50%;
-    width: 18px; height: 18px;
-    transform: translateX(-50%);
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 32%,
-        #E08C74 0%, var(--accent-primary) 55%, var(--accent-secondary) 100%);
-    box-shadow: 0 3px 5px rgba(60,50,40,0.28);
-    pointer-events: none;
-    transition: transform var(--transition-normal);
-}
-.interest-card:hover .interest-pin { transform: translateX(-50%) scale(1.12); }
 
 /* Gallery prints get a strip of tape at the top corner. */
 
@@ -4810,10 +4898,6 @@ h1, h2, h3 {
    The fold is that card's gesture instead. */
 .skill-category.has-fold .skill-tab { display: none; }
 
-/* (d) .interest-card::after is an existing underline sweep; the
-   pin sits above it and needs the card to keep its own clipping,
-   so nothing is retired here — only the pin's stacking is set. */
-.interest-pin { z-index: 5; }
 
 /* (e) The generic lift at line 2474 applies a shared hover
    transform to four card types. The tilt-straightening hovers
@@ -4848,12 +4932,8 @@ h1, h2, h3 {
    the ribbon starts higher and extends further down. */
 .project-bookmark { top: -14px; height: 52px; }
 
-/* (c) .about-image-card clips its overflow (it frames the photo),
-   which cut off the handwritten caption sitting beneath it. Move
-   the caption outside the frame's box instead of unclipping the
-   frame, so the photo keeps its clean edge. */
-.about-image-card { overflow: visible !important; }
-.about-image-card .about-image-img { border-radius: 2px; }
+/* (c) Removed: the framed-photo card it patched no longer exists;
+   the About print now carries its caption inside its own mount. */
 
 /* (d) The certificate deckle and contact perforation were drawn
    on ::after/::before of a card that clips overflow. They sit
@@ -4966,7 +5046,10 @@ section[id] { scroll-margin-top: 96px; }
        crisp so the dots stay distinct rather than smeared.
    ============================================================ */
 .gallery-frame {
-    aspect-ratio: 4 / 5;          /* the artwork's proportions */
+    /* The source art is very nearly square (1497x1557). A 4/5 frame
+       letterboxed it, so the particles filled only ~83% of the height and
+       the piece read as small. Matching the real ratio lets it fill. */
+    aspect-ratio: 1497 / 1557;
     min-height: 320px;
 }
 .gallery-frame .gallery-img-source {
@@ -5531,9 +5614,9 @@ html { overflow-x: hidden; }
     inset: 0;
     z-index: 10000;
     display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 28px;
+    align-items: stretch;
+    justify-content: stretch;
+    padding: 0;
 }
 .lab-modal.active { display: flex; }
 
@@ -5545,25 +5628,30 @@ html { overflow-x: hidden; }
     -webkit-backdrop-filter: blur(4px);
 }
 
-/* The panel is a sheet of studio paper holding the stage. */
+/* Full-page panel: a sheet of studio paper filling the viewport,
+   laid out as head + stage so the stage soaks up the leftover height. */
 .lab-modal-content {
     position: relative;
-    width: min(1180px, 100%);
-    max-height: calc(100vh - 56px);
-    overflow: auto;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
     background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    box-shadow: 0 30px 80px rgba(20,14,26,0.34);
-    padding: 22px 22px 24px;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 26px clamp(18px, 4vw, 46px) clamp(18px, 3vw, 32px);
     animation: labModalIn 0.32s cubic-bezier(.2,.7,.3,1);
 }
 @keyframes labModalIn {
-    from { opacity: 0; transform: translateY(14px) scale(0.985); }
+    from { opacity: 0; transform: translateY(14px); }
     to   { opacity: 1; transform: none; }
 }
 
 .lab-modal-head {
+    flex: 0 0 auto;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -5603,18 +5691,18 @@ html { overflow-x: hidden; }
     color: #fff;
 }
 
-/* Inside the modal the stage fills the available panel width and
-   takes a fixed, generous height. */
+/* On the full page the stage claims every pixel the head leaves over. */
 .lab-modal .fabric-stage {
+    flex: 1 1 auto;
     width: 100%;
-    height: min(68vh, 620px);
+    height: auto;
+    min-height: 0;
     border-radius: var(--radius-md);
 }
 
 @media (max-width: 768px) {
-    .lab-modal { padding: 14px; }
-    .lab-modal-content { padding: 16px 14px 18px; max-height: calc(100vh - 28px); }
-    .lab-modal .fabric-stage { height: min(58vh, 420px); }
+    .lab-modal-content { padding: 16px 14px 18px; }
+    .lab-modal .fabric-stage { min-height: 320px; }
     .lab-modal-sub { font-size: 13px; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -6926,3 +7014,792 @@ body {
 .nav-logo,
 .nav-center-name,
 .nav-menu-toggle { pointer-events: auto; }
+
+/* ============================================================
+   MOBILE ANCHOR OFFSETS
+   ------------------------------------------------------------
+   The navbar is hidden on phones (see MOBILE NAV TOGGLE), so the
+   headroom reserved for it has to go too -- otherwise every
+   in-page link stops ~96px short of its section. Placed last so
+   it outranks `section[id] { scroll-margin-top: 96px }` above,
+   which has identical specificity and would win on order.
+   ============================================================ */
+@media (max-width: 768px) {
+    html { scroll-padding-top: 16px; }
+    section[id] { scroll-margin-top: 20px; }
+}
+
+/* ============================================================
+   ABOUT — REDESIGN
+   ------------------------------------------------------------
+   Only the photo column is restyled here: the flat framed
+   rectangle becomes a taped-down print with its caption in its
+   own mount, and the year badge becomes a stamp on its corner.
+   The notebook card on the right is deliberately left alone.
+
+   Placed last on purpose: it has to outrank the earlier theme
+   overrides on .experience-badge and .about-image-img.
+   ============================================================ */
+
+.about-content { align-items: start; }
+
+:root {
+    /* Ragged vertical ends for a torn strip of tape. */
+    --tape-ends: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='108' height='26' preserveAspectRatio='none'%3E%3Cpath d='M4.5 0 L103 0 L100.5 3.2 L104 6.5 L101 10 L104.5 13.5 L101 17 L104 20.5 L101.5 24 L103.5 26 L5 26 L7.5 22.5 L4 19 L7 15.5 L3.5 12 L7 8.5 L4 5 L6.5 2 Z' fill='%23000'/%3E%3C/svg%3E");
+}
+
+/* --- The prints: two photos crossing on the desk ------------ */
+.about-image-col { padding-top: 20px; }
+
+/* The stack sizes to the front print; the back one is pulled out of
+   flow and rotated the other way so the two cross. */
+.about-print-stack {
+    position: relative;
+    display: grid;
+}
+.about-print-stack > .about-print { grid-area: 1 / 1; }
+
+.about-print {
+    position: relative;
+    margin: 0;
+    padding: 14px 14px 0;
+    background: #fff;
+    border-radius: 2px;
+    box-shadow:
+        0 1px 1px rgba(60,50,40,0.10),
+        0 10px 24px rgba(60,50,40,0.10),
+        0 28px 54px rgba(60,50,40,0.09);
+    transition: transform var(--transition-slow), box-shadow var(--transition-slow);
+}
+
+/* Back print: angled the opposite way, nudged up and right, and set
+   back visually so it reads as underneath rather than competing. */
+.about-print-back {
+    align-self: start;
+    transform: rotate(5.5deg) translate(16px, -14px) scale(0.93);
+    transform-origin: center;
+    filter: saturate(0.82) brightness(1.02);
+    opacity: 0.92;
+    z-index: 1;
+}
+
+.about-print-front {
+    align-self: stretch;
+    transform: rotate(-3.6deg);
+    z-index: 2;
+}
+
+/* The sky shot is portrait but the mount crops to 5/4, so a centred
+   crop would keep only a band of empty sky. Bias it low to hold the
+   bird and the treetop in frame. It rides the front print now. */
+.about-print-front .about-image-img { object-position: 50% 72%; }
+
+/* Hovering the stack fans the two apart slightly. */
+.about-print-stack:hover .about-print-front {
+    transform: rotate(-1.4deg) translateY(-5px);
+    box-shadow:
+        0 2px 2px rgba(60,50,40,0.10),
+        0 16px 34px rgba(60,50,40,0.12),
+        0 40px 70px rgba(60,50,40,0.11);
+}
+.about-print-stack:hover .about-print-back {
+    transform: rotate(8deg) translate(24px, -20px) scale(0.93);
+}
+
+/* --- Swapped: the back print has been clicked forward -------
+   The two figures trade every role -- stacking order, angle,
+   offset, and the muted treatment -- so whichever print is on
+   top always gets the full-strength look. */
+.about-print-stack.swapped .about-print-front {
+    z-index: 1;
+    align-self: start;
+    transform: rotate(5.5deg) translate(16px, -14px) scale(0.93);
+    filter: saturate(0.82) brightness(1.02);
+    opacity: 0.92;
+}
+.about-print-stack.swapped .about-print-back {
+    z-index: 2;
+    align-self: stretch;
+    transform: rotate(-3.6deg);
+    filter: none;
+    opacity: 1;
+}
+.about-print-stack.swapped:hover .about-print-back {
+    transform: rotate(-1.4deg) translateY(-5px);
+}
+.about-print-stack.swapped:hover .about-print-front {
+    transform: rotate(8deg) translate(24px, -20px) scale(0.93);
+}
+
+/* The tape belongs to whichever print is on top. */
+.about-print-stack.swapped .about-print-front .about-print-tape { opacity: 0; }
+
+/* --- The click target -------------------------------------- */
+/* Both prints are clickable: a click on either one brings the other
+   forward, so tapping anywhere on the stack cycles the pair. */
+.about-print-flip {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.about-print-flip:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 3px;
+}
+
+/* A torn strip of tape holding the print to the page. */
+.about-print-tape {
+    position: absolute;
+    top: -13px; left: 50%;
+    width: 108px; height: 26px;
+    transform: translateX(-50%) rotate(-2.5deg);
+    /* Slightly translucent, with the faint sheen real tape has. */
+    background:
+        linear-gradient(102deg,
+            rgba(255,255,255,0.34) 0%,
+            rgba(255,255,255,0.06) 34%,
+            rgba(255,255,255,0.28) 66%,
+            rgba(255,255,255,0.05) 100%),
+        var(--tape);
+    /* Tape tears at its ENDS, so the ragged edge is a vertical
+       zigzag on the left and right -- not the horizontal
+       --tear-bottom used for paper edges elsewhere. */
+    -webkit-mask-image: var(--tape-ends);
+    mask-image: var(--tape-ends);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    box-shadow: 0 1px 2px rgba(60,50,40,0.10);
+    pointer-events: none;
+    z-index: 3;
+}
+
+.about-print .about-image-img {
+    display: block;
+    width: 100%;
+    /* Shorter crop: the portrait 4/5 made the column much taller
+       than the card beside it. */
+    aspect-ratio: 5/4;
+    object-fit: cover;
+    border-radius: 1px;
+    /* The print sits very slightly recessed in its mount. */
+    box-shadow: inset 0 0 0 1px rgba(60,50,40,0.07);
+}
+
+/* The base: a Polaroid's wide bottom lip. The band is tinted just
+   off the mount's white and separated by a hairline, so the mount
+   reads as a physical base under the photo rather than the caption
+   floating on empty paper. */
+.about-print .about-caption {
+    display: block;
+    position: relative;
+    margin: 0 -14px;           /* bleed out to the mount's side edges */
+    padding: 16px 18px 18px;
+    text-align: center;
+    font-family: var(--font-hand);
+    font-size: 20px;
+    line-height: 1;
+    color: var(--ink-pencil);
+    transform: none;
+    background:
+        linear-gradient(180deg,
+            rgba(60,50,40,0.045) 0%,
+            rgba(60,50,40,0.012) 34%,
+            rgba(255,255,255,0) 100%),
+        #FDFCF9;
+    border-top: 1px solid rgba(60,50,40,0.09);
+    border-radius: 0 0 2px 2px;
+}
+
+/* The badge is a stamp on the corner of the print. */
+.about-image-col .experience-badge {
+    right: -14px;
+    bottom: 18px;
+    padding: 12px 16px;
+    transform: rotate(6deg);
+    z-index: 3; /* above both prints */
+}
+
+/* --- Responsive -------------------------------------------- */
+@media (max-width: 992px) {
+    .about-content { grid-template-columns: 1fr; gap: 52px; }
+    .about-image-col { max-width: 380px; margin: 0 auto; }
+}
+
+@media (max-width: 768px) {
+    /* The base band scales down with the print. Needed explicitly:
+       the generic .about-caption mobile size sits earlier in the
+       file, so the desktop rule above would otherwise win here. */
+    .about-print .about-caption {
+        font-size: 17px;
+        padding: 13px 14px 15px;
+    }
+
+    .about-print-front,
+    .about-print-stack.swapped .about-print-back {
+        transform: rotate(-2.2deg);
+    }
+    .about-print-back,
+    .about-print-stack.swapped .about-print-front {
+        transform: rotate(4deg) translate(10px, -9px) scale(0.94);
+    }
+    /* Tuck the stamp fully inside the column so it can't cause a
+       horizontal overflow on a narrow screen. */
+    .about-image-col .experience-badge {
+        right: 4px;
+        bottom: 20px;
+        padding: 10px 13px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .about-print { transition: none; }
+}
+
+/* ============================================================
+   COLLAGE: WASHI TAPE + TORN EDGES
+   ------------------------------------------------------------
+   From the crafted-collage reference: every card is a piece of
+   paper stuck down with a strip of coloured washi tape, and its
+   bottom edge is torn rather than cut. The tape colours cycle
+   through the reference's palette (sage / blush / sky / amber)
+   so a grid of cards reads as a scrapbook page, not a template.
+   ============================================================ */
+
+:root {
+    --washi-sage:  #B8C9B0;
+    --washi-blush: #E5BFB6;
+    --washi-sky:   #B6C8DC;
+    --washi-amber: #E8D3A9;
+
+    /* Ragged ends for a torn strip of tape (vertical zigzag). */
+    --washi-ends: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='28' preserveAspectRatio='none'%3E%3Cpath d='M4 0 L92 0 L89 3.5 L93 7 L89.5 10.5 L93 14 L89 17.5 L92.5 21 L89 24.5 L91.5 28 L5 28 L8 24.5 L4.5 21 L8 17.5 L4 14 L7.5 10.5 L4 7 L7 3.5 Z' fill='%23000'/%3E%3C/svg%3E");
+
+    /* A torn paper edge for the bottom of a card. */
+    --torn-card: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='10' preserveAspectRatio='none'%3E%3Cpath d='M0 0 L400 0 L400 4.6 C 386 6.4, 372 3.4, 358 5.2 C 344 7.0, 330 4.0, 316 5.8 C 302 7.6, 288 4.6, 274 6.0 C 260 7.4, 246 4.4, 232 5.9 C 218 7.4, 204 4.3, 190 5.7 C 176 7.1, 162 4.1, 148 5.6 C 134 7.0, 120 4.0, 106 5.4 C 92 6.8, 78 3.8, 64 5.3 C 50 6.7, 36 3.7, 22 5.1 C 14 5.9, 7 6.4, 0 5.4 Z' fill='%23000'/%3E%3C/svg%3E");
+}
+
+/* --- The tape strip ----------------------------------------- */
+/* One shared look; each card only varies the colour and angle. */
+.project-tape,
+.interest-tape,
+.gallery-tape {
+    position: absolute;
+    z-index: 6;
+    width: 96px;
+    height: 28px;
+    pointer-events: none;
+    /* Washi is matte and slightly translucent: a soft fibre weave
+       over a flat colour, with the paper faintly showing through. */
+    background:
+        repeating-linear-gradient(90deg,
+            rgba(255,255,255,0.22) 0 2px, transparent 2px 5px),
+        linear-gradient(180deg,
+            rgba(255,255,255,0.30) 0%,
+            rgba(255,255,255,0.05) 45%,
+            rgba(0,0,0,0.045) 100%),
+        var(--washi, var(--washi-sage));
+    -webkit-mask-image: var(--washi-ends);
+    mask-image: var(--washi-ends);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    box-shadow: 0 1px 3px rgba(60,50,40,0.16);
+    opacity: 0.94;
+}
+
+/* --- Project cards ------------------------------------------ */
+/* Tape crosses the top-left corner at an angle, as if the card
+   was stuck down after being laid on the page. */
+.project-card { position: relative; }
+.project-card .project-tape {
+    top: -13px;
+    left: -20px;
+    transform: rotate(-38deg);
+    clip-path: none;
+}
+
+/* Cycle the palette across the grid so no two neighbours match. */
+.projects-grid .project-card:nth-child(4n+1) { --washi: var(--washi-sage); }
+.projects-grid .project-card:nth-child(4n+2) { --washi: var(--washi-blush); }
+.projects-grid .project-card:nth-child(4n+3) { --washi: var(--washi-sky); }
+.projects-grid .project-card:nth-child(4n+4) { --washi: var(--washi-amber); }
+
+/* Torn bottom edge: a strip of the section ground masked into a
+   ragged line, so the card looks ripped from a larger sheet. */
+/* Only .project-card::after is free -- .interest-card::after is
+   already the hover underline sweep, so the interest cards keep
+   their clean bottom edge rather than losing that interaction. */
+.project-card::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    height: 10px;
+    z-index: 4;
+    pointer-events: none;
+    /* Must match the card's own ground (--bg-secondary, not
+       --bg-card) or the tear reads as a pale band across it. */
+    background: var(--bg-secondary);
+    -webkit-mask-image: var(--torn-card);
+    mask-image: var(--torn-card);
+    -webkit-mask-size: 400px 10px;
+    mask-size: 400px 10px;
+    -webkit-mask-repeat: repeat-x;
+    mask-repeat: repeat-x;
+}
+
+/* --- Interest cards ----------------------------------------- */
+/* The pin became a tape strip: centred on the top edge, alternating
+   its lean so the grid does not look stamped. */
+.interest-card { position: relative; }
+.interest-card .interest-tape {
+    top: -12px;
+    left: 50%;
+    width: 84px;
+    transform: translateX(-50%) rotate(-3deg);
+}
+.interests-grid .interest-card:nth-child(3n+2) .interest-tape {
+    transform: translateX(-50%) rotate(2.5deg);
+}
+.interests-grid .interest-card:nth-child(6n+4) .interest-tape {
+    transform: translateX(-46%) rotate(-1.5deg);
+}
+
+.interests-grid .interest-card:nth-child(4n+1) { --washi: var(--washi-blush); }
+.interests-grid .interest-card:nth-child(4n+2) { --washi: var(--washi-sage); }
+.interests-grid .interest-card:nth-child(4n+3) { --washi: var(--washi-amber); }
+.interests-grid .interest-card:nth-child(4n+4) { --washi: var(--washi-sky); }
+
+/* --- Gallery frame ------------------------------------------ */
+.gallery-frame { position: relative; }
+.gallery-frame .gallery-tape {
+    --washi: var(--washi-sky);
+    top: -14px;
+    left: 50%;
+    width: 118px;
+    height: 30px;
+    transform: translateX(-50%) rotate(-2deg);
+}
+
+/* --- Hover: the tape stays put, the card lifts under it ----- */
+.project-card:hover .project-tape,
+.interest-card:hover .interest-tape {
+    filter: brightness(1.03);
+}
+
+@media (max-width: 768px) {
+    /* Tape is decoration; at phone widths it crowds the card, so
+       it shrinks rather than being dropped. Overrides the earlier
+       `.project-tape { display: none }` in the mobile block. */
+    .project-card .project-tape { display: block; }
+    .project-card .project-tape {
+        width: 74px; height: 22px;
+        top: -10px; left: -14px;
+    }
+    .interest-card .interest-tape { width: 66px; height: 22px; top: -10px; }
+    .gallery-frame .gallery-tape { width: 92px; height: 24px; top: -11px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .project-tape, .interest-tape, .gallery-tape { transition: none; }
+}
+
+/* ============================================================
+   ART SECTION: LAB + ARCADE ENTRY CARDS
+   ------------------------------------------------------------
+   The Lab and Games open as modals, so they have no section of
+   their own on the page. They get a card each, flanking the
+   artwork, styled as taped-down cards to match the collage.
+   ============================================================ */
+
+.gallery-extras {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(20px, 3vw, 46px);
+}
+
+/* The showcase keeps its own styling; it just becomes the middle
+   column instead of a full-width block. */
+.gallery-extras > .gallery-showcase { min-width: 0; }
+
+.extra-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+    padding: 26px 22px 24px;
+    text-align: left;
+    font: inherit;
+    color: inherit;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+    transition:
+        transform var(--transition-normal),
+        box-shadow var(--transition-normal),
+        border-color var(--transition-normal);
+}
+
+/* Each card leans the opposite way, like two notes pinned either
+   side of the picture. */
+.extra-card-lab   { transform: rotate(-1.6deg); }
+.extra-card-games { transform: rotate(1.6deg); }
+
+.extra-card:hover {
+    transform: rotate(0deg) translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--border-hover);
+}
+.extra-card:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 3px;
+}
+
+/* Reuses the washi tape from the collage layer. */
+.extra-card-tape {
+    position: absolute;
+    top: -12px; left: 50%;
+    width: 82px; height: 26px;
+    transform: translateX(-50%) rotate(-2deg);
+    z-index: 2;
+    pointer-events: none;
+    background:
+        repeating-linear-gradient(90deg,
+            rgba(255,255,255,0.22) 0 2px, transparent 2px 5px),
+        linear-gradient(180deg,
+            rgba(255,255,255,0.30) 0%,
+            rgba(255,255,255,0.05) 45%,
+            rgba(0,0,0,0.045) 100%),
+        var(--washi, var(--washi-sage));
+    -webkit-mask-image: var(--washi-ends);
+    mask-image: var(--washi-ends);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    box-shadow: 0 1px 3px rgba(60,50,40,0.16);
+    opacity: 0.94;
+}
+.extra-card-lab   { --washi: var(--washi-sky); }
+.extra-card-games { --washi: var(--washi-blush); }
+
+.extra-card-icon {
+    display: grid;
+    place-items: center;
+    width: 44px; height: 44px;
+    font-size: 19px;
+    color: var(--accent-primary);
+    background: var(--accent-light);
+    border: 1px solid rgba(180,85,61,0.18);
+    border-radius: var(--radius-sm);
+}
+
+.extra-card-body { display: block; }
+
+.extra-card-title {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.25;
+}
+
+.extra-card-sub {
+    display: block;
+    margin-top: 4px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+.extra-card-go {
+    font-size: 13px;
+    color: var(--accent-primary);
+    transition: transform var(--transition-normal);
+}
+.extra-card:hover .extra-card-go { transform: translateX(4px); }
+
+/* --- Responsive --------------------------------------------- */
+/* Below the three-column width the artwork leads and the two
+   cards sit side by side beneath it. */
+@media (max-width: 992px) {
+    .gallery-extras {
+        grid-template-columns: 1fr 1fr;
+        gap: 22px;
+    }
+    .gallery-extras > .gallery-showcase {
+        grid-column: 1 / -1;
+        grid-row: 1;
+    }
+    .extra-card { padding: 20px 18px 18px; }
+}
+
+@media (max-width: 600px) {
+    .gallery-extras { grid-template-columns: 1fr; }
+    .extra-card-lab, .extra-card-games { transform: none; }
+    .extra-card:hover { transform: translateY(-4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .extra-card, .extra-card-go { transition: none; }
+}
+
+/* ============================================================
+   DRAFTING STOCK — Featured Projects
+   ------------------------------------------------------------
+   Projects sat on origami stock, shared with Contact and hemmed
+   in by two warm grounds (kraft above, handmade below). This is
+   a cooler drafting sheet: a faint blue plan grid with a heavier
+   rule every fifth square, plus a wash of tracing-paper tone.
+   It reads as the sheet work gets planned on, and gives the
+   section its own identity.
+
+   Painted on ::after -- .paper-stock::before is disabled with
+   `content: none !important` earlier in this file.
+   ============================================================ */
+
+.paper-drafting-bg { background: #F3F1E9 !important; }
+
+.paper-drafting-bg::after {
+    background-color: #F3F1E9;
+    background-image:
+        /* the top-edge shading every stock carries */
+        linear-gradient(180deg, rgba(90,74,56,0.06) 0, rgba(90,74,56,0) 30px),
+        /* tracing-paper warmth pooling in two corners */
+        radial-gradient(ellipse 420px 300px at 6% 8%, rgba(196,178,146,0.13), transparent 72%),
+        radial-gradient(ellipse 380px 320px at 96% 88%, rgba(150,166,180,0.12), transparent 74%),
+        /* major grid: the heavier rule every 5th square */
+        linear-gradient(rgba(78,108,138,0.115) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(78,108,138,0.115) 1px, transparent 1px),
+        /* minor grid */
+        linear-gradient(rgba(78,108,138,0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(78,108,138,0.055) 1px, transparent 1px),
+        /* the stock itself */
+        linear-gradient(165deg, #F6F4ED 0%, #EFECE2 100%);
+    background-size:
+        auto,
+        auto, auto,
+        110px 110px, 110px 110px,
+        22px 22px, 22px 22px,
+        auto;
+    background-repeat:
+        no-repeat,
+        no-repeat, no-repeat,
+        repeat, repeat,
+        repeat, repeat,
+        no-repeat;
+}
+
+@media (max-width: 768px) {
+    /* A 110px plan grid is too coarse on a phone; tighten both
+       so the sheet still reads as ruled rather than as bands. */
+    .paper-drafting-bg::after {
+        background-size:
+            auto,
+            auto, auto,
+            76px 76px, 76px 76px,
+            19px 19px, 19px 19px,
+            auto;
+    }
+}
+
+/* ==========================================================================
+   Featured Projects — horizontal carousel
+   The section pins while the track slides right-to-left; when the last card
+   has passed, the pin releases and the next section scrolls in normally.
+   Everything below degrades to a plain grid: the horizontal behaviour is
+   only switched on by JS adding .hscroll-active.
+   ========================================================================== */
+
+.projects-hscroll {
+    position: relative;
+}
+
+/* Default (no JS / small screens / reduced motion): a normal responsive grid,
+   identical in feel to the old two-column layout. */
+.projects-track {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+/* --- Active carousel ---------------------------------------------------- */
+/* The viewport clips the track; the track is a flex row wider than the
+   screen that GSAP translates along X. */
+.hscroll-active .projects-hscroll {
+    overflow: hidden;
+    /* bleed to the full viewport width so cards can enter from the true edge */
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    padding: 10px 0 24px;
+}
+
+/* While pinned the whole section has to fit one screen, so the chrome above
+   the track tightens and the cards take whatever height is left. */
+.hscroll-active .projects { padding: 44px 0 36px; }
+
+/* Progressive tightening on short screens, applied by fitTrack() only as far
+   as the viewport actually demands. Card text is never touched. */
+.hscroll-active .projects.is-compact { padding: 26px 0 20px; }
+.hscroll-active .projects.is-compact .section-header { margin-bottom: 12px; }
+.hscroll-active .projects.is-compact .section-title { font-size: clamp(24px, 3vw, 32px); }
+.hscroll-active .projects.is-compact .project-filters { margin-bottom: 12px; }
+
+.hscroll-active .projects.is-tight { padding: 14px 0 12px; }
+.hscroll-active .projects.is-tight .section-header { margin-bottom: 6px; }
+.hscroll-active .projects.is-tight .section-header .section-line { display: none; }
+.hscroll-active .projects.is-tight .section-title { font-size: 22px; margin-bottom: 2px; }
+.hscroll-active .projects.is-tight .project-filters { margin-bottom: 8px; }
+.hscroll-active .projects.is-tight .hscroll-progress { margin-top: 10px; }
+.hscroll-active .projects .section-header { margin-bottom: 20px; }
+.hscroll-active .projects .section-title { margin-bottom: 8px; }
+.hscroll-active .projects .project-filters { margin-bottom: 18px; }
+
+.hscroll-active .projects-track {
+    display: flex;
+    grid-template-columns: none;
+    gap: 34px;
+    /* leading gutter matches the container so the first card lines up with
+       the section heading rather than jamming against the edge */
+    padding: 0 max(24px, calc(50vw - 600px));
+    width: max-content;
+    will-change: transform;
+}
+
+.hscroll-active .projects-track > .project-card {
+    flex: 0 0 clamp(320px, 30vw, 400px);
+    /* cancel the orphan-centring rule from the static grid */
+    grid-column: auto;
+    max-width: none;
+    margin-inline: 0;
+}
+
+/* Cards size to their content and align to a common top edge — no inner
+   scrolling anywhere. Card copy is kept short enough to fit the pinned
+   viewport, which is why the Problem/Contribution/Outcome lines are one
+   sentence each. */
+.hscroll-active .projects-track { align-items: start; }
+
+/* Pinned cards must clear a ~900px-tall viewport with the heading, tabs and
+   progress rail also on screen, so the card trims its own chrome rather than
+   clipping or scrolling its content. */
+/* --track-h is the height left for the deck once the heading, tabs and
+   progress rail have taken their share; JS keeps it in sync with the real
+   measured chrome. The cover art absorbs the variation because it carries no
+   copy, so text never shrinks below a readable size and nothing scrolls. */
+/* The card is never forced shorter than its own text. --track-h is a
+   *maximum*: the cover art shrinks to meet it, and once the art is at its
+   floor the card simply grows rather than clipping the tech tags and the
+   case-study link off the bottom. */
+.hscroll-active .projects-track > .project-card {
+    max-height: none;
+    height: auto;
+}
+
+.hscroll-active .projects-track > .project-card .project-card-inner {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Only the artwork responds to the height budget. It carries no copy, so
+   trimming it costs nothing; clamped so it never collapses to a sliver. */
+.hscroll-active .projects-track > .project-card .project-image {
+    aspect-ratio: auto;
+    flex: 0 0 auto;
+    height: clamp(96px, calc(var(--track-h, 620px) - var(--info-h, 380px)), 240px);
+}
+
+/* The text block always gets exactly the room it needs. */
+.hscroll-active .projects-track > .project-card .project-info {
+    flex: 0 0 auto;
+    padding: 18px 22px 20px;
+}
+
+.hscroll-active .projects-track > .project-card .project-title {
+    margin-bottom: 8px;
+}
+
+.hscroll-active .projects-track > .project-card .project-breakdown dd {
+    font-size: 13.5px;
+    line-height: 1.5;
+}
+
+.hscroll-active .projects-track > .project-card .project-breakdown > div {
+    margin-bottom: 10px;
+}
+
+.hscroll-active .projects-track > .project-card .project-tech {
+    gap: 6px;
+}
+
+.hscroll-active .projects-track > .project-card .project-tech span {
+    padding: 4px 11px;
+    font-size: 11.5px;
+}
+
+/* Cards lift slightly as they cross the middle of the viewport, so the
+   sideways motion has a focal point instead of reading as a flat conveyor. */
+.hscroll-active .projects-track > .project-card {
+    transition: box-shadow var(--transition-normal);
+}
+
+/* --- Progress rail ------------------------------------------------------ */
+.hscroll-progress {
+    display: none;
+}
+
+.hscroll-active .hscroll-progress {
+    display: block;
+    position: relative;
+    height: 3px;
+    width: min(420px, 60%);
+    margin: 18px auto 0;
+    background: rgba(38,34,30,0.10);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.hscroll-progress-bar {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    border-radius: 999px;
+}
+
+/* --- Filtering inside the carousel -------------------------------------- */
+/* Filtered-out cards leave the flow entirely so the track re-measures to the
+   remaining set rather than scrolling through gaps. */
+.hscroll-active .projects-track > .project-card.filtered-out {
+    display: none;
+}
+
+/* The old grid wrappers and the academic sub-heading have no place in a
+   single continuous track. */
+.hscroll-active #academicHeading {
+    display: none;
+}
+
+/* --- Fallbacks ---------------------------------------------------------- */
+@media (max-width: 900px) {
+    /* Below this width the pin fights the browser's own scrolling, so the
+       carousel stays off and the grid stacks. */
+    .projects-track { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hscroll-active .projects-hscroll {
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+    }
+    .hscroll-active .projects-track > .project-card { scroll-snap-align: center; }
+}
