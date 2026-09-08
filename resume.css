@@ -8,9 +8,9 @@
 }
 
 body.resume-page {
-    font-family: 'Inter', sans-serif;
-    background: #f8f9fc;
-    color: #1e293b;
+    font-family: 'Work Sans', 'Inter', sans-serif;
+    background: #FAF8F4;
+    color: #23201C;
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
 }
@@ -24,7 +24,7 @@ body.resume-page {
     z-index: 9999; /* ensure nav stays on top */
     background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(16px);
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid #E6E1D6;
     box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
     transition: box-shadow 0.3s ease, background 0.3s ease;
 }
@@ -49,7 +49,7 @@ body.resume-page {
 
 .nav-logo {
     text-decoration: none;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Fraunces', Georgia, serif;
     font-size: 1.4rem;
     font-weight: 700;
     display: flex;
@@ -58,11 +58,11 @@ body.resume-page {
 }
 
 .logo-text {
-    color: #2563eb;
+    color: #B4553D;
 }
 
 .logo-main {
-    color: #1e293b;
+    color: #23201C;
 }
 
 .nav-links {
@@ -73,7 +73,7 @@ body.resume-page {
 
 .nav-link {
     text-decoration: none;
-    color: #64748b;
+    color: #55504A;
     font-size: 0.875rem;
     font-weight: 500;
     padding: 0.5rem 0.875rem;
@@ -82,13 +82,13 @@ body.resume-page {
 }
 
 .nav-link:hover {
-    color: #2563eb;
-    background: #eff6ff;
+    color: #B4553D;
+    background: #FAF6EF;
 }
 
 .nav-link.active {
-    color: #2563eb;
-    background: #eff6ff;
+    color: #B4553D;
+    background: #FAF6EF;
     font-weight: 600;
 }
 
@@ -106,7 +106,7 @@ body.resume-page {
     display: block;
     width: 24px;
     height: 2px;
-    background: #1e293b;
+    background: #23201C;
     border-radius: 2px;
     transition: all 0.3s ease;
 }
@@ -142,8 +142,8 @@ body.resume-page {
     width: 26px;
     height: 26px;
     border-radius: 50%;
-    background: #ffffff;
-    border: 1px solid #cbd5e1;
+    background: #FFFFFF;
+    border: 1px solid #D4CCBC;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -155,7 +155,7 @@ body.resume-page {
 .pupil {
     width: 10px;
     height: 10px;
-    background: #1e293b;
+    background: #23201C;
     border-radius: 50%;
     position: absolute;
     transform: translate(0, 0);
@@ -188,7 +188,7 @@ body.resume-page {
 
 .btn-back {
     text-decoration: none;
-    color: #64748b;
+    color: #55504A;
     font-size: 0.9rem;
     font-weight: 500;
     display: inline-flex;
@@ -197,14 +197,14 @@ body.resume-page {
     padding: 0.6rem 1.2rem;
     border-radius: 8px;
     transition: all 0.2s ease;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #E6E1D6;
     background: #fff;
 }
 
 .btn-back:hover {
-    color: #2563eb;
-    border-color: #2563eb;
-    background: #eff6ff;
+    color: #B4553D;
+    border-color: #B4553D;
+    background: #FAF6EF;
 }
 
 .btn-download {
@@ -214,9 +214,9 @@ body.resume-page {
     padding: 0.6rem 1.4rem;
     border: none;
     border-radius: 8px;
-    background: #2563eb;
+    background: #B4553D;
     color: #fff;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Work Sans', 'Inter', sans-serif;
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
@@ -224,7 +224,7 @@ body.resume-page {
 }
 
 .btn-download:hover {
-    background: #1d4ed8;
+    background: #93402C;
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
@@ -236,22 +236,22 @@ body.resume-page {
     background: #fff;
     border-radius: 16px;
     margin-bottom: 2rem;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #E6E1D6;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .resume-name {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Fraunces', Georgia, serif;
     font-size: 2.4rem;
     font-weight: 700;
-    color: #0f172a;
+    color: #1D1A16;
     margin-bottom: 0.25rem;
     letter-spacing: -0.02em;
 }
 
 .resume-title {
     font-size: 1.15rem;
-    color: #2563eb;
+    color: #B4553D;
     font-weight: 600;
     margin-bottom: 1.25rem;
 }
@@ -262,12 +262,12 @@ body.resume-page {
     justify-content: center;
     gap: 1rem 1.5rem;
     font-size: 0.875rem;
-    color: #475569;
+    color: #494440;
 }
 
 .resume-contact a {
     text-decoration: none;
-    color: #475569;
+    color: #494440;
     transition: color 0.2s ease;
     display: inline-flex;
     align-items: center;
@@ -275,7 +275,7 @@ body.resume-page {
 }
 
 .resume-contact a:hover {
-    color: #2563eb;
+    color: #B4553D;
 }
 
 .resume-contact span {
@@ -285,7 +285,7 @@ body.resume-page {
 }
 
 .resume-contact i {
-    color: #2563eb;
+    color: #B4553D;
     font-size: 0.8rem;
 }
 
@@ -295,31 +295,31 @@ body.resume-page {
     border-radius: 12px;
     padding: 2rem;
     margin-bottom: 1.5rem;
-    border: 1px solid #e2e8f0;
-    border-left: 4px solid #2563eb;
+    border: 1px solid #E6E1D6;
+    border-left: 4px solid #B4553D;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .section-title {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Fraunces', Georgia, serif;
     font-size: 1.25rem;
     font-weight: 700;
-    color: #0f172a;
+    color: #1D1A16;
     margin-bottom: 1.25rem;
     padding-bottom: 0.75rem;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid #F4F1EA;
     display: flex;
     align-items: center;
     gap: 0.6rem;
 }
 
 .section-title i {
-    color: #2563eb;
+    color: #B4553D;
     font-size: 1rem;
 }
 
 .section-content p {
-    color: #475569;
+    color: #494440;
     font-size: 0.925rem;
     line-height: 1.8;
 }
@@ -339,28 +339,28 @@ body.resume-page {
 }
 
 .company-name {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Fraunces', Georgia, serif;
     font-size: 1.15rem;
     font-weight: 700;
-    color: #0f172a;
+    color: #1D1A16;
 }
 
 .experience-location {
     font-size: 0.85rem;
-    color: #64748b;
+    color: #55504A;
     margin-top: 0.15rem;
 }
 
 .experience-location i {
-    color: #2563eb;
+    color: #B4553D;
     font-size: 0.75rem;
 }
 
 .experience-date {
     font-size: 0.85rem;
     font-weight: 600;
-    color: #2563eb;
-    background: #eff6ff;
+    color: #B4553D;
+    background: #FAF6EF;
     padding: 0.3rem 0.8rem;
     border-radius: 20px;
     white-space: nowrap;
@@ -369,7 +369,7 @@ body.resume-page {
 .project-block {
     margin-bottom: 1.5rem;
     padding-left: 1rem;
-    border-left: 2px solid #e2e8f0;
+    border-left: 2px solid #E6E1D6;
 }
 
 .project-block:last-child {
@@ -379,7 +379,7 @@ body.resume-page {
 .project-name {
     font-size: 1rem;
     font-weight: 600;
-    color: #1e293b;
+    color: #23201C;
     margin-bottom: 0.6rem;
 }
 
@@ -395,7 +395,7 @@ body.resume-page {
 .project-date {
     font-size: 0.8rem;
     font-weight: 500;
-    color: #64748b;
+    color: #55504A;
 }
 
 .project-block ul {
@@ -408,7 +408,7 @@ body.resume-page {
     padding-left: 1.2rem;
     margin-bottom: 0.5rem;
     font-size: 0.9rem;
-    color: #475569;
+    color: #494440;
     line-height: 1.65;
 }
 
@@ -419,7 +419,7 @@ body.resume-page {
     top: 0.55em;
     width: 6px;
     height: 6px;
-    background: #2563eb;
+    background: #B4553D;
     border-radius: 50%;
 }
 
@@ -433,7 +433,7 @@ body.resume-page {
 .skill-category h4 {
     font-size: 0.85rem;
     font-weight: 700;
-    color: #0f172a;
+    color: #1D1A16;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: 0.6rem;
@@ -448,19 +448,19 @@ body.resume-page {
 .skill-tag {
     display: inline-block;
     padding: 0.3rem 0.75rem;
-    background: #f1f5f9;
+    background: #F4F1EA;
     color: #334155;
     font-size: 0.825rem;
     font-weight: 500;
     border-radius: 6px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #E6E1D6;
     transition: all 0.2s ease;
 }
 
 .skill-tag:hover {
-    background: #eff6ff;
-    border-color: #bfdbfe;
-    color: #2563eb;
+    background: #FAF6EF;
+    border-color: #EFD7CE;
+    color: #B4553D;
 }
 
 /* ===== Education ===== */
@@ -472,7 +472,7 @@ body.resume-page {
 
 .education-item {
     padding-left: 1rem;
-    border-left: 2px solid #e2e8f0;
+    border-left: 2px solid #E6E1D6;
     padding-bottom: 0.25rem;
 }
 
@@ -487,24 +487,24 @@ body.resume-page {
 .education-header h4 {
     font-size: 1rem;
     font-weight: 600;
-    color: #0f172a;
+    color: #1D1A16;
 }
 
 .education-date {
     font-size: 0.8rem;
     font-weight: 500;
-    color: #64748b;
+    color: #55504A;
 }
 
 .education-institution {
     font-size: 0.875rem;
-    color: #475569;
+    color: #494440;
     margin-top: 0.15rem;
 }
 
 .education-grade {
     font-size: 0.825rem;
-    color: #2563eb;
+    color: #B4553D;
     font-weight: 600;
     margin-top: 0.25rem;
 }
@@ -521,19 +521,19 @@ body.resume-page {
     align-items: flex-start;
     gap: 0.75rem;
     padding: 0.75rem 1rem;
-    background: #f8fafc;
+    background: #F7F4EE;
     border-radius: 8px;
-    border: 1px solid #f1f5f9;
+    border: 1px solid #F4F1EA;
     transition: all 0.2s ease;
 }
 
 .certification-item:hover {
-    background: #eff6ff;
-    border-color: #dbeafe;
+    background: #FAF6EF;
+    border-color: #F7E7E1;
 }
 
 .certification-item > i {
-    color: #2563eb;
+    color: #B4553D;
     font-size: 0.9rem;
     margin-top: 0.2rem;
     flex-shrink: 0;
@@ -547,22 +547,22 @@ body.resume-page {
 
 .certification-item strong {
     font-size: 0.9rem;
-    color: #0f172a;
+    color: #1D1A16;
     font-weight: 600;
 }
 
 .certification-item span {
     font-size: 0.8rem;
-    color: #64748b;
+    color: #55504A;
 }
 
 /* ===== Footer ===== */
 .resume-footer {
     text-align: center;
     padding: 2rem;
-    color: #94a3b8;
+    color: #8A837B;
     font-size: 0.8rem;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid #E6E1D6;
     margin-top: 1rem;
 }
 
@@ -578,7 +578,7 @@ body.resume-page {
         flex-direction: column;
         padding: 1rem;
         gap: 0.25rem;
-        border-bottom: 1px solid #e2e8f0;
+        border-bottom: 1px solid #E6E1D6;
         transform: translateY(-120%);
         opacity: 0;
         transition: all 0.3s ease;
@@ -655,7 +655,7 @@ body.resume-page {
     .resume-section {
         break-inside: avoid;
         border: none;
-        border-left: 3px solid #2563eb;
+        border-left: 3px solid #B4553D;
         box-shadow: none;
         margin-bottom: 1rem;
         padding: 1rem 1.25rem;
@@ -679,11 +679,103 @@ body.resume-page {
     }
 
     .skill-tag {
-        border: 1px solid #cbd5e1;
+        border: 1px solid #D4CCBC;
     }
 
     [data-aos] {
         opacity: 1 !important;
         transform: none !important;
+    }
+}
+
+/* ============================================================
+   PAPERCRAFT MATERIAL — resume sheet
+   Matches the main site: same stock, same ink, same cast
+   shadows. The resume reads as a single sheet on the desk.
+   ============================================================ */
+
+body.resume-page {
+    background-color: #FAF8F4;
+    background-image:
+        repeating-linear-gradient(94deg,
+            rgba(140,120,95,0.028) 0 1px, transparent 1px 3px),
+        repeating-linear-gradient(3deg,
+            rgba(140,120,95,0.022) 0 1px, transparent 1px 4px);
+    color: #23201C;
+}
+
+/* The sheet itself: cream stock lifted off the desk. */
+.resume-container {
+    background: #FFFFFF;
+    border: 1px solid rgba(42,36,30,0.14);
+    border-radius: 14px;
+    box-shadow: 0 12px 20px rgba(74,58,42,0.15),
+                0 28px 48px rgba(74,58,42,0.11),
+                inset 0 1px 0 rgba(255,255,255,0.85);
+}
+
+.resume-name {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 900;
+    font-variation-settings: 'SOFT' 40, 'WONK' 1;
+    letter-spacing: -0.025em;
+    color: #1D1A16;
+}
+.resume-title {
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: #B4553D;
+}
+
+/* Section headings sit above a scored fold line. */
+.section-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: #1D1A16;
+}
+
+/* Buttons match the site's chipboard tiles. */
+.resume-actions .btn,
+.resume-actions a {
+    border-radius: 8px !important;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 600;
+    box-shadow: 0 3px 0 #93402C, 0 5px 10px rgba(74,58,42,0.20);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.resume-actions .btn:hover,
+.resume-actions a:hover { transform: translateY(-2px); }
+.resume-actions .btn:active,
+.resume-actions a:active {
+    transform: translateY(3px);
+    box-shadow: 0 0 0 #93402C, 0 1px 2px rgba(74,58,42,0.2);
+}
+
+/* Skill/tech chips as punched tabs, matching the site. */
+.skill-tag, .tech-tag, .resume-skill {
+    background: #F0EBE0 !important;
+    color: #55504A !important;
+    border: 1px solid rgba(74,58,42,0.16) !important;
+    border-radius: 8px !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.7),
+                0 1px 2px rgba(74,58,42,0.10);
+}
+
+@media print {
+    /* Print on real paper: drop texture and shadows so ink is
+       spent on content, not on simulating the medium. */
+    body.resume-page { background: #fff; }
+    .resume-container { box-shadow: none; border: none; }
+    .resume-actions { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
     }
 }

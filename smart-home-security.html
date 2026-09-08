@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Home Security &mdash; Case Study | Dutpala Aishwarya</title>
+    <meta name="description" content="Case study: an IoT-based intrusion detection system combining sensor triggers, cloud image capture, AI forensic analysis, and role-based access control.">
+    <link rel="icon" type="image/png" href="pictures/logo-128.png">
+    <link rel="stylesheet" href="casestudy.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="casestudy-page">
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-text">&lt;</span><span class="logo-main">DA</span><span class="logo-text">/&gt;</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#home" class="nav-link"><span>Home</span></a></li>
+                <li><a href="index.html#about" class="nav-link"><span>About</span></a></li>
+                <li><a href="index.html#projects" class="nav-link active"><span>Projects</span></a></li>
+                <li><a href="index.html#gallery" class="nav-link"><span>Art</span></a></li>
+                <li><a href="index.html#contact" class="nav-link"><span>Contact</span></a></li>
+                <li><a href="resume.html" class="nav-link"><span>Resume</span></a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="cs-container">
+
+        <div class="cs-actions">
+            <a href="index.html#projects" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Projects</a>
+        </div>
+
+        <!-- Masthead -->
+        <header class="cs-header" style="--washi: var(--washi-sage);">
+            <div class="cs-eyebrow">Case Study &middot; Final Year Project</div>
+            <h1 class="cs-title">Smart Home Security</h1>
+            <p class="cs-standfirst">
+                An IoT intrusion detection system built around a simple idea: an alert is
+                only useful if it arrives in time and brings evidence with it.
+            </p>
+            <span class="cs-note">&mdash; a notification without proof is just anxiety</span>
+
+            <div class="cs-meta">
+                <div class="cs-meta-item">
+                    <span class="cs-meta-label">Role</span>
+                    <span class="cs-meta-value">End-to-end design &amp; development</span>
+                </div>
+                <div class="cs-meta-item">
+                    <span class="cs-meta-label">Context</span>
+                    <span class="cs-meta-value">Final Year Project</span>
+                </div>
+                <div class="cs-meta-item">
+                    <span class="cs-meta-label">Timeline</span>
+                    <span class="cs-meta-value">Sept 2024 &ndash; Apr 2025</span>
+                </div>
+                <div class="cs-meta-item">
+                    <span class="cs-meta-label">Focus</span>
+                    <span class="cs-meta-value">IoT, cloud storage &amp; AI analysis</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Cover -->
+        <div class="cs-cover" style="--cover-a: rgba(120,150,110,0.18); --cover-b: rgba(147,64,44,0.12);">
+            <svg viewBox="0 0 800 350" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <g fill="none" stroke="var(--accent-primary)">
+                    <circle cx="400" cy="175" r="62"  stroke-opacity="0.5"/>
+                    <circle cx="400" cy="175" r="108" stroke-opacity="0.3"/>
+                    <circle cx="400" cy="175" r="154" stroke-opacity="0.16"/>
+                </g>
+                <path d="M400 118 L440 137 L440 177 C440 208 424 227 400 239 C376 227 360 208 360 177 L360 137 Z"
+                      fill="var(--accent-primary)" fill-opacity="0.22"
+                      stroke="var(--accent-primary)" stroke-opacity="0.55" stroke-width="1.6"/>
+                <path d="M382 176 L396 191 L421 156" fill="none" stroke="var(--accent-tertiary)"
+                      stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.85"/>
+                <g stroke="var(--accent-tertiary)" stroke-opacity="0.4" stroke-width="1.5">
+                    <line x1="400" y1="20"  x2="400" y2="52"/>
+                    <line x1="400" y1="298" x2="400" y2="330"/>
+                    <line x1="200" y1="175" x2="232" y2="175"/>
+                    <line x1="568" y1="175" x2="600" y2="175"/>
+                </g>
+                <g fill="var(--accent-primary)" fill-opacity="0.5">
+                    <circle cx="150" cy="90"  r="4"/>
+                    <circle cx="650" cy="110" r="4"/>
+                    <circle cx="120" cy="260" r="4"/>
+                    <circle cx="680" cy="245" r="4"/>
+                </g>
+            </svg>
+        </div>
+
+        <!-- Problem -->
+        <section class="cs-section">
+            <h2 class="cs-section-title"><i class="fas fa-circle-question"></i> The problem</h2>
+            <div class="cs-section-rule"></div>
+            <p>
+                Consumer home security tends to fail in one of two directions. Motion
+                sensors alone fire constantly &mdash; a pet, a curtain, a passing car
+                &mdash; and people learn to ignore them. Camera systems record everything
+                faithfully but leave you scrubbing through hours of footage after the fact
+                to work out what actually happened.
+            </p>
+            <p>
+                Both failures share a root cause: <strong>the system reports events but
+                does not interpret them</strong>. It tells you something moved, not whether
+                that something mattered. And when several people share a home, everyone
+                typically gets the same undifferentiated stream of alerts regardless of
+                whether they can act on them.
+            </p>
+            <div class="cs-callout">
+                <span class="cs-callout-label">The real brief</span>
+                <p>
+                    Not "detect motion" &mdash; decide whether an event is worth someone's
+                    attention, and hand them the evidence to judge it themselves.
+                </p>
+            </div>
+        </section>
+
+        <!-- Approach -->
+        <section class="cs-section">
+            <h2 class="cs-section-title"><i class="fas fa-compass-drafting"></i> Approach</h2>
+            <div class="cs-section-rule"></div>
+            <p>
+                I treated it as a pipeline rather than a set of features: a trigger has to
+                become an image, an image has to become an assessment, and an assessment
+                has to reach the right person quickly enough to matter. Each stage was
+                built and tested on its own before being chained to the next.
+            </p>
+            <ul>
+                <li><strong>Sensor layer</strong> &mdash; IoT sensors detect entry events and act purely as triggers, keeping the detection logic itself off the constrained device.</li>
+                <li><strong>Cloud image capture</strong> &mdash; a trigger causes a capture that is uploaded immediately, so evidence survives even if the local hardware is tampered with.</li>
+                <li><strong>AI forensic analysis</strong> &mdash; captured images are analysed to distinguish a genuine intrusion from routine activity, which is what keeps alerts meaningful.</li>
+                <li><strong>Role-based access control</strong> &mdash; household members receive different permissions, so administration and casual viewing are properly separated.</li>
+            </ul>
+        </section>
+
+        <!-- Decisions -->
+        <section class="cs-section">
+            <h2 class="cs-section-title"><i class="fas fa-code-branch"></i> Decisions worth explaining</h2>
+            <div class="cs-section-rule"></div>
+            <div class="cs-decisions">
+
+                <article class="cs-decision">
+                    <h3>Cloud storage rather than local recording</h3>
+                    <p>
+                        Captured images upload to cloud storage the moment they are taken,
+                        instead of being written to a device in the house.
+                    </p>
+                    <span class="cs-tradeoff">
+                        <strong>Trade-off:</strong> the system depends on connectivity and
+                        incurs storage cost. In exchange, evidence cannot be destroyed by
+                        taking the hardware &mdash; which is precisely what an intruder
+                        would do.
+                    </span>
+                </article>
+
+                <article class="cs-decision">
+                    <h3>Capture on trigger, not continuous recording</h3>
+                    <p>
+                        The camera captures in response to a sensor event rather than
+                        recording a permanent stream.
+                    </p>
+                    <span class="cs-tradeoff">
+                        <strong>Trade-off:</strong> anything between triggers goes
+                        unrecorded. It keeps bandwidth and storage viable, and leaves a
+                        reviewable set of moments instead of hours nobody will watch.
+                    </span>
+                </article>
+
+                <article class="cs-decision">
+                    <h3>AI analysis before notification</h3>
+                    <p>
+                        Images are assessed before an alert is raised, so the notification
+                        carries a judgement rather than only a timestamp.
+                    </p>
+                    <span class="cs-tradeoff">
+                        <strong>Trade-off:</strong> adds latency between the event and the
+                        alert, and the model can be wrong. A system that cries wolf gets
+                        muted, which is a worse failure than a short delay.
+                    </span>
+                </article>
+
+                <article class="cs-decision">
+                    <h3>Roles instead of a single shared login</h3>
+                    <p>
+                        Access is scoped by role, separating who can administer the system
+                        from who can simply view alerts.
+                    </p>
+                    <span class="cs-tradeoff">
+                        <strong>Trade-off:</strong> more setup than one shared password.
+                        Necessary once a system holds images of people's homes &mdash;
+                        shared credentials make access impossible to reason about.
+                    </span>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- What I built -->
+        <section class="cs-section">
+            <h2 class="cs-section-title"><i class="fas fa-screwdriver-wrench"></i> What I built</h2>
+            <div class="cs-section-rule"></div>
+            <ul>
+                <li>An <strong>IoT detection layer</strong> that registers unauthorized access events and triggers the capture pipeline.</li>
+                <li><strong>Cloud image storage</strong>, so every triggered event leaves a durable, tamper-resistant record.</li>
+                <li>An <strong>AI forensic analysis step</strong> that assesses captured images to separate genuine intrusions from ordinary activity.</li>
+                <li><strong>Real-time alerting</strong> that reaches the right household member with the supporting image attached.</li>
+                <li><strong>Role-based access control</strong> governing who can administer the system and who can view its history.</li>
+            </ul>
+            <div class="cs-stack">
+                <span>IoT</span><span>Python</span><span>AI</span><span>Cloud Storage</span><span>RBAC</span>
+            </div>
+        </section>
+
+        <!-- Outcome -->
+        <section class="cs-section">
+            <h2 class="cs-section-title"><i class="fas fa-flag-checkered"></i> Outcome</h2>
+            <div class="cs-section-rule"></div>
+            <p>
+                The result is a working prototype that takes an intrusion event all the way
+                through to a real-time alert backed by a stored image trail. It was
+                developed and submitted over the course of a year as my final year project,
+                and it is the piece of work that most shaped how I think about system
+                design &mdash; specifically, that the hard part is rarely detection, it is
+                deciding what deserves someone's attention.
+            </p>
+            <div class="cs-stats">
+                <div class="cs-stat">
+                    <span class="cs-stat-value">End to end</span>
+                    <span class="cs-stat-label">sensor trigger through to delivered alert</span>
+                </div>
+                <div class="cs-stat">
+                    <span class="cs-stat-value">Real time</span>
+                    <span class="cs-stat-label">alerts carry the supporting image</span>
+                </div>
+                <div class="cs-stat">
+                    <span class="cs-stat-value">8 months</span>
+                    <span class="cs-stat-label">from concept to submitted prototype</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next -->
+        <nav class="cs-next">
+            <div>
+                <span class="cs-next-label">Next case study</span>
+                <a href="person-identification-system.html">Person Identification System <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <a href="index.html#projects" class="btn-back"><i class="fas fa-grip"></i> All projects</a>
+        </nav>
+
+    </main>
+
+    <script>
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', () => {
+                const open = navLinks.classList.toggle('open');
+                navToggle.setAttribute('aria-expanded', String(open));
+            });
+        }
+    </script>
+</body>
+</html>

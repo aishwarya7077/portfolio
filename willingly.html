@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Willingly &mdash; Case Study | Dutpala Aishwarya</title>
+    <meta name="description" content="Case study: building Willingly, a donation platform where trust in a nonprofit is something the product proves rather than asserts.">
+    <link rel="icon" type="image/png" href="pictures/logo-128.png">
+    <link rel="stylesheet" href="casestudy.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="casestudy-page">
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-text">&lt;</span><span class="logo-main">DA</span><span class="logo-text">/&gt;</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#home" class="nav-link"><span>Home</span></a></li>
+                <li><a href="index.html#about" class="nav-link"><span>About</span></a></li>
+                <li><a href="index.html#projects" class="nav-link active"><span>Projects</span></a></li>
+                <li><a href="index.html#gallery" class="nav-link"><span>Art</span></a></li>
+                <li><a href="index.html#contact" class="nav-link"><span>Contact</span></a></li>
+                <li><a href="resume.html" class="nav-link"><span>Resume</span></a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="cs-container">
+
+        <div class="cs-actions">
+            <a href="index.html#projects" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Projects</a>
+        </div>
+
+        <!-- Masthead -->
+        <header class="cs-header" style="--washi: var(--washi-sky);">
+            <div class="cs-eyebrow">Case Study &middot; Product &amp; Frontend</div>
+            <h1 class="cs-title">Willingly</h1>
+            <p class="cs-standfirst">
+                A donation platform for people who want to give but can't tell which
+                nonprofits deserve it. Built trust-first: every organisation is verified
+                before it can accept a rupee.
+            </p>
+            <span class="cs-note">&mdash; trust first, features second</span>
+
+            <div class="cs-meta">
+                <div class="cs-meta-item">
+                    <span class="cs-meta-label">Role</span>
+                    <span class="cs-meta-value">Product &amp; Frontend Engineering</span>
+                </div>
+                <div class="cs-meta-item">
+                    <span class="cs-meta-label">Scope</span>
+                    <span class="cs-meta-value">MVP &mdash; Phase 1</span>
+                </div>
+                <div class="cs-meta-item">
+                    <span class="cs-meta-label">Architecture</span>
+                    <span class="cs-meta-value">API-first modular monolith</span>
+                </div>
+                <div class="cs-meta-item">
+                    <span class="cs-meta-label">Status</span>
+                    <span class="cs-meta-value">In development</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Cover -->
+        <div class="cs-cover" style="--cover-a: rgba(112,96,132,0.18); --cover-b: rgba(63,90,80,0.16);">
+            <svg viewBox="0 0 800 350" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <g fill="none" stroke="var(--accent-primary)">
+                    <circle cx="400" cy="175" r="62" stroke-opacity="0.4"/>
+                    <circle cx="400" cy="175" r="104" stroke-opacity="0.22"/>
+                    <circle cx="400" cy="175" r="146" stroke-opacity="0.11"/>
+                </g>
+                <path d="M400 213 C367 188 348 171 348 150 C348 135 360 124 374 124 C385 124 393 130 400 139 C407 130 415 124 426 124 C440 124 452 135 452 150 C452 171 433 188 400 213 Z"
+                      fill="var(--accent-primary)" fill-opacity="0.24" stroke="var(--accent-primary)" stroke-opacity="0.6" stroke-linejoin="round"/>
+                <g stroke="var(--accent-secondary)" stroke-opacity="0.34" stroke-dasharray="3 6" fill="none">
+                    <path d="M190 120 q210 -46 420 26"/>
+                    <path d="M170 240 q230 60 460 -14"/>
+                </g>
+                <g fill="var(--accent-tertiary)" fill-opacity="0.62">
+                    <circle cx="190" cy="120" r="5"/>
+                    <circle cx="610" cy="146" r="4.5"/>
+                    <circle cx="170" cy="240" r="4"/>
+                    <circle cx="630" cy="226" r="4"/>
+                    <circle cx="264" cy="286" r="3.5"/>
+                    <circle cx="548" cy="72" r="3.5"/>
+                </g>
+                <!-- verification ticks orbiting the centre -->
+                <g stroke="var(--accent-tertiary)" stroke-opacity="0.75" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M243 176 l7 8 l13 -16"/>
+                    <path d="M537 176 l7 8 l13 -16"/>
+                </g>
+            </svg>
+        </div>
+
+        <!-- Problem -->
+        <section class="cs-section">
+            <h2 class="cs-section-title"><i class="fas fa-circle-question"></i> The problem</h2>
+            <div class="cs-section-rule"></div>
+            <p>
+                Someone decides to donate. They search, find a dozen organisations with
+                earnest homepages, and then hit the actual question: <strong>which of these
+                is real, and where does the money go?</strong> Nothing on the page answers it.
+                Every nonprofit claims impact. Registration numbers, if shown at all, are
+                text on a page that nobody has checked.
+            </p>
+            <p>
+                The result is that the intent to give doesn't convert. People either fall
+                back to the two or three household names they already recognise, or they
+                give up. Smaller organisations doing good work stay invisible because they
+                have no way to prove they are trustworthy.
+            </p>
+            <div class="cs-callout">
+                <span class="cs-callout-label">The framing that shaped everything</span>
+                <p>
+                    Trust isn't a feature you add to a donation platform &mdash; it's the
+                    product. So the build order put verification and transparency first
+                    and left the interesting extras for later.
+                </p>
+            </div>
+        </section>
+
+        <!-- Approach -->
+        <section class="cs-section">
+            <h2 class="cs-section-title"><i class="fas fa-compass-drafting"></i> Approach</h2>
+            <div class="cs-section-rule"></div>
+            <p>
+                Phase 1 was scoped as a deliberately small MVP: enough product for a real
+                donor to find a real nonprofit and complete a real donation, and nothing
+                beyond that. The scope was written down as much for what it <em>excluded</em>
+                as what it included.
+            </p>
+            <ul>
+                <li><strong>Accounts and auth</strong> &mdash; registration and login for donors and nonprofit staff, with roles kept distinct from day one.</li>
+                <li><strong>Nonprofit onboarding</strong> &mdash; organisations submit their profile and supporting documents, then wait for review. Nothing goes live unreviewed.</li>
+                <li><strong>Admin portal</strong> &mdash; an internal queue for approving or rejecting registrations, which is the gate the whole trust model hangs on.</li>
+                <li><strong>Browse and search</strong> &mdash; discovery across verified organisations and their campaigns.</li>
+                <li><strong>Campaigns</strong> &mdash; nonprofits raise for something specific rather than into a general fund.</li>
+                <li><strong>Donation flow</strong> &mdash; Stripe end to end, with the payment state handled properly rather than optimistically.</li>
+                <li><strong>Donor dashboard</strong> &mdash; a complete history of what you gave and to whom.</li>
+            </ul>
+            <p>
+                Explicitly deferred: AI recommendations, advanced analytics, mobile apps,
+                social features, multi-country compliance, and complex fundraising
+                workflows. Each is defensible eventually; none of them helps a first user
+                complete a first donation.
+            </p>
+        </section>
+
+        <!-- Decisions -->
+        <section class="cs-section">
+            <h2 class="cs-section-title"><i class="fas fa-code-branch"></i> Decisions worth explaining</h2>
+            <div class="cs-section-rule"></div>
+            <div class="cs-decisions">
+
+                <article class="cs-decision">
+                    <h3>A modular monolith, not microservices</h3>
+                    <p>
+                        The domain boundaries &mdash; accounts, organisations, campaigns,
+                        donations &mdash; are modelled as separate modules inside one
+                        deployable application, with the seams drawn where services would
+                        eventually split.
+                    </p>
+                    <span class="cs-tradeoff">
+                        <strong>Trade-off:</strong> gives up independent scaling per service,
+                        which an MVP with no traffic does not need. Buys a single thing to
+                        run, migrate, and debug &mdash; and the boundaries stay available if
+                        the split is ever worth doing.
+                    </span>
+                </article>
+
+                <article class="cs-decision">
+                    <h3>API-first, so mobile isn't a rewrite</h3>
+                    <p>
+                        Every capability is exposed through the FastAPI layer, and the
+                        Next.js frontend is just its first consumer. No business logic lives
+                        only in the web client.
+                    </p>
+                    <span class="cs-tradeoff">
+                        <strong>Trade-off:</strong> more upfront design than rendering
+                        straight from the server. Means the deferred mobile app is a new
+                        client against a working API rather than a backend rewrite.
+                    </span>
+                </article>
+
+                <article class="cs-decision">
+                    <h3>Verification as a state machine, not a flag</h3>
+                    <p>
+                        A nonprofit moves through explicit states &mdash; submitted, under
+                        review, approved, rejected &mdash; and only an approved organisation
+                        is visible in search or able to receive donations.
+                    </p>
+                    <span class="cs-tradeoff">
+                        <strong>Trade-off:</strong> a human review queue is a real
+                        operational cost and a growth bottleneck. That bottleneck is the
+                        point: an unreviewed listing would make the platform's core promise
+                        meaningless.
+                    </span>
+                </article>
+
+                <article class="cs-decision">
+                    <h3>Stripe holds the money, we hold the record</h3>
+                    <p>
+                        Card data never touches the application. Stripe owns the payment;
+                        the database records the donation and reconciles against Stripe's
+                        webhooks as the source of truth.
+                    </p>
+                    <span class="cs-tradeoff">
+                        <strong>Trade-off:</strong> processing fees and dependence on an
+                        external provider. Removes PCI scope entirely, which for a small
+                        team handling other people's charitable money is not a close call.
+                    </span>
+                </article>
+
+                <article class="cs-decision">
+                    <h3>Managed auth instead of rolling our own</h3>
+                    <p>
+                        Authentication is delegated to Clerk, with the application keeping
+                        only the role and permission model that is actually specific to this
+                        domain.
+                    </p>
+                    <span class="cs-tradeoff">
+                        <strong>Trade-off:</strong> a vendor in the critical login path.
+                        Avoids hand-writing session handling, password resets, and account
+                        recovery &mdash; the classic places small teams ship security bugs.
+                    </span>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- What I built -->
+        <section class="cs-section">
+            <h2 class="cs-section-title"><i class="fas fa-screwdriver-wrench"></i> What I built</h2>
+            <div class="cs-section-rule"></div>
+            <p>
+                My work spanned the product surface and the frontend implementation, with
+                enough backend involvement to keep the API contract honest.
+            </p>
+            <ul>
+                <li>The <strong>nonprofit onboarding flow</strong> &mdash; a multi-step form for profile details and document upload, with save-and-resume so an organisation isn't forced to finish in one sitting.</li>
+                <li>The <strong>admin review queue</strong>, where each submission is presented with its documents side by side and approve/reject is one deliberate action with a reason attached.</li>
+                <li><strong>Browse and search</strong> across verified organisations, with filtering by cause and location, and empty states that suggest a next step rather than showing a blank page.</li>
+                <li><strong>Campaign pages</strong> carrying the goal, progress, and the organisation's verification status in the same view as the donate button.</li>
+                <li>The <strong>donation flow</strong> against Stripe &mdash; including the unglamorous parts: pending states, failed payments, and a receipt that arrives whether or not the browser stayed open.</li>
+                <li>The <strong>donor dashboard</strong>, a plain, complete history of past donations.</li>
+            </ul>
+            <div class="cs-callout">
+                <span class="cs-callout-label">Detail I'd defend</span>
+                <p>
+                    The verification badge links to what was actually checked, rather than
+                    being a decorative tick. A trust signal that can't be interrogated is
+                    just decoration &mdash; and the whole platform exists to avoid that.
+                </p>
+            </div>
+        </section>
+
+        <!-- Engineering practice -->
+        <section class="cs-section">
+            <h2 class="cs-section-title"><i class="fas fa-flask"></i> How it was built</h2>
+            <div class="cs-section-rule"></div>
+            <ul>
+                <li>PostgreSQL with SQLAlchemy models and Alembic migrations, so schema changes are reviewable and reversible.</li>
+                <li>Docker for local development &mdash; the whole stack comes up with one command, which keeps onboarding a new contributor to minutes.</li>
+                <li>Unit tests on the core business logic: donation state transitions, verification state changes, and permission checks.</li>
+                <li>Feature branches and pull requests, with every feature deployable and independently testable rather than merged into a long-running integration branch.</li>
+                <li>S3-compatible object storage for verification documents, kept out of the database and off the public path.</li>
+            </ul>
+            <div class="cs-stack">
+                <span>Next.js</span><span>React</span><span>TypeScript</span><span>FastAPI</span>
+                <span>Python</span><span>PostgreSQL</span><span>SQLAlchemy</span><span>Alembic</span>
+                <span>Stripe</span><span>Clerk</span><span>S3</span><span>Docker</span>
+            </div>
+        </section>
+
+        <!-- Outcome -->
+        <section class="cs-section">
+            <h2 class="cs-section-title"><i class="fas fa-flag-checkered"></i> Where it stands</h2>
+            <div class="cs-section-rule"></div>
+            <p>
+                Phase 1 is a working product rather than a prototype: a donor can register,
+                find a verified nonprofit, give through Stripe, and see the donation in
+                their history &mdash; and no organisation reaches that list without passing
+                human review first.
+            </p>
+            <div class="cs-stats">
+                <div class="cs-stat">
+                    <span class="cs-stat-value">7</span>
+                    <span class="cs-stat-label">MVP capabilities shipped end to end</span>
+                </div>
+                <div class="cs-stat">
+                    <span class="cs-stat-value">100%</span>
+                    <span class="cs-stat-label">of listed nonprofits admin-reviewed before going live</span>
+                </div>
+                <div class="cs-stat">
+                    <span class="cs-stat-value">0</span>
+                    <span class="cs-stat-label">card details stored by the application</span>
+                </div>
+            </div>
+            <p>
+                The next phase earns its features from real usage rather than a roadmap
+                written in advance &mdash; which is why recommendations and analytics were
+                left out of Phase 1 rather than half-built into it.
+            </p>
+        </section>
+
+        <!-- Next -->
+        <nav class="cs-next">
+            <div>
+                <span class="cs-next-label">Next case study</span>
+                <a href="smart-home-security.html">Smart Home Security <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <a href="index.html#projects" class="btn-back"><i class="fas fa-grip"></i> All projects</a>
+        </nav>
+
+    </main>
+
+    <script>
+        // Mobile nav toggle — same behaviour as the other pages.
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', () => {
+                const open = navLinks.classList.toggle('open');
+                navToggle.setAttribute('aria-expanded', String(open));
+            });
+        }
+    </script>
+</body>
+</html>

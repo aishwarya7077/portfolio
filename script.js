@@ -41,14 +41,73 @@ document.addEventListener('DOMContentLoaded', () => {
                 clearInterval(interval);
                 setTimeout(() => {
                     loader.classList.add('hidden');
-                    if (window.location.hash !== '#skyIntro') {
-                        history.replaceState(null, '', '#skyIntro');
-                    }
-                    window.scrollTo(0, 0);
-                    if (typeof lenis !== 'undefined') {
-                        lenis.scrollTo(0, { immediate: true });
-                    }
+
+                    // Arriving with a real deep link (e.g. index.html#projects
+                    // from a case study's "Back to Projects") must win over the
+                    // default hero landing — otherwise the loader would scroll
+                    // the visitor back to the top and lose where they asked to go.
+                    //
+                    // But only honour it when the visitor actually navigated here
+                    // from somewhere. A reload or a casual revisit of a URL that
+                    // still carries #projects should open at the top like any
+                    // first visit, so the hash is consumed once and then cleared.
+                    const incoming = window.location.hash;
+                    const navEntry = performance.getEntriesByType('navigation')[0];
+                    const navType = navEntry ? navEntry.type : null;
+                    const cameFromElsewhere = navType === 'navigate'
+                        && !!document.referrer
+                        && (() => {
+                            try {
+                                const from = new URL(document.referrer);
+                                // Same site, different page — i.e. a case study.
+                                return from.origin === location.origin
+                                    && from.pathname !== location.pathname;
+                            } catch (e) { return false; }
+                        })();
+
+                    const deepLink = incoming && incoming !== '#skyIntro' && cameFromElsewhere
+                        ? document.querySelector(incoming)
+                        : null;
+
                     document.body.style.overflow = '';
+
+                    if (deepLink) {
+                        // Late-loading images and the pinned carousel both shift
+                        // the target's offset, so re-assert the position a few
+                        // times over the first second instead of trusting one
+                        // measurement taken the instant the loader clears.
+                        const land = () => {
+                            if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+                            // A pinned section already sits flush with the top of
+                            // the viewport; everything else has to clear the fixed
+                            // navbar, or the heading hides behind it.
+                            const pinned = deepLink.closest('.pin-spacer') !== null
+                                || deepLink.parentElement?.classList.contains('pin-spacer');
+                            const nav = document.getElementById('navbar');
+                            const offset = pinned ? 0 : (nav ? nav.getBoundingClientRect().height : 0);
+                            const y = deepLink.getBoundingClientRect().top + window.scrollY - offset;
+                            if (typeof lenis !== 'undefined') lenis.scrollTo(y, { immediate: true });
+                            else window.scrollTo(0, y);
+                        };
+                        requestAnimationFrame(() => requestAnimationFrame(land));
+                        [120, 350, 700, 1100].forEach(d => setTimeout(land, d));
+                        window.addEventListener('load', () => setTimeout(land, 60), { once: true });
+
+                        // Drop the hash once we've arrived. The visitor stays put,
+                        // but a reload from here no longer re-triggers the jump.
+                        setTimeout(() => {
+                            history.replaceState(null, '', location.pathname + location.search);
+                        }, 1400);
+                    } else {
+                        if (incoming !== '#skyIntro') {
+                            history.replaceState(null, '', '#skyIntro');
+                        }
+                        window.scrollTo(0, 0);
+                        if (typeof lenis !== 'undefined') {
+                            lenis.scrollTo(0, { immediate: true });
+                        }
+                    }
+
                     // We can restart lenis later if needed, but it's set up outside DOMContentLoaded anyway
                     document.dispatchEvent(new CustomEvent('portfolio:loaderDone'));
                 }, 800);
@@ -86,48 +145,52 @@ AOS.init({
     offset: 60,
 });
 
-// --- Typewriter Effect ---
-const typewriterTexts = [
-    'Software Engineer',
-    'Frontend Developer',
-    'React.js Enthusiast',
-    'UI/UX Designer',
-    'Digital Artist'
-];
-
-let textIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-const typewriterEl = document.getElementById('typewriter');
-
-function typeWriter() {
-    const currentText = typewriterTexts[textIndex];
-    if (isDeleting) {
-        typewriterEl.textContent = currentText.substring(0, charIndex - 1);
-        charIndex--;
-    } else {
-        typewriterEl.textContent = currentText.substring(0, charIndex + 1);
-        charIndex++;
-    }
-    let speed = isDeleting ? 40 : 80;
-    if (!isDeleting && charIndex === currentText.length) {
-        speed = 2000; isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        textIndex = (textIndex + 1) % typewriterTexts.length;
-        speed = 400;
-    }
-    setTimeout(typeWriter, speed);
-}
-typeWriter();
-
 // --- Navbar Scroll ---
+// The navbar itself is gone; the listener stays guarded rather than deleted so
+// nothing breaks if the bar is ever put back.
 const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
-});
+if (navbar) {
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+}
 
-// --- Mobile Navigation (removed) ---
+// --- Mobile Navigation ---
+function initMobileNav() {
+    const toggle = document.getElementById('navMenuToggle');
+    const panel = document.getElementById('mobileNav');
+    const backdrop = document.getElementById('mobileNavBackdrop');
+    if (!toggle || !panel || !backdrop) return;
+
+    const open = () => {
+        panel.classList.add('active');
+        toggle.classList.add('active');
+        toggle.setAttribute('aria-expanded', 'true');
+        panel.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        if (typeof lenis !== 'undefined') lenis.stop();
+    };
+    const close = () => {
+        panel.classList.remove('active');
+        toggle.classList.remove('active');
+        toggle.setAttribute('aria-expanded', 'false');
+        panel.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (typeof lenis !== 'undefined') lenis.start();
+    };
+
+    toggle.addEventListener('click', () => {
+        panel.classList.contains('active') ? close() : open();
+    });
+    backdrop.addEventListener('click', close);
+    panel.querySelectorAll('.mobile-nav-link').forEach((link) => {
+        link.addEventListener('click', close);
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && panel.classList.contains('active')) close();
+    });
+}
+initMobileNav();
 
 // --- Active Nav Link on Scroll ---
 const sections = document.querySelectorAll('section[id]');
@@ -147,7 +210,7 @@ function setActiveNavLink() {
                     }
                 }
             });
-            document.querySelectorAll('.side-nav-link').forEach(link => {
+            document.querySelectorAll('.side-nav-link, .mobile-nav-link').forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('href') === `#${id}`) {
                     link.classList.add('active');
@@ -167,112 +230,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// --- Particle Background ---
-const canvas = document.getElementById('particleCanvas');
-const ctx = canvas.getContext('2d');
-let particles = [];
-const particleCount = 50;
 
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-class Particle {
-    constructor() { this.reset(); }
-    reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2.5 + 0.5;
-        this.speedX = (Math.random() - 0.5) * 0.4;
-        this.speedY = (Math.random() - 0.5) * 0.4;
-        this.opacity = Math.random() * 0.25 + 0.05;
-    }
-    update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-    }
-    draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(109, 40, 217, ${this.opacity})`;
-        ctx.fill();
-    }
-}
-
-function initParticles() {
-    particles = [];
-    for (let i = 0; i < particleCount; i++) particles.push(new Particle());
-}
-
-function connectParticles() {
-    for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 140) {
-                const opacity = (1 - dist / 140) * 0.06;
-                ctx.beginPath();
-                ctx.strokeStyle = `rgba(109, 40, 217, ${opacity})`;
-                ctx.lineWidth = 0.5;
-                ctx.moveTo(particles[i].x, particles[i].y);
-                ctx.lineTo(particles[j].x, particles[j].y);
-                ctx.stroke();
-            }
-        }
-    }
-}
-
-function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => { p.update(); p.draw(); });
-    connectParticles();
-    requestAnimationFrame(animateParticles);
-}
-
-initParticles();
-animateParticles();
-
-// ===== CODE RAIN CANVAS (Hero Avatar) =====
-function initCodeCanvas() {
-    const codeCanvas = document.getElementById('codeCanvas');
-    if (!codeCanvas) return;
-    const cCtx = codeCanvas.getContext('2d');
-    codeCanvas.width = 260;
-    codeCanvas.height = 260;
-
-    const chars = 'const let var function return if else for while => {} [] () import export class new this async await .map .filter React useState useEffect props render div span <> </> npm git push pull merge commit deploy build test'.split(' ');
-    const columns = Math.floor(codeCanvas.width / 14);
-    const drops = Array(columns).fill(0);
-
-    function drawCode() {
-        cCtx.fillStyle = 'rgba(15, 15, 26, 0.12)';
-        cCtx.fillRect(0, 0, codeCanvas.width, codeCanvas.height);
-
-        cCtx.font = '12px monospace';
-
-        drops.forEach((y, i) => {
-            const char = chars[Math.floor(Math.random() * chars.length)];
-            const hue = 270 + Math.random() * 40;
-            const brightness = 50 + Math.random() * 30;
-            cCtx.fillStyle = `hsl(${hue}, 80%, ${brightness}%)`;
-            cCtx.fillText(char.charAt(Math.floor(Math.random() * char.length)), i * 14, y * 14);
-
-            if (y * 14 > codeCanvas.height && Math.random() > 0.96) {
-                drops[i] = 0;
-            }
-            drops[i]++;
-        });
-    }
-
-    setInterval(drawCode, 80);
-}
-initCodeCanvas();
 
 // ===== VINYL CD SCROLL SPIN =====
 function initVinylCd() {
@@ -338,36 +296,6 @@ document.querySelectorAll('.cine-word').forEach((word, i) => {
     });
 });
 
-// --- GSAP Skill Bars ---
-document.querySelectorAll('.skill-fill').forEach(fill => {
-    gsap.to(fill, {
-        width: fill.getAttribute('data-width') + '%',
-        duration: 1.5,
-        ease: 'power2.out',
-        scrollTrigger: {
-            trigger: fill,
-            start: 'top 85%',
-            once: true,
-        }
-    });
-});
-
-// --- GSAP Count Up ---
-document.querySelectorAll('.count-up').forEach(el => {
-    const target = parseInt(el.getAttribute('data-target'));
-    const obj = { val: 0 };
-    gsap.to(obj, {
-        val: target,
-        duration: 2,
-        ease: 'power1.out',
-        onUpdate: () => { el.textContent = Math.floor(obj.val); },
-        scrollTrigger: {
-            trigger: el,
-            start: 'top 85%',
-            once: true,
-        }
-    });
-});
 
 // --- GSAP Project Logo Reveal ---
 document.querySelectorAll('.project-logo').forEach(logo => {
@@ -418,13 +346,7 @@ gsap.utils.toArray('.timeline-card').forEach(card => {
 });
 
 // --- GSAP Navbar Reveal ---
-gsap.from('.navbar', {
-    y: -80,
-    opacity: 0,
-    duration: 1,
-    ease: 'power3.out',
-    delay: 0.5,
-});
+// Dropped along with the navbar it revealed.
 
 // --- GSAP Hero Stagger ---
 gsap.from('.floating-badge', {
@@ -478,8 +400,12 @@ document.querySelectorAll('.skill-category, .interest-card').forEach(card => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        card.style.background = `radial-gradient(circle 220px at ${x}px ${y}px, rgba(217,155,184,0.18), transparent 70%)`;
-        card.style.boxShadow = `0 0 30px rgba(217,155,184,0.25), 0 18px 40px rgba(0,0,0,0.4)`;
+        // Paper is matte: no glow. A faint warm wash tracks the cursor
+        // like light raking across the sheet, and the cast shadow deepens.
+        // Clean surface: a faint warm sheen tracks the cursor, and the
+        // natural shadow deepens. No colour wash over the card body.
+        card.style.background = `radial-gradient(circle 300px at ${x}px ${y}px, rgba(180,85,61,0.045), rgba(255,255,255,0) 68%), #FFFFFF`;
+        card.style.boxShadow = `0 8px 16px rgba(60,50,40,0.08), 0 24px 56px rgba(60,50,40,0.12)`;
     });
     card.addEventListener('mouseleave', () => {
         card.style.background = '';
@@ -519,18 +445,65 @@ function initLightbox() {
 initLightbox();
 
 // --- Contact Form ---
+// Submissions POST to Web3Forms, which stores every entry in an online inbox
+// at web3forms.com and emails a copy to the address the key is registered to.
+const WEB3FORMS_ACCESS_KEY = 'd0431d09-3cd2-4571-b56a-4fd34e959915';
+
 const contactForm = document.getElementById('contactForm');
-contactForm.addEventListener('submit', (e) => {
+const formStatus = document.getElementById('formStatus');
+
+contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+
     const btn = contactForm.querySelector('.btn-submit');
     const orig = btn.innerHTML;
-    btn.innerHTML = '<span>Message Sent!</span><i class="fas fa-check"></i>';
-    btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-    setTimeout(() => {
+
+    const setStatus = (text, state) => {
+        if (!formStatus) return;
+        formStatus.textContent = text;
+        formStatus.className = 'form-status' + (state ? ' is-' + state : '');
+    };
+
+    if (WEB3FORMS_ACCESS_KEY === 'YOUR_ACCESS_KEY_HERE') {
+        setStatus('Form not configured yet — add your Web3Forms access key.', 'error');
+        return;
+    }
+
+    // Sent as FormData rather than a JSON body on purpose: a JSON
+    // Content-Type triggers a CORS preflight that the API does not answer.
+    const payload = new FormData();
+    payload.append('access_key', WEB3FORMS_ACCESS_KEY);
+    payload.append('name', document.getElementById('name').value.trim());
+    payload.append('email', document.getElementById('email').value.trim());
+    payload.append('subject', document.getElementById('subject').value.trim());
+    payload.append('message', document.getElementById('message').value.trim());
+
+    btn.disabled = true;
+    btn.innerHTML = '<span>Sending...</span><i class="fas fa-spinner fa-spin"></i>';
+    setStatus('');
+
+    try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: payload,
+        });
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+            contactForm.reset();
+            btn.innerHTML = '<span>Message sent</span><i class="fas fa-check"></i>';
+            setStatus('Thanks! Your message is on its way.', 'success');
+        } else {
+            throw new Error(data.message || 'Submission failed');
+        }
+    } catch (err) {
         btn.innerHTML = orig;
-        btn.style.background = '';
-        contactForm.reset();
-    }, 3000);
+        setStatus('Something went wrong. Please email aishwaryadutpala@gmail.com directly.', 'error');
+        console.error('Contact form error:', err);
+    } finally {
+        btn.disabled = false;
+        setTimeout(() => { btn.innerHTML = orig; }, 3500);
+    }
 });
 
 // ===== EYE ANIMATION =====
@@ -669,54 +642,7 @@ function initSkyIntro() {
 initSkyIntro();
 
 
-// ===== CUSTOM ANIMATED CURSOR =====
-function initCustomCursor() {
-    const dot = document.getElementById('cursorDot');
-    const ring = document.getElementById('cursorRing');
-    if (!dot || !ring) return;
 
-    // Hide on touch devices
-    if ('ontouchstart' in window) {
-        dot.style.display = 'none';
-        ring.style.display = 'none';
-        return;
-    }
-
-    document.body.style.cursor = 'none';
-
-    let dotX = 0, dotY = 0, ringX = 0, ringY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-        dotX = e.clientX;
-        dotY = e.clientY;
-    });
-
-    function animateCursor() {
-        ringX += (dotX - ringX) * 0.15;
-        ringY += (dotY - ringY) * 0.15;
-
-        dot.style.left = dotX + 'px';
-        dot.style.top = dotY + 'px';
-        ring.style.left = ringX + 'px';
-        ring.style.top = ringY + 'px';
-
-        requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-
-    // Hover effects on interactive elements
-    const hoverTargets = document.querySelectorAll('a, button, .project-card, .skill-category, .interest-card, .btn, input, textarea, .gallery-frame');
-    hoverTargets.forEach(el => {
-        el.style.cursor = 'none';
-        el.addEventListener('mouseenter', () => ring.classList.add('hover'));
-        el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
-    });
-
-    // Click effect
-    document.addEventListener('mousedown', () => dot.classList.add('click'));
-    document.addEventListener('mouseup', () => dot.classList.remove('click'));
-}
-initCustomCursor();
 
 // ===== 3D TEXT SPLIT ANIMATION =====
 function initTextSplitAnimations() {
@@ -837,31 +763,7 @@ function initSkillCardTilt() {
 }
 initSkillCardTilt();
 
-// ===== FLOATING 3D SKILL ORBS PARALLAX =====
-function initSkillOrbs() {
-    const container = document.getElementById('skillOrbs');
-    if (!container) return;
 
-    const orbs = container.querySelectorAll('.skill-orb');
-
-    container.addEventListener('mousemove', (e) => {
-        const rect = container.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-
-        orbs.forEach((orb, i) => {
-            const depth = 1 + (i % 3) * 0.4;
-            const moveX = x * 15 * depth;
-            const moveY = y * 10 * depth;
-            orb.style.transform = `translate(${moveX}px, ${moveY}px) rotateY(${x * 8}deg)`;
-        });
-    });
-
-    container.addEventListener('mouseleave', () => {
-        orbs.forEach(orb => { orb.style.transform = ''; });
-    });
-}
-initSkillOrbs();
 
 
 // ===== 3D INTEREST CARDS TILT =====
@@ -1022,12 +924,40 @@ function initParticleText() {
             const pCount = Math.max(1, Math.min(50, particleCount));
             const stride = Math.max(2, Math.round(150 / pCount));
 
+            /* One point sample per cell drops any stroke thinner than the
+               grid that never happens to land on it — the capital A lost
+               its left leg and apex that way, while upright stems on the
+               other letters survived. Test the whole cell instead: if any
+               covered device pixel falls inside it, the cell earns a
+               particle. Diagonals and hairline serifs then read as solid
+               as the stems do. */
+            const imgW = img.width, imgH = img.height;
+            const cellPx = Math.max(1, Math.round(stride * dpr));
+            /* Coverage, not "any pixel": lighting a cell on a single covered
+               pixel dilates every stroke by up to a full cell, which fattens
+               the letterforms and rounds the serifs off — it reads as a
+               heavier, blockier typeface. Asking for roughly a third of the
+               cell keeps the original weight while still catching a diagonal
+               that a lone sample point would have missed. */
+            const COVER_MIN = 0.35;
+            function cellCovered(x, y) {
+                const x0 = Math.floor(x * dpr), y0 = Math.floor(y * dpr);
+                const x1 = Math.min(imgW, x0 + cellPx), y1 = Math.min(imgH, y0 + cellPx);
+                let hits = 0, total = 0;
+                for (let iy = y0; iy < y1; iy++) {
+                    let idx = (iy * imgW + x0) * 4 + 3;
+                    for (let ix = x0; ix < x1; ix++, idx += 4) {
+                        total++;
+                        if (data[idx] > 128) hits++;
+                    }
+                }
+                return total > 0 && hits / total >= COVER_MIN;
+            }
+
             let candidates = 0;
             for (let y = 0; y < H; y += stride) {
                 for (let x = 0; x < W; x += stride) {
-                    const ix = Math.floor(x * dpr), iy = Math.floor(y * dpr);
-                    const idx = (iy * img.width + ix) * 4 + 3;
-                    if (data[idx] > 128) candidates++;
+                    if (cellCovered(x, y)) candidates++;
                 }
             }
 
@@ -1045,9 +975,7 @@ function initParticleText() {
             let i = 0, seen = 0;
             for (let y = 0; y < H && i < allocCount; y += stride) {
                 for (let x = 0; x < W && i < allocCount; x += stride) {
-                    const ix = Math.floor(x * dpr), iy = Math.floor(y * dpr);
-                    const idx = (iy * img.width + ix) * 4 + 3;
-                    if (data[idx] > 128) {
+                    if (cellCovered(x, y)) {
                         if (seen % downsample === 0) {
                             newOx[i] = x; newOy[i] = y;
                             const ang = Math.random() * Math.PI * 2;
@@ -1280,6 +1208,7 @@ function initParticleText() {
         rafId = requestAnimationFrame(loop);
 
         return {
+            resample() { resize(); tryEnter && tryEnter(); },
             dispose() {
                 if (rafId != null) cancelAnimationFrame(rafId);
                 canvas.removeEventListener('pointermove', onMove);
@@ -1298,7 +1227,7 @@ function initParticleText() {
 
     const VARIANTS = {
         name: {
-            colors: ['#ffffff', '#e8b8d0', '#ffffff'],
+            colors: ['#23201C', '#B4553D', '#55504A'],
             particleCount: 48,
             particleSize: 6,
             fontSize: 54,
@@ -1307,7 +1236,7 @@ function initParticleText() {
             transition: { type: 'tween', duration: 2.2, ease: 'easeOut' },
         },
         tagline: {
-            colors: ['#ffffff', '#e8b8d0', '#ffffff'],
+            colors: ['#23201C', '#B4553D', '#55504A'],
             particleCount: 50,
             particleSize: 4,
             fontSize: 34,
@@ -1317,17 +1246,53 @@ function initParticleText() {
         },
     };
 
-    nodes.forEach((el) => {
-        const variant = VARIANTS[el.getAttribute('data-particle-variant')] || VARIANTS.tagline;
-        createParticleText(el, {
-            text: el.getAttribute('data-particle-text') || '',
-            mode: 'onEnter',
-            replay: false,
-            position: 'above',
-            mouseEnabled: true,
-            autoFit: true,
-            ...variant,
+    function build() {
+        return Array.from(nodes).map((el) => {
+            const variant = VARIANTS[el.getAttribute('data-particle-variant')] || VARIANTS.tagline;
+            return createParticleText(el, {
+                text: el.getAttribute('data-particle-text') || '',
+                mode: 'onEnter',
+                replay: false,
+                position: 'above',
+                mouseEnabled: true,
+                autoFit: true,
+                ...variant,
+            });
         });
+    }
+
+    /* The sampler rasterises the name to an offscreen canvas, and canvas text
+       does not wait for a webfont the way the DOM does — with Source Serif 4
+       still in flight it silently draws Georgia instead, so the dots spell the
+       name in the wrong face at the wrong size and stay that way for the life
+       of the page. Sample only once the real face is in the document's font
+       set, capped so a slow font CDN cannot hold the hero hostage, and sample
+       again if it lands after that cap. */
+    const FONT_PROBES = ['700 54px "Source Serif 4"', '700 34px "Source Serif 4"'];
+
+    function whenFontReady() {
+        if (!document.fonts || !document.fonts.load) return Promise.resolve();
+        const loaded = Promise.all(FONT_PROBES.map((f) => document.fonts.load(f)))
+            .then(() => document.fonts.ready)
+            .catch(() => {});
+        const cap = new Promise((resolve) => setTimeout(resolve, 3000));
+        return Promise.race([loaded, cap]);
+    }
+
+    function fontsPresent() {
+        if (!document.fonts || !document.fonts.check) return true;
+        try { return FONT_PROBES.every((f) => document.fonts.check(f)); } catch (e) { return true; }
+    }
+
+    whenFontReady().then(() => {
+        const instances = build();
+        if (fontsPresent()) return;
+        // The cap won the race. Redraw once the face actually arrives.
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(() => {
+                instances.forEach((inst) => inst && inst.resample());
+            }).catch(() => {});
+        }
     });
 }
 // Wait for the retro loader to finish so the assembly animation is actually
@@ -1352,7 +1317,7 @@ function initRibbonTrails() {
     if (!ctx) return;
 
     const cfg = {
-        colors: ['#d99bb8', '#c8a8e0', '#b06a9c', '#f3e9f1'],
+        colors: ['#B4553D', '#3F5A50', '#93402C', '#A9A29A'],
         colorShift: 1.4,
         opacity: 45,
         thickness: 2,
@@ -1608,7 +1573,7 @@ function initClickEffects() {
     if (!layer || typeof gsap === 'undefined') return;
 
     const cfg = {
-        color: '#d99bb8',
+        color: '#B4553D',
         duration: 0.3,
         strokeWidth: 2,
         effectSize: 90,
@@ -1725,18 +1690,28 @@ function createParticleImage(container, cfgOverrides) {
 
     const cfg = Object.assign({
         particleCount: 50,
-        particleSize: 5,
+        particleSize: 11,
         particleShape: 'circle',
         hoverEnabled: true,
         hoverType: 'roam',
         transition: { duration: 2.5, ease: 'easeInOut' },
-        roamOpacity: 0.5,
+        roamOpacity: 1,
         roamShape: 'circle',
         repulsionEnabled: true,
         repulsionForce: 8,
         repulsionRadius: 60,
         scale: 10,
         viewportTrigger: false,
+        // Tone shaping: the raw photo has large pale areas (sky,
+        // paper, highlights) whose dots all but vanish against a
+        // light page. These deepen and firm up each sampled dot so
+        // the image reads clearly without losing its colour.
+        contrast: 1.15,     // gentle S-curve; too much blows out pale areas
+        darken: 0.34,       // 0..1, multiplies overall brightness down
+        maxLum: 205,        // ceiling: no dot may be paler than this, so
+                            // sky/skin/paper still register as real marks
+        minAlpha: 255,      // every dot fully opaque
+        saturate: 1.15,     // restores colour lost to the darkening
     }, cfgOverrides || {});
 
     function containRect(iW, iH, cW, cH) {
@@ -1841,9 +1816,42 @@ function createParticleImage(container, cfgOverrides) {
         }, durMs);
     };
 
+    // Deepen a sampled pixel so it stays legible as a discrete dot
+    // on a light background: apply contrast about mid-grey, pull
+    // brightness down, restore a little saturation lost to the
+    // darkening, and enforce an alpha floor.
+    function shapeTone(r, g, b, a) {
+        const C = cfg.contrast, D = 1 - cfg.darken, S = cfg.saturate;
+        let rr = ((r / 255 - 0.5) * C + 0.5) * 255 * D;
+        let gg = ((g / 255 - 0.5) * C + 0.5) * 255 * D;
+        let bb = ((b / 255 - 0.5) * C + 0.5) * 255 * D;
+        const lum = 0.2126 * rr + 0.7152 * gg + 0.0722 * bb;
+        rr = lum + (rr - lum) * S;
+        gg = lum + (gg - lum) * S;
+        bb = lum + (bb - lum) * S;
+        // Cap brightness: pale dots are scaled toward the ceiling as a
+        // whole colour, which preserves their hue instead of greying
+        // them out the way a per-channel clamp would.
+        const lum2 = 0.2126 * rr + 0.7152 * gg + 0.0722 * bb;
+        if (lum2 > cfg.maxLum && lum2 > 0) {
+            const k = cfg.maxLum / lum2;
+            rr *= k; gg *= k; bb *= k;
+        }
+        const clamp = (v) => (v < 0 ? 0 : v > 255 ? 255 : Math.round(v));
+        return [clamp(rr), clamp(gg), clamp(bb), Math.max(cfg.minAlpha, a)];
+    }
+
+    // The wrap is measured more than once while the page settles (lazy
+    // images, fonts, the pinned layout). Each run loads the source image
+    // asynchronously, so without a token the *earlier, smaller* box can
+    // finish last and overwrite the particles built for the final size —
+    // which left the artwork rendered small in a corner of the frame.
+    let initToken = 0;
+
     function initParticles() {
         const { W, H } = dims;
         if (!W || !H) return;
+        const myToken = ++initToken;
         const gap = Math.max(2, Math.round(150 / Math.max(1, cfg.particleCount)));
         const dpr = window.devicePixelRatio || 1;
         canvas.width = Math.round(W * dpr);
@@ -1853,6 +1861,7 @@ function createParticleImage(container, cfgOverrides) {
 
         const img = new Image();
         img.onload = () => {
+            if (myToken !== initToken) return;   // a newer measurement won
             const base = containRect(img.naturalWidth || img.width, img.naturalHeight || img.height, W, H);
             const f = Math.max(1, Math.min(20, cfg.scale)) / 10;
             const w = base.w * f, h = base.h * f;
@@ -1873,7 +1882,8 @@ function createParticleImage(container, cfgOverrides) {
                 for (let x = 0; x < W; x += gap) {
                     const i = (y * W + x) * 4;
                     if (px[i + 3] >= 20) {
-                        src.push({ homeX: x, homeY: y, r: px[i], g: px[i + 1], b: px[i + 2], a: px[i + 3] });
+                        const t = shapeTone(px[i], px[i + 1], px[i + 2], px[i + 3]);
+                        src.push({ homeX: x, homeY: y, r: t[0], g: t[1], b: t[2], a: t[3] });
                     }
                 }
             }
@@ -2097,9 +2107,16 @@ function initParticleImage() {
             ? { hoverEnabled: false, roamOpacity: 1 }
             : null;
         if (el.id === 'particleImageWrap') {
-            createParticleImage(el, Object.assign({ particleCount: 35, particleSize: 3 }, overrides));
+            createParticleImage(el, Object.assign({ particleCount: 30, particleSize: 17 }, overrides));
         } else if (el.classList.contains('gallery-particle-wrap')) {
-            createParticleImage(el, Object.assign({ viewportTrigger: true }, overrides));
+            // scale 11 => the art slightly overfills its contain-box, so the
+            // piece reads large in the frame rather than floating inside it.
+            createParticleImage(el, Object.assign({
+                viewportTrigger: true,
+                scale: 11,
+                particleCount: 44,
+                particleSize: 13,
+            }, overrides));
         } else {
             createParticleImage(el, overrides);
         }
@@ -2223,5 +2240,334 @@ gsap.utils.toArray('.stat-item').forEach((item, i) => {
         }
     });
 });
+
+
+
+
+
+// ===== ABOUT: CROSSED PRINTS =====
+// Two photos overlap on the desk. Clicking either one brings the other
+// to the front, so tapping the stack cycles the pair. All the movement
+// is CSS -- this only flips a class so the two figures trade roles.
+function initAboutPrints() {
+    const stack = document.getElementById('aboutPrintStack');
+    if (!stack) return;
+
+    const labels = {
+        front: 'Bring the sky photo to the front',
+        back: 'Bring the portrait to the front',
+    };
+
+    function syncLabels() {
+        // Each button always describes the print that is currently
+        // behind, because that is the one a click brings forward.
+        const swapped = stack.classList.contains('swapped');
+        const behind = swapped ? labels.front : labels.back;
+        stack.querySelectorAll('.about-print-flip').forEach((btn) => {
+            btn.setAttribute('aria-label', behind);
+        });
+    }
+
+    stack.querySelectorAll('.about-print-flip').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            stack.classList.toggle('swapped');
+            syncLabels();
+        });
+    });
+
+    syncLabels();
+}
+initAboutPrints();
+
+// ===== INTERACTIVE LAB MODAL =====
+// The Lab is not part of the page flow; it opens from the nav.
+// The WebGL scene keeps its own IntersectionObserver (see fabric.js):
+// while the modal is display:none the stage never intersects, so the
+// render loop stays parked and only spins up once the panel is open.
+function initLabModal() {
+    const modal = document.getElementById('labModal');
+    const backdrop = document.getElementById('labModalBackdrop');
+    const closeBtn = document.getElementById('labModalClose');
+    const stage = document.getElementById('fabricStage');
+    if (!modal || !backdrop || !closeBtn) return;
+
+    let lastFocus = null;
+
+    const open = (e) => {
+        if (e) e.preventDefault();
+        lastFocus = document.activeElement;
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        if (typeof lenis !== 'undefined') lenis.stop();
+        // The stage was laid out at zero size while hidden, so the
+        // renderer needs a nudge once the panel has real dimensions.
+        requestAnimationFrame(() => {
+            window.dispatchEvent(new Event('resize'));
+            if (stage) stage.dispatchEvent(new Event('lab:shown'));
+        });
+        closeBtn.focus();
+    };
+
+    const close = () => {
+        if (!modal.classList.contains('active')) return;
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (typeof lenis !== 'undefined') lenis.start();
+        if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+    };
+
+    document.querySelectorAll('[data-open-lab]').forEach((el) => {
+        el.addEventListener('click', (e) => {
+            open(e);
+            // Close the mobile drawer if the link came from there.
+            const drawer = document.getElementById('mobileNav');
+            if (drawer && drawer.classList.contains('active')) {
+                drawer.classList.remove('active');
+                drawer.setAttribute('aria-hidden', 'true');
+                const toggle = document.getElementById('navMenuToggle');
+                if (toggle) toggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    });
+
+    closeBtn.addEventListener('click', close);
+    backdrop.addEventListener('click', close);
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') close();
+    });
+
+    // Deep link: /#lab opens the panel directly.
+    if (window.location.hash === '#lab') open();
+}
+initLabModal();
+
+// ===== AOS OFFSET REFRESH =====
+// AOS caches each element's page position at init. Anything that
+// changes layout afterwards — fonts swapping in, images arriving,
+// the masked contact sheet resolving its height — leaves those
+// offsets stale, and elements whose real position moved past the
+// cached trigger point never receive .aos-animate. With once:true
+// they then stay at opacity:0 permanently.
+//
+// This was leaving two of the three contact rows (LinkedIn and
+// Location) invisible. Refreshing after load, after fonts settle,
+// and on resize recomputes the offsets against real layout.
+(function refreshAOSOffsets() {
+    if (typeof AOS === 'undefined') return;
+    const refresh = () => AOS.refreshHard();
+
+    window.addEventListener('load', refresh);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(refresh);
+    window.addEventListener('resize', refresh);
+    // A late pass catches anything that settles after first paint.
+    setTimeout(refresh, 1200);
+
+    // Safety net: if an element is well inside the viewport but has
+    // still not been animated, reveal it. Without this an element
+    // that slips through stays invisible forever under once:true.
+    const sweep = () => {
+        document.querySelectorAll('[data-aos]:not(.aos-animate)').forEach((el) => {
+            const r = el.getBoundingClientRect();
+            if (r.height && r.top < window.innerHeight * 0.9 && r.bottom > 0) {
+                el.classList.add('aos-animate');
+            }
+        });
+    };
+    window.addEventListener('scroll', sweep, { passive: true });
+    window.addEventListener('load', () => setTimeout(sweep, 900));
+})();
+
+// ===== FEATURED PROJECTS — HORIZONTAL CAROUSEL =====
+// The section pins and the card track slides right-to-left as the user
+// scrolls. Once the last card has passed, the pin releases and the next
+// section continues normally — so a single downward scroll gesture carries
+// you through the deck and then onward.
+//
+// Guarded: wide viewports with a pointer only. Narrow screens and
+// reduced-motion users keep the plain vertical grid, which is why all the
+// horizontal CSS hangs off the .hscroll-active class this function adds.
+function initProjectsCarousel() {
+    const section = document.getElementById('projects');
+    const viewport = document.getElementById('projectsHScroll');
+    const track = document.getElementById('projectsTrack');
+    const progressBar = document.querySelector('#hscrollProgress .hscroll-progress-bar');
+    if (!section || !viewport || !track) return;
+
+    const MIN_WIDTH = 901;
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    let tween = null;
+    let trigger = null;
+
+    function eligible() {
+        return window.innerWidth >= MIN_WIDTH && !motionQuery.matches;
+    }
+
+    // How far the track must travel: its full width minus what's already
+    // visible. Measured live so filtering and resizing stay correct.
+    function distance() {
+        return Math.max(0, track.scrollWidth - viewport.clientWidth);
+    }
+
+    // The pinned section has to fit one screen. Measure the chrome (heading,
+    // tabs, progress rail) and the tallest card's *text* block, then give the
+    // artwork whatever is left. Text is never shrunk or clipped: if even the
+    // text cannot fit, the chrome compresses first, and only then does the
+    // section give up on fitting and simply pin as a tall block.
+    function fitTrack() {
+        if (!document.body.classList.contains('hscroll-active')) return;
+
+        const header = section.querySelector('.section-header');
+        const filters = section.querySelector('.project-filters');
+        const rail = document.getElementById('hscrollProgress');
+
+        // Tallest text block across the visible cards - this is the floor the
+        // layout must respect, because clipping it hides the tech tags and
+        // the case-study link.
+        const infos = [].slice.call(track.querySelectorAll('.project-card'))
+            .filter(function (c) { return getComputedStyle(c).display !== 'none'; })
+            .map(function (c) { return c.querySelector('.project-info'); })
+            .filter(Boolean);
+        const infoH = infos.length
+            ? Math.max.apply(null, infos.map(function (el) { return el.scrollHeight; }))
+            : 380;
+        section.style.setProperty('--info-h', Math.round(infoH) + 'px');
+
+        function chromeHeight() {
+            const styles = getComputedStyle(section);
+            let total = parseFloat(styles.paddingTop) + parseFloat(styles.paddingBottom);
+            [header, filters, rail].forEach(function (el) {
+                if (!el) return;
+                const r = el.getBoundingClientRect();
+                const m = getComputedStyle(el);
+                total += r.height + parseFloat(m.marginTop) + parseFloat(m.marginBottom);
+            });
+            return total + 40;   // track padding + card shadows
+        }
+
+        const MIN_ART = 96;      // artwork floor, matches the CSS clamp
+
+        // Start roomy, then tighten the chrome only as far as needed.
+        section.classList.remove('is-compact', 'is-tight');
+        let budget = window.innerHeight - chromeHeight();
+
+        if (budget < infoH + MIN_ART) {
+            section.classList.add('is-compact');
+            budget = window.innerHeight - chromeHeight();
+        }
+        if (budget < infoH + MIN_ART) {
+            section.classList.add('is-tight');
+            budget = window.innerHeight - chromeHeight();
+        }
+
+        section.style.setProperty('--track-h', Math.round(Math.max(infoH + MIN_ART, budget)) + 'px');
+    }
+
+    function build() {
+        if (!eligible() || tween) return;
+
+        document.body.classList.add('hscroll-active');
+        fitTrack();
+
+        // Let the flex layout settle before measuring.
+        const shift = distance();
+        if (shift <= 0) {
+            document.body.classList.remove('hscroll-active');
+            return;
+        }
+
+        tween = gsap.to(track, {
+            x: () => -distance(),
+            ease: 'none',
+            scrollTrigger: {
+                trigger: section,
+                start: 'top top',
+                // Pin for exactly the horizontal distance, so the scroll
+                // gesture maps 1:1 and the section releases the moment the
+                // last card lands.
+                end: () => '+=' + distance(),
+                pin: true,
+                scrub: 1,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+                onRefresh: fitTrack,
+                onUpdate: (self) => {
+                    if (progressBar) {
+                        progressBar.style.width = (self.progress * 100).toFixed(2) + '%';
+                    }
+                },
+            },
+        });
+
+        trigger = tween.scrollTrigger;
+    }
+
+    function teardown() {
+        if (!tween) return;
+        section.style.removeProperty('--track-h');
+        section.style.removeProperty('--info-h');
+        section.classList.remove('is-compact', 'is-tight');
+        tween.scrollTrigger && tween.scrollTrigger.kill();
+        tween.kill();
+        tween = null;
+        trigger = null;
+        gsap.set(track, { clearProps: 'transform' });
+        document.body.classList.remove('hscroll-active');
+        if (progressBar) progressBar.style.width = '0%';
+    }
+
+    function sync() {
+        if (eligible()) {
+            if (!tween) build();
+            else { fitTrack(); ScrollTrigger.refresh(); }
+        } else {
+            teardown();
+        }
+    }
+
+    build();
+
+    // Filtering changes the track's width, so the pin distance has to be
+    // recomputed or the section would pin for the wrong length.
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Wait for the filter's own class changes to apply.
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    // Return to the start so the shortened track isn't left
+                    // scrolled past its new end.
+                    gsap.set(track, { x: 0 });
+                    // A filtered set can be narrow enough to need no
+                    // horizontal travel at all. Pinning with zero distance
+                    // would freeze the section, so drop the pin and let the
+                    // remaining cards sit as a normal row.
+                    if (tween && distance() <= 0) {
+                        teardown();
+                    } else if (tween) {
+                        ScrollTrigger.refresh();
+                    } else {
+                        build();
+                    }
+                });
+            });
+        });
+    });
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(sync, 200);
+    });
+
+    if (motionQuery.addEventListener) {
+        motionQuery.addEventListener('change', sync);
+    }
+
+    // Images and fonts landing late change the measured width.
+    window.addEventListener('load', () => ScrollTrigger.refresh());
+}
+initProjectsCarousel();
 
 
