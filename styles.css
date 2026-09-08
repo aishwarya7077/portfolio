@@ -4326,12 +4326,44 @@ h1, h2, h3 {
     background: radial-gradient(120% 90% at 16% 5%,
         #FFFDF9 0%, #F7F3EA 46%, #EEE8DB 100%) !important;
 }
+
+/* With the doodles withdrawn the sheet read as flat fill. Depth is
+   put back the way paper actually has it, in layers rather than
+   objects: broad washes of thinned colour beneath, a faint
+   sketchbook grid and the paper weave above, and a soft vignette
+   drawing the eye to the centred name. Nothing here has an edge
+   sharp enough to compete with the title. */
+.sky-bg::before {
+    content: "";
+    position: absolute;
+    inset: -10%;
+    background:
+        radial-gradient(38% 44% at 22% 28%, rgba(180, 85, 61, 0.13) 0%, rgba(180, 85, 61, 0) 70%),
+        radial-gradient(42% 40% at 80% 68%, rgba(63, 90, 80, 0.10) 0%, rgba(63, 90, 80, 0) 72%),
+        radial-gradient(30% 34% at 68% 14%, rgba(201, 162, 110, 0.12) 0%, rgba(201, 162, 110, 0) 70%);
+    filter: blur(14px);
+    pointer-events: none;
+}
+
+/* A long, shallow drift — slow enough that it registers as the page
+   breathing rather than as animation. */
+@media (prefers-reduced-motion: no-preference) {
+    .sky-bg::before { animation: skyWash 34s ease-in-out infinite alternate; }
+}
+@keyframes skyWash {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to   { transform: translate3d(2.5%, -2%, 0) scale(1.06); }
+}
+
 .sky-bg::after {
     content: "";
     position: absolute; inset: 0;
     background-image:
+        radial-gradient(115% 85% at 50% 45%, rgba(0, 0, 0, 0) 56%, rgba(92, 76, 58, 0.075) 100%),
+        repeating-linear-gradient(0deg,  rgba(120,100,75,0.045) 0 1px, transparent 1px 34px),
+        repeating-linear-gradient(90deg, rgba(120,100,75,0.045) 0 1px, transparent 1px 34px),
         repeating-linear-gradient(96deg, rgba(120,100,75,0.016) 0 1px, transparent 1px 4px),
-        repeating-linear-gradient(2deg, rgba(120,100,75,0.012) 0 1px, transparent 1px 5px);
+        repeating-linear-gradient(2deg,  rgba(120,100,75,0.012) 0 1px, transparent 1px 5px);
     pointer-events: none;
 }
 .sky-name { color: var(--text-primary); }
@@ -6044,64 +6076,12 @@ html { overflow-x: hidden; }
 /* ============================================================
    60. SKY INTRO — an open sketchbook page
    ------------------------------------------------------------
-   The intro screen was almost bare. It now carries a scattered
-   set of art marks around the title: they sit well outside the
-   centred text, fade in gently, and drift very slightly so the
-   page feels alive without pulling focus from the name.
+   The intro screen once carried a scattered set of art marks
+   around the title. They have been withdrawn: the ribbon trail
+   and the assembling name are the whole event here, and the
+   doodles competed with both. The marks themselves live on in
+   the .desk-scatter sections further down the page.
    ============================================================ */
-.sky-doodles {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-    z-index: 1;
-}
-.sky-doodles > * {
-    position: absolute;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    opacity: 0;
-    animation: skyDoodleIn 1.2s ease forwards;
-}
-@keyframes skyDoodleIn {
-    from { opacity: 0; transform: translateY(10px) rotate(var(--rot, 0deg)); }
-    to   { opacity: var(--op, 0.55); transform: translateY(0) rotate(var(--rot, 0deg)); }
-}
-
-/* Placement: a ring around the centred title, biased to the
-   corners so the middle third stays clear for the text. */
-.sky-d1 { top: 12%; left: 7%;   --rot: -12deg; --op: 0.5;  animation-delay: 0.25s; }
-.sky-d2 { top: 18%; right: 9%;  --rot: 10deg;  --op: 0.45; animation-delay: 0.40s; }
-.sky-d3 { bottom: 16%; left: 12%; --rot: 6deg; --op: 0.5;  animation-delay: 0.55s; }
-.sky-d4 { bottom: 20%; right: 11%; --rot: -8deg; --op: 0.45; animation-delay: 0.70s; }
-.sky-d5 { top: 46%; left: 3%;   --rot: 14deg;  --op: 0.38; animation-delay: 0.85s; }
-.sky-d6 { top: 52%; right: 4%;  --rot: -14deg; --op: 0.38; animation-delay: 1.00s; }
-.sky-d7 { top: 8%;  left: 42%;  --rot: 8deg;   --op: 0.30; animation-delay: 1.10s; }
-.sky-d8 { bottom: 8%; right: 38%; --rot: -6deg; --op: 0.30; animation-delay: 1.20s; }
-
-/* A gentle drift, long and shallow, so nothing distracts. */
-@media (prefers-reduced-motion: no-preference) {
-    .sky-d1, .sky-d4, .sky-d6 { animation: skyDoodleIn 1.2s ease forwards, skyFloat 17s ease-in-out infinite 1.4s; }
-    .sky-d2, .sky-d3, .sky-d5 { animation: skyDoodleIn 1.2s ease forwards, skyFloat 21s ease-in-out infinite 1.8s reverse; }
-}
-@keyframes skyFloat {
-    0%,100% { transform: translateY(0)    rotate(var(--rot, 0deg)); }
-    50%     { transform: translateY(-13px) rotate(calc(var(--rot, 0deg) + 2deg)); }
-}
-
-/* The intro is a full-bleed hero; on small screens the margins
-   vanish, so the outermost marks are withdrawn. */
-@media (max-width: 1100px) {
-    .sky-d5, .sky-d6, .sky-d7, .sky-d8 { display: none; }
-}
-@media (max-width: 700px) {
-    .sky-d1, .sky-d2, .sky-d3, .sky-d4 { transform: scale(0.72); }
-    .sky-doodles > * { --op: 0.34; }
-}
-@media (prefers-reduced-motion: reduce) {
-    .sky-doodles > * { animation: none; opacity: var(--op, 0.45); }
-}
 
 /* Two extra margin slots so a section can carry 3–4 marks without
    them bunching. Both sit outside the 1200px content column. */
@@ -6117,10 +6097,6 @@ html { overflow-x: hidden; }
    staying well below the contrast of real content.
    ------------------------------------------------------------ */
 .desk-scatter > * { opacity: 0.72; }
-.sky-doodles > * { --op: 0.62; }
-.sky-d5, .sky-d6 { --op: 0.5; }
-.sky-d7, .sky-d8 { --op: 0.44; }
-@media (max-width: 700px) { .sky-doodles > * { --op: 0.42; } }
 
 /* ============================================================
    62. ORIGAMI ANIMALS

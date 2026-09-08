@@ -146,10 +146,14 @@ AOS.init({
 });
 
 // --- Navbar Scroll ---
+// The navbar itself is gone; the listener stays guarded rather than deleted so
+// nothing breaks if the bar is ever put back.
 const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
-});
+if (navbar) {
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+}
 
 // --- Mobile Navigation ---
 function initMobileNav() {
@@ -342,13 +346,7 @@ gsap.utils.toArray('.timeline-card').forEach(card => {
 });
 
 // --- GSAP Navbar Reveal ---
-gsap.from('.navbar', {
-    y: -80,
-    opacity: 0,
-    duration: 1,
-    ease: 'power3.out',
-    delay: 0.5,
-});
+// Dropped along with the navbar it revealed.
 
 // --- GSAP Hero Stagger ---
 gsap.from('.floating-badge', {
@@ -926,12 +924,40 @@ function initParticleText() {
             const pCount = Math.max(1, Math.min(50, particleCount));
             const stride = Math.max(2, Math.round(150 / pCount));
 
+            /* One point sample per cell drops any stroke thinner than the
+               grid that never happens to land on it — the capital A lost
+               its left leg and apex that way, while upright stems on the
+               other letters survived. Test the whole cell instead: if any
+               covered device pixel falls inside it, the cell earns a
+               particle. Diagonals and hairline serifs then read as solid
+               as the stems do. */
+            const imgW = img.width, imgH = img.height;
+            const cellPx = Math.max(1, Math.round(stride * dpr));
+            /* Coverage, not "any pixel": lighting a cell on a single covered
+               pixel dilates every stroke by up to a full cell, which fattens
+               the letterforms and rounds the serifs off — it reads as a
+               heavier, blockier typeface. Asking for roughly a third of the
+               cell keeps the original weight while still catching a diagonal
+               that a lone sample point would have missed. */
+            const COVER_MIN = 0.35;
+            function cellCovered(x, y) {
+                const x0 = Math.floor(x * dpr), y0 = Math.floor(y * dpr);
+                const x1 = Math.min(imgW, x0 + cellPx), y1 = Math.min(imgH, y0 + cellPx);
+                let hits = 0, total = 0;
+                for (let iy = y0; iy < y1; iy++) {
+                    let idx = (iy * imgW + x0) * 4 + 3;
+                    for (let ix = x0; ix < x1; ix++, idx += 4) {
+                        total++;
+                        if (data[idx] > 128) hits++;
+                    }
+                }
+                return total > 0 && hits / total >= COVER_MIN;
+            }
+
             let candidates = 0;
             for (let y = 0; y < H; y += stride) {
                 for (let x = 0; x < W; x += stride) {
-                    const ix = Math.floor(x * dpr), iy = Math.floor(y * dpr);
-                    const idx = (iy * img.width + ix) * 4 + 3;
-                    if (data[idx] > 128) candidates++;
+                    if (cellCovered(x, y)) candidates++;
                 }
             }
 
@@ -949,9 +975,7 @@ function initParticleText() {
             let i = 0, seen = 0;
             for (let y = 0; y < H && i < allocCount; y += stride) {
                 for (let x = 0; x < W && i < allocCount; x += stride) {
-                    const ix = Math.floor(x * dpr), iy = Math.floor(y * dpr);
-                    const idx = (iy * img.width + ix) * 4 + 3;
-                    if (data[idx] > 128) {
+                    if (cellCovered(x, y)) {
                         if (seen % downsample === 0) {
                             newOx[i] = x; newOy[i] = y;
                             const ang = Math.random() * Math.PI * 2;
@@ -1184,6 +1208,7 @@ function initParticleText() {
         rafId = requestAnimationFrame(loop);
 
         return {
+            resample() { resize(); tryEnter && tryEnter(); },
             dispose() {
                 if (rafId != null) cancelAnimationFrame(rafId);
                 canvas.removeEventListener('pointermove', onMove);
@@ -1221,17 +1246,53 @@ function initParticleText() {
         },
     };
 
-    nodes.forEach((el) => {
-        const variant = VARIANTS[el.getAttribute('data-particle-variant')] || VARIANTS.tagline;
-        createParticleText(el, {
-            text: el.getAttribute('data-particle-text') || '',
-            mode: 'onEnter',
-            replay: false,
-            position: 'above',
-            mouseEnabled: true,
-            autoFit: true,
-            ...variant,
+    function build() {
+        return Array.from(nodes).map((el) => {
+            const variant = VARIANTS[el.getAttribute('data-particle-variant')] || VARIANTS.tagline;
+            return createParticleText(el, {
+                text: el.getAttribute('data-particle-text') || '',
+                mode: 'onEnter',
+                replay: false,
+                position: 'above',
+                mouseEnabled: true,
+                autoFit: true,
+                ...variant,
+            });
         });
+    }
+
+    /* The sampler rasterises the name to an offscreen canvas, and canvas text
+       does not wait for a webfont the way the DOM does — with Source Serif 4
+       still in flight it silently draws Georgia instead, so the dots spell the
+       name in the wrong face at the wrong size and stay that way for the life
+       of the page. Sample only once the real face is in the document's font
+       set, capped so a slow font CDN cannot hold the hero hostage, and sample
+       again if it lands after that cap. */
+    const FONT_PROBES = ['700 54px "Source Serif 4"', '700 34px "Source Serif 4"'];
+
+    function whenFontReady() {
+        if (!document.fonts || !document.fonts.load) return Promise.resolve();
+        const loaded = Promise.all(FONT_PROBES.map((f) => document.fonts.load(f)))
+            .then(() => document.fonts.ready)
+            .catch(() => {});
+        const cap = new Promise((resolve) => setTimeout(resolve, 3000));
+        return Promise.race([loaded, cap]);
+    }
+
+    function fontsPresent() {
+        if (!document.fonts || !document.fonts.check) return true;
+        try { return FONT_PROBES.every((f) => document.fonts.check(f)); } catch (e) { return true; }
+    }
+
+    whenFontReady().then(() => {
+        const instances = build();
+        if (fontsPresent()) return;
+        // The cap won the race. Redraw once the face actually arrives.
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(() => {
+                instances.forEach((inst) => inst && inst.resample());
+            }).catch(() => {});
+        }
     });
 }
 // Wait for the retro loader to finish so the assembly animation is actually
